@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use App\Models\Estate;
+use App\Models\{Estate, Image};
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEstateRequest;
@@ -25,7 +25,7 @@ class EstatesController extends Controller
 
     public function store(StoreEstateRequest $request)
     {
-        Estate::create([
+        $estate = Estate::create([
             'user_id' => Auth::id(),
             'name' => $request->name,
             'description' => $request->description,
@@ -35,7 +35,20 @@ class EstatesController extends Controller
             'rooms' => 3
         ]);
 
-        // return Redirect::route('estates.index')->with('success', 'Estate was created successfully!');
+        $images = $request->file('images');
+
+        foreach ($images as $image) {
+            $path = $image->store('images');
+            $url = asset('storage/' . $path);
+
+            Image::create([
+                'path' => $path,
+                'url' => $url,
+                'estate_id' => $estate->id,
+            ]);
+        }
+
+        return Redirect::route('estates.index')->with('success', 'Estate was created successfully!');
     }
 
     public function edit(Estate $estate) 
