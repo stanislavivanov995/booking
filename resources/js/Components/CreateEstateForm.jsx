@@ -6,6 +6,12 @@ import PrimaryButton from "./PrimaryButton";
 import InputError from "./InputError";
 import TextArea from "./TextArea";
 import { useState } from "react";
+import PlacesAutocomplete from 'react-places-autocomplete';
+import {
+    geocodeByAddress,
+    geocodeByPlaceId,
+    getLatLng,
+  } from 'react-places-autocomplete';
 
 export default function CreateEstateForm() {
     const { setData, post, errors, processing, recentlySuccessful } = useForm({
@@ -20,6 +26,20 @@ export default function CreateEstateForm() {
         "Click to upload or drag and drop"
     );
 
+    const [address, setAddress] = useState("");
+    const [coordinates, setCoordinates] = useState({
+        lat: null,
+        lng: null,
+    });
+
+    const handleSelect = async (value) => {
+        const results = await geocodeByAddress(value);
+        const ll = await getLatLng(results[0]);
+        setAddress(value);
+        console.log(ll);
+        setCoordinates(ll);
+      };
+    
     const handleFileInputChange = (e) => {
         const files = Array.from(e.target.files);
         if (files.length + selectedFiles.length > 15) {
@@ -36,7 +56,6 @@ export default function CreateEstateForm() {
 
     const handleFileDrop = (e) => {
         e.preventDefault();
-        console.log("in function");
         if (
             selectedFiles.length === 15 ||
             Array.from(e.dataTransfer.files).length + selectedFiles.length > 15
@@ -97,6 +116,67 @@ export default function CreateEstateForm() {
 
                     <InputError className="mt-2" message={errors.name} />
                     {/* Name */}
+
+                    {/* Location */}
+                    <PlacesAutocomplete
+                value={address}
+                onChange={setAddress}
+                onSelect={handleSelect}
+              >
+                {({
+                  getInputProps,
+                  suggestions,
+                  getSuggestionItemProps,
+                  loading,
+                }) => (
+                  <div>
+                    <TextInput
+                      key="location"
+                      type="text"
+                      name="location"
+                      id="location"
+                      {...getInputProps({
+                        placeholder: "Search Places ...",
+                        className: "location-search-input",
+                      })}
+                      className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      placeholder="Property location"
+                    />
+
+                    <div className="autocomplete-dropdown-container">
+                      {loading && <div>Loading...</div>}
+                      {suggestions.map((suggestion) => {
+                        const className = suggestion.active
+                          ? "suggestion-item--active"
+                          : "suggestion-item";
+                        const style = suggestion.active
+                          ? {
+                              display: "flex",
+                              cursor: "pointer",
+                            }
+                          : {
+                              display: "flex",
+                              cursor: "pointer",
+                            };
+                        return (
+                          <div
+                            key={suggestion.placeId}
+                            {...getSuggestionItemProps(suggestion, {
+                              className,
+                              style,
+                            })}
+                          >
+                            <span className="p-5">
+                              {suggestion.description}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </PlacesAutocomplete>
+                    {/* Location */}
 
                     {/* Description */}
                     <InputLabel
