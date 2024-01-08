@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import { useForm } from "@inertiajs/react";
@@ -5,19 +7,15 @@ import { Transition } from "@headlessui/react";
 import PrimaryButton from "./PrimaryButton";
 import InputError from "./InputError";
 import TextArea from "./TextArea";
-import { useState } from "react";
-import PlacesAutocomplete from 'react-places-autocomplete';
-import {
-    geocodeByAddress,
-    geocodeByPlaceId,
-    getLatLng,
-  } from 'react-places-autocomplete';
+
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 export default function CreateEstateForm() {
     const { setData, post, errors, processing, recentlySuccessful } = useForm({
         name: "",
         description: "",
         images: [],
+        place_id: "",
     });
 
     const [showTooltip, setShowTooltip] = useState(false);
@@ -26,20 +24,8 @@ export default function CreateEstateForm() {
         "Click to upload or drag and drop"
     );
 
-    const [address, setAddress] = useState("");
-    const [coordinates, setCoordinates] = useState({
-        lat: null,
-        lng: null,
-    });
+    const [placeId, setPlaceId] = useState("");
 
-    const handleSelect = async (value) => {
-        const results = await geocodeByAddress(value);
-        const ll = await getLatLng(results[0]);
-        setAddress(value);
-        console.log(ll);
-        setCoordinates(ll);
-      };
-    
     const handleFileInputChange = (e) => {
         const files = Array.from(e.target.files);
         if (files.length + selectedFiles.length > 15) {
@@ -118,64 +104,14 @@ export default function CreateEstateForm() {
                     {/* Name */}
 
                     {/* Location */}
-                    <PlacesAutocomplete
-                value={address}
-                onChange={setAddress}
-                onSelect={handleSelect}
-              >
-                {({
-                  getInputProps,
-                  suggestions,
-                  getSuggestionItemProps,
-                  loading,
-                }) => (
-                  <div>
-                    <TextInput
-                      key="location"
-                      type="text"
-                      name="location"
-                      id="location"
-                      {...getInputProps({
-                        placeholder: "Search Places ...",
-                        className: "location-search-input",
-                      })}
-                      className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      placeholder="Property location"
+                    <GooglePlacesAutocomplete
+                        apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
+                        selectProps={{
+                            placeId,
+                            onChange: (e) =>
+                                setData("place_id", e.value.place_id),
+                        }}
                     />
-
-                    <div className="autocomplete-dropdown-container">
-                      {loading && <div>Loading...</div>}
-                      {suggestions.map((suggestion) => {
-                        const className = suggestion.active
-                          ? "suggestion-item--active"
-                          : "suggestion-item";
-                        const style = suggestion.active
-                          ? {
-                              display: "flex",
-                              cursor: "pointer",
-                            }
-                          : {
-                              display: "flex",
-                              cursor: "pointer",
-                            };
-                        return (
-                          <div
-                            key={suggestion.placeId}
-                            {...getSuggestionItemProps(suggestion, {
-                              className,
-                              style,
-                            })}
-                          >
-                            <span className="p-5">
-                              {suggestion.description}
-                            </span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </PlacesAutocomplete>
                     {/* Location */}
 
                     {/* Description */}
@@ -212,7 +148,7 @@ export default function CreateEstateForm() {
                     <div className="w-full mt-7">
                         <InputLabel
                             htmlFor="images"
-                            className="flex flex-col items-center max-md:max-w-[18em] justify-center w-full h-auto border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover-bg-gray-100 dark:border-gray-600 dark:hover-border-gray-500 dark:hover-bg-gray-600"
+                            className="flex flex-col items-center max-md:max-w-[18em] justify-center w-full h-auto border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover-bg-gray-100 dark:border-gray-600 dark:hover-border-gray-500 dark:hover-bg-gray-600"
                             onDrop={handleFileDrop}
                             onDragOver={handleDragOver}
                         >
