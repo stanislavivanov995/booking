@@ -104,14 +104,16 @@ export default function CreateEstateForm() {
                     {/* Name */}
 
                     {/* Location */}
-                    <GooglePlacesAutocomplete
-                        apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
-                        selectProps={{
-                            placeId,
-                            onChange: (e) =>
-                                setData("place_id", e.value.place_id),
-                        }}
-                    />
+                    <div className="mt-3">
+                        <GooglePlacesAutocomplete
+                            apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
+                            selectProps={{
+                                placeId,
+                                onChange: (e) => 
+                                    setData("place_id", e.value.place_id)
+                            }}
+                        />
+                    </div>
                     {/* Location */}
 
                     {/* Description */}
