@@ -17,8 +17,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        if (Schema::hasTable('categories')) {
-            Artisan::call('db:seed', ['--class' => 'CategorySeeder']);
-        }
+        // if (Schema::hasTable('categories')) {
+        //     Artisan::call('db:seed', ['--class' => 'CategoriesSeeder']);
+        // }
     }
 }
