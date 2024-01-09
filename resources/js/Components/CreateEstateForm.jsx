@@ -4,11 +4,11 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import { useForm } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
-import PrimaryButton from "./PrimaryButton";
 import InputError from "./InputError";
 import TextArea from "./TextArea";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import OptionsMenu from "./OptionsMenu";
+import CreateFormSubmitButton from "./CreateFormSubmitButton";
 
 
 export default function CreateEstateForm(categories) {
@@ -261,10 +261,10 @@ export default function CreateEstateForm(categories) {
                     {/* Images */}
 
                     <div className="flex items-center mt-6 gap-4">
-                        <PrimaryButton disabled={processing}>
+                        <CreateFormSubmitButton disabled={processing}>
                             Create
-                        </PrimaryButton>
-
+                        </CreateFormSubmitButton>
+                        
                         <Transition
                             show={recentlySuccessful}
                             enter="transition ease-in-out"
