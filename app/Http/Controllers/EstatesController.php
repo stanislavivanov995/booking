@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use App\Models\{Estate, Image};
+use App\Models\{Estate, Image, Category};
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEstateRequest;
@@ -23,11 +23,14 @@ class EstatesController extends Controller
 
     public function create()
     {
-        return Inertia::render('Admin/Estates/Create');
+        return Inertia::render('Admin/Estates/Create' ,[
+            'categories' => Category::all()
+        ]);
     }
 
     public function store(StoreEstateRequest $request)
     {
+        dd($request->all());
         $placeId = $request->place_id;
 
         $client = new Client();

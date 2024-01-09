@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import CreateEstateForm from '@/Components/CreateEstateForm';
 
-export default function Create({ auth }) {
+export default function Create({ auth, categories }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -13,8 +13,9 @@ export default function Create({ auth }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                     <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <CreateEstateForm 
+                    <CreateEstateForm 
                             auth={auth}
+                            categories={categories}
                             className="max-w-xl"
                         />
                     </div>

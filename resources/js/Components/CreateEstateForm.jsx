@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
@@ -7,15 +7,17 @@ import { Transition } from "@headlessui/react";
 import PrimaryButton from "./PrimaryButton";
 import InputError from "./InputError";
 import TextArea from "./TextArea";
-
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import OptionsMenu from "./OptionsMenu";
 
-export default function CreateEstateForm() {
+
+export default function CreateEstateForm(categories) {
     const { setData, post, errors, processing, recentlySuccessful } = useForm({
         name: "",
         description: "",
         images: [],
         place_id: "",
+        category_id: ""
     });
 
     const [showTooltip, setShowTooltip] = useState(false);
@@ -25,6 +27,21 @@ export default function CreateEstateForm() {
     );
 
     const [placeId, setPlaceId] = useState("");
+
+    const [selectedCategory, setSelectedCategory] = useState(null);
+
+    useEffect(() => {
+    if (selectedCategory) {
+      setData("category_id", selectedCategory.id);
+    } else {
+      setData("category_id", 1);
+    }
+  }, [selectedCategory]);
+
+    const handleCategorySelect = (selectedItem) => {
+        setSelectedCategory(selectedItem);
+        setData("category_id", selectedItem.id);
+    };
 
     const handleFileInputChange = (e) => {
         const files = Array.from(e.target.files);
@@ -76,6 +93,7 @@ export default function CreateEstateForm() {
         post(route("estates.store"));
     };
 
+
     return (
         <section>
             <header>
@@ -105,6 +123,8 @@ export default function CreateEstateForm() {
 
                     {/* Location */}
                     <div className="mt-3">
+                        <InputLabel htmlFor="location" value="Location" />
+
                         <GooglePlacesAutocomplete
                             apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
                             selectProps={{
@@ -115,6 +135,18 @@ export default function CreateEstateForm() {
                         />
                     </div>
                     {/* Location */}
+
+                    {/* Category */}
+                    <div className="mt-3">
+                        <InputLabel htmlFor="category" value="Category" />
+
+                        <OptionsMenu
+                                options={categories.categories}
+                                isFocused={false}
+                                onSelect={handleCategorySelect}
+                            />
+                    </div>
+                    {/* Category */}
 
                     {/* Description */}
                     <InputLabel
