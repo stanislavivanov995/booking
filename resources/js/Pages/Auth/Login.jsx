@@ -27,14 +27,13 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        // <h2 className='flex text-center max-w-[14em] text-2xl m-4'>Unlock Your Next Adventure - Log in to book your journey</h2>
 
         <GuestLayout>
             <Head title="Log in" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
-            
-            <form onSubmit={submit}>
+
+            <form onSubmit={submit} className='h-full flex flex-col justify-center'>
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
 
@@ -92,6 +91,13 @@ export default function Login({ status, canResetPassword }) {
                             Forgot your password?
                         </Link>
                     )}
+
+                    <Link
+                        href={route('register')}
+                        className="underline w-full text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                        You don't have an account yet?
+                    </Link>
 
                 </div>
             </form>
