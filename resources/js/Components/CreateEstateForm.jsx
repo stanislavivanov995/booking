@@ -131,7 +131,7 @@ export default function CreateEstateForm(categories) {
                                 placeId,
                                 onChange: (e) => 
                                     setData("place_id", e.value.place_id)
-                            }}
+                                }}
                         />
                     </div>
                     {/* Location */}
@@ -199,7 +199,7 @@ export default function CreateEstateForm(categories) {
                                                         file
                                                     )}
                                                     alt={`Image ${index}`}
-                                                    className="w-16 h-16 object-cover rounded-lg"
+                                                    className="w-20 h-20 object-cover rounded-lg"
                                                 />
                                                 <button
                                                     onClick={(e) => {
