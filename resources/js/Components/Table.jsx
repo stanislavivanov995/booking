@@ -3,7 +3,7 @@ export default function Table({ items: records, columns, action, query }) {
     return (
         <div className="relative overflow-x-auto border shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 p-2">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50  dark:text-gray-400">
                     <tr>
                         {columns.map((column) =>
                             <th key={column} scope="col" className="px-6 py-3">{column}</th>
@@ -16,7 +16,7 @@ export default function Table({ items: records, columns, action, query }) {
 
                     {records.filter(item => item.name.toLowerCase().includes(query.toLowerCase())).map((item) =>
 
-                        <tr key={item.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                        <tr key={item.id} className="bg-white border-b ">
                             {/* <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {item.id}
                         </th> */}

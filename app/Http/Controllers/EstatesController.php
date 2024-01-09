@@ -30,7 +30,7 @@ class EstatesController extends Controller
 
     public function store(StoreEstateRequest $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $placeId = $request->place_id;
 
         $client = new Client();
