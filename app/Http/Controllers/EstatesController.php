@@ -80,8 +80,9 @@ class EstatesController extends Controller
         return Redirect::route('estates.index')->with('success', 'Estate was created successfully!');
     }
 
-    public function edit(Estate $estate) 
+    public function edit(Request $request) 
     {
+        $estate = Estate::find($request->estate);
         return Inertia::render('Admin/Estates/Edit', [
             'estate' => $estate
         ]);
