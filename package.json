@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "react-dropzone": "^14.2.3",
-        "react-google-places-autocomplete": "^4.0.1"
+        "react-google-places-autocomplete": "^4.0.1",
+        "react-time-picker": "^6.6.0"
     }
 }

@@ -9,7 +9,9 @@ import TextArea from "./TextArea";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import OptionsMenu from "./OptionsMenu";
 import CreateFormSubmitButton from "./CreateFormSubmitButton";
-
+import TimePicker from 'react-time-picker';
+import 'react-clock/dist/Clock.css';
+import 'react-time-picker/dist/TimePicker.css';
 
 export default function CreateEstateForm(categories) {
     const { setData, post, errors, processing, recentlySuccessful } = useForm({
@@ -29,6 +31,10 @@ export default function CreateEstateForm(categories) {
     const [placeId, setPlaceId] = useState("");
 
     const [selectedCategory, setSelectedCategory] = useState(null);
+
+    const [checkInTime, setCheckInTime] = useState('10:00'); 
+    const [checkOutTime, setCheckOutTime] = useState('12:00');
+
 
     useEffect(() => {
     if (selectedCategory) {
@@ -147,6 +153,33 @@ export default function CreateEstateForm(categories) {
                             />
                     </div>
                     {/* Category */}
+
+                    {/* Check in / Check out */}
+                    <div>
+                    {/* Check In */}
+                    <InputLabel htmlFor="checkIn" value="Check In" />
+                    <TimePicker
+                        id="checkIn"
+                        value={checkInTime}
+                        className="border-0"
+                        onChange={(time) => setCheckInTime(time)}
+                    />
+                    <InputError className="mt-2" message={errors.checkIn} />
+                    {/* Check In */}
+
+                    {/* Check Out */}
+                    <InputLabel htmlFor="checkOut" value="Check Out" />
+                    <TimePicker
+                        id="checkOut"
+                        value={checkOutTime}
+                        className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        onChange={(time) => setCheckOutTime(time)}
+                    />
+                    <InputError className="mt-2" message={errors.checkOut} />
+                    {/* Check Out */}
+                </div>
+
+                    {/* Check in / Check out */}
 
                     {/* Description */}
                     <InputLabel
