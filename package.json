@@ -8,6 +8,7 @@
     "devDependencies": {
         "@headlessui/react": "^1.7.17",
         "@inertiajs/react": "^1.0.0",
+        "@neojp/tailwindcss-line-clamp-utilities": "^1.0.1",
         "@tailwindcss/forms": "^0.5.3",
         "@vitejs/plugin-react": "^4.2.0",
         "autoprefixer": "^10.4.12",
@@ -22,6 +23,8 @@
     "dependencies": {
         "react-dropzone": "^14.2.3",
         "react-google-places-autocomplete": "^4.0.1",
-        "react-time-picker": "^6.6.0"
+        "react-slick": "^0.29.0",
+        "react-time-picker": "^6.6.0",
+        "slick-carousel": "^1.8.1"
     }
 }
