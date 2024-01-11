@@ -19,7 +19,11 @@ export default function CreateEstateForm(categories) {
         description: "",
         images: [],
         place_id: "",
-        category_id: ""
+        category_id: 1,
+        arrive_hour: "10:00",
+        leave_hour: "12:00",
+        price: "",
+        currency: ""
     });
 
     const [showTooltip, setShowTooltip] = useState(false);
@@ -30,19 +34,27 @@ export default function CreateEstateForm(categories) {
 
     const [placeId, setPlaceId] = useState("");
 
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(1);
 
     const [checkInTime, setCheckInTime] = useState('10:00'); 
     const [checkOutTime, setCheckOutTime] = useState('12:00');
 
 
     useEffect(() => {
-    if (selectedCategory) {
-      setData("category_id", selectedCategory.id);
-    } else {
-      setData("category_id", 1);
-    }
-  }, [selectedCategory]);
+        if (selectedCategory) {
+        setData("category_id", selectedCategory.id);
+        } else {
+        setData("category_id", 1);
+        }
+    }, [selectedCategory]);
+
+    useEffect(() => {
+        setData("arrive_hour", checkInTime);
+    }, [checkInTime]);
+
+    useEffect(() => {
+        setData("leave_hour", checkOutTime);
+    }, [checkOutTime]);
 
     const handleCategorySelect = (selectedItem) => {
         setSelectedCategory(selectedItem);
@@ -139,8 +151,40 @@ export default function CreateEstateForm(categories) {
                                     setData("place_id", e.value.place_id)
                                 }}
                         />
+                        <InputError className="mt-2" message={errors.location} />
                     </div>
                     {/* Location */}
+
+                    
+                    {/* Check in / Check out */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        {/* Check In */}
+                        <div style={{ flex: 1, marginRight: '10px' }} className="mt-3">
+                            <InputLabel htmlFor="checkIn" value="Check In" />
+                            <TimePicker
+                                id="checkIn"
+                                value={checkInTime}
+                                className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                onChange={(time) => setCheckInTime(time)}
+                            />
+                            <InputError className="mt-2" message={errors.checkIn} />
+                        </div>
+                        {/* Check In */}
+
+                        {/* Check Out */}
+                        <div style={{ flex: 1, marginLeft: '10px' }} className="mt-3">
+                            <InputLabel htmlFor="checkOut" value="Check Out" />
+                            <TimePicker
+                                id="checkOut"
+                                value={checkOutTime}
+                                className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                onChange={(time) => setCheckOutTime(time)}
+                            />
+                            <InputError className="mt-2" message={errors.checkOut} />
+                        </div>
+                        {/* Check Out */}
+                    </div>
+                    {/* Check in / Check out */}
 
                     {/* Category */}
                     <div className="mt-3">
@@ -154,32 +198,11 @@ export default function CreateEstateForm(categories) {
                     </div>
                     {/* Category */}
 
-                    {/* Check in / Check out */}
-                    <div>
-                    {/* Check In */}
-                    <InputLabel htmlFor="checkIn" value="Check In" />
-                    <TimePicker
-                        id="checkIn"
-                        value={checkInTime}
-                        className="border-0"
-                        onChange={(time) => setCheckInTime(time)}
-                    />
-                    <InputError className="mt-2" message={errors.checkIn} />
-                    {/* Check In */}
+                    {/*Price and Currency */}
+                    <div className="mt-3">
 
-                    {/* Check Out */}
-                    <InputLabel htmlFor="checkOut" value="Check Out" />
-                    <TimePicker
-                        id="checkOut"
-                        value={checkOutTime}
-                        className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        onChange={(time) => setCheckOutTime(time)}
-                    />
-                    <InputError className="mt-2" message={errors.checkOut} />
-                    {/* Check Out */}
-                </div>
-
-                    {/* Check in / Check out */}
+                    </div>
+                    {/* Price and Currency */}
 
                     {/* Description */}
                     <InputLabel
