@@ -12,6 +12,7 @@ import CreateFormSubmitButton from "./CreateFormSubmitButton";
 import TimePicker from 'react-time-picker';
 import 'react-clock/dist/Clock.css';
 import 'react-time-picker/dist/TimePicker.css';
+import Checkbox from "./Checkbox";
 
 export default function CreateEstateForm(categories) {
     const { setData, post, errors, processing, recentlySuccessful } = useForm({
@@ -23,7 +24,14 @@ export default function CreateEstateForm(categories) {
         arrive_hour: "10:00",
         leave_hour: "12:00",
         price: "",
-        currency: ""
+        currency: "",
+        wifi: 0,
+        parking: 0,
+        breakfast: 0,
+        lunch: 0,
+        dinner: 0,
+        swimming_pool: 0,
+        spa: 0
     });
 
     const [showTooltip, setShowTooltip] = useState(false);
@@ -219,6 +227,45 @@ export default function CreateEstateForm(categories) {
                         onChange={(e) => setData("description", e.target.value)}
                     />
                     {/* Description */}
+
+                    {/* Facilities */}
+                    <InputLabel
+                        className="mt-4 mb-3"
+                        htmlFor="facilities"
+                        value="Facilities"
+                    />
+
+                    <div className="flex justify-between space-x-7">
+                        <Checkbox
+                            label="Wi-fi"
+                            onChange={(e) => setData("wifi", e.target.checked ? 1 : 0)}
+                        />
+                        <Checkbox
+                            label="Parking Place"
+                            onChange={(e) => setData("parking", e.target.checked ? 1 : 0)}
+                        />
+                        <Checkbox
+                            label="Breakfast"
+                            onChange={(e) => setData("breakfast", e.target.checked ? 1 : 0)}
+                        />
+                        <Checkbox
+                            label="Lunch"
+                            onChange={(e) => setData("lunch", e.target.checked ? 1 : 0)}
+                        />
+                        <Checkbox
+                            label="Dinner"
+                            onChange={(e) => setData("dinner", e.target.checked ? 1 : 0)}
+                        />
+                        <Checkbox
+                            label="Swimming Pool"
+                            onChange={(e) => setData("swimming_pool", e.target.checked ? 1 : 0)}
+                        />
+                        <Checkbox
+                            label="Spa"
+                            onChange={(e) => setData("spa", e.target.checked ? 1 : 0)}
+                        />
+                    </div>
+                    {/* Facilities */}
 
                     {/* Images */}
                     {showTooltip && (

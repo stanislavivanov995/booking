@@ -66,6 +66,13 @@ class EstatesController extends Controller
 
         Facility::create([
             'estate_id' => $estate->id,
+            'wifi' => $request->wifi,
+            'parking' => $request->parking,
+            'breakfast' => $request->breakfast,
+            'lunch' => $request->lunch,
+            'dinner' => $request->dinner,
+            'swimming_pool' => $request->swimming_pool,
+            'spa' => $request->spa,
         ]);
 
         $images = $request->file('images');
