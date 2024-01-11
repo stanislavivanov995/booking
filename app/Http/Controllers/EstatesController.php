@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use App\Models\{Estate, Image, Category};
+use App\Models\{Estate, Image, Category, Facility};
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEstateRequest;
@@ -30,7 +30,7 @@ class EstatesController extends Controller
 
     public function store(StoreEstateRequest $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $placeId = $request->place_id;
 
         $client = new Client();
@@ -58,8 +58,14 @@ class EstatesController extends Controller
             'currency' => 'bgn',
             'latitude' => $latitude,
             'longitude' => $longitude,
-            'category_id' => 1,
-            'rooms' => 3
+            'category_id' => $request->category_id,
+            'rooms' => 3,
+            'arrive_hour' => $request->arrive_hour,
+            'leave_hour' => $request->leave_hour
+        ]);
+
+        Facility::create([
+            'estate_id' => $estate->id,
         ]);
 
         $images = $request->file('images');

@@ -151,7 +151,7 @@ export default function CreateEstateForm(categories) {
                                     setData("place_id", e.value.place_id)
                                 }}
                         />
-                        <InputError className="mt-2" message={errors.location} />
+                        <InputError className="mt-2" message={errors.place_id} />
                     </div>
                     {/* Location */}
 
