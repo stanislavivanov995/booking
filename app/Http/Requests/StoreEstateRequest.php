@@ -24,7 +24,14 @@ class StoreEstateRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
-            'location' => 'required'
+            'place_id' => 'required'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'place_id.required' => 'The location field is required.'
         ];
     }
 }
