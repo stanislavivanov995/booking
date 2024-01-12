@@ -16,7 +16,7 @@ export default function Home({ auth, categories }) {
 
             <Heading auth={auth} />
             <NavBar />
-            <HeadContainer />
+            <HeadContainer categories={categories} />
             <Description />
             <LatestEstates />
             <FAQ />

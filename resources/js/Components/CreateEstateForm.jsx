@@ -12,6 +12,7 @@ import CreateFormSubmitButton from "./CreateFormSubmitButton";
 import TimePicker from 'react-time-picker';
 import 'react-clock/dist/Clock.css';
 import 'react-time-picker/dist/TimePicker.css';
+import { data } from "autoprefixer";
 
 export default function CreateEstateForm(categories) {
     const { setData, post, errors, processing, recentlySuccessful } = useForm({
@@ -32,17 +33,17 @@ export default function CreateEstateForm(categories) {
 
     const [selectedCategory, setSelectedCategory] = useState(null);
 
-    const [checkInTime, setCheckInTime] = useState('10:00'); 
+    const [checkInTime, setCheckInTime] = useState('10:00');
     const [checkOutTime, setCheckOutTime] = useState('12:00');
 
 
     useEffect(() => {
-    if (selectedCategory) {
-      setData("category_id", selectedCategory.id);
-    } else {
-      setData("category_id", 1);
-    }
-  }, [selectedCategory]);
+        if (selectedCategory) {
+            setData("category_id", selectedCategory.id);
+        } else {
+            setData("category_id", 1);
+        }
+    }, [selectedCategory]);
 
     const handleCategorySelect = (selectedItem) => {
         setSelectedCategory(selectedItem);
@@ -135,9 +136,9 @@ export default function CreateEstateForm(categories) {
                             apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
                             selectProps={{
                                 placeId,
-                                onChange: (e) => 
+                                onChange: (e) =>
                                     setData("place_id", e.value.place_id)
-                                }}
+                            }}
                         />
                     </div>
                     {/* Location */}
@@ -147,37 +148,37 @@ export default function CreateEstateForm(categories) {
                         <InputLabel htmlFor="category" value="Category" />
 
                         <OptionsMenu
-                                options={categories.categories}
-                                isFocused={false}
-                                onSelect={handleCategorySelect}
-                            />
+                            options={categories.categories}
+                            isFocused={false}
+                            onSelect={handleCategorySelect}
+                        />
                     </div>
                     {/* Category */}
 
                     {/* Check in / Check out */}
                     <div>
-                    {/* Check In */}
-                    <InputLabel htmlFor="checkIn" value="Check In" />
-                    <TimePicker
-                        id="checkIn"
-                        value={checkInTime}
-                        className="border-0"
-                        onChange={(time) => setCheckInTime(time)}
-                    />
-                    <InputError className="mt-2" message={errors.checkIn} />
-                    {/* Check In */}
+                        {/* Check In */}
+                        <InputLabel htmlFor="checkIn" value="Check In" />
+                        <TimePicker
+                            id="checkIn"
+                            value={checkInTime}
+                            className="border-0"
+                            onChange={(time) => setCheckInTime(time)}
+                        />
+                        <InputError className="mt-2" message={errors.checkIn} />
+                        {/* Check In */}
 
-                    {/* Check Out */}
-                    <InputLabel htmlFor="checkOut" value="Check Out" />
-                    <TimePicker
-                        id="checkOut"
-                        value={checkOutTime}
-                        className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        onChange={(time) => setCheckOutTime(time)}
-                    />
-                    <InputError className="mt-2" message={errors.checkOut} />
-                    {/* Check Out */}
-                </div>
+                        {/* Check Out */}
+                        <InputLabel htmlFor="checkOut" value="Check Out" />
+                        <TimePicker
+                            id="checkOut"
+                            value={checkOutTime}
+                            className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            onChange={(time) => setCheckOutTime(time)}
+                        />
+                        <InputError className="mt-2" message={errors.checkOut} />
+                        {/* Check Out */}
+                    </div>
 
                     {/* Check in / Check out */}
 
@@ -297,7 +298,7 @@ export default function CreateEstateForm(categories) {
                         <CreateFormSubmitButton disabled={processing}>
                             Create
                         </CreateFormSubmitButton>
-                        
+
                         <Transition
                             show={recentlySuccessful}
                             enter="transition ease-in-out"
