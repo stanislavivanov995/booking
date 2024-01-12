@@ -1,8 +1,8 @@
 export default function Awards() {
     return (
         <>
-            <div className="h-full mt-[5em] lg:w-[1220px] w-[400px]">
-                <h1 className="text-left text-[1.2em] lg:text-[2.5em]">
+            <div className="h-full my-[5em] lg:w-[1220px] w-[400px]">
+                <h1 className="text-left text-[1.2em] pl-3 lg:text-[2.5em]">
                     Awards
                 </h1>
                 <div className="lg:flex lg:flex-row grid grid-cols-1 items-center justify-center gap-5 mt-[2em]">

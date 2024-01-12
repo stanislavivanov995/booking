@@ -39,7 +39,7 @@ export default function LatestEstates() {
         <>
             <div className="bg-gray-300 min-h-[70vh] flex flex-col items-center overflow-hidden">
                 <div className="flex items-center justify-between lg:w-[1220px] w-[400px] py-[2em]">
-                    <h1 className="text-left text-[1.2em] lg:text-[2.5em]">Latest Uploaded Estates</h1>
+                    <h1 className="text-left text-[1.2em] lg:text-[2.5em] pl-3">Latest Uploaded Estates</h1>
                     <Link className="hover:underline transition mr-3">
                         See all
                     </Link>

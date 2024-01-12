@@ -1,4 +1,6 @@
 import Description from '@/Components/Home/Description';
+import FAQ from '@/Components/Home/FAQ';
+import Footer from '@/Components/Home/Footer';
 import HeadContainer from '@/Components/Home/HeadContainer';
 import Heading from '@/Components/Home/Heading';
 import LatestEstates from '@/Components/Home/LatestOffers';
@@ -17,6 +19,8 @@ export default function Home({ auth, categories }) {
             <HeadContainer />
             <Description />
             <LatestEstates />
+            <FAQ />
+            <Footer />
         </>
     );
 }
