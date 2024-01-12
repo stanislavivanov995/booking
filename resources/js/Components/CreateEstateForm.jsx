@@ -12,7 +12,7 @@ import CreateFormSubmitButton from "./CreateFormSubmitButton";
 import TimePicker from 'react-time-picker';
 import 'react-clock/dist/Clock.css';
 import 'react-time-picker/dist/TimePicker.css';
-import { data } from "autoprefixer";
+import Checkbox from "./Checkbox";
 
 export default function CreateEstateForm(categories) {
     const { setData, post, errors, processing, recentlySuccessful } = useForm({
@@ -20,7 +20,18 @@ export default function CreateEstateForm(categories) {
         description: "",
         images: [],
         place_id: "",
-        category_id: ""
+        category_id: 1,
+        arrive_hour: "10:00",
+        leave_hour: "12:00",
+        price: "",
+        currency: "",
+        wifi: 0,
+        parking: 0,
+        breakfast: 0,
+        lunch: 0,
+        dinner: 0,
+        swimming_pool: 0,
+        spa: 0
     });
 
     const [showTooltip, setShowTooltip] = useState(false);
@@ -31,19 +42,27 @@ export default function CreateEstateForm(categories) {
 
     const [placeId, setPlaceId] = useState("");
 
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(1);
 
-    const [checkInTime, setCheckInTime] = useState('10:00');
+    const [checkInTime, setCheckInTime] = useState('10:00'); 
     const [checkOutTime, setCheckOutTime] = useState('12:00');
 
 
     useEffect(() => {
         if (selectedCategory) {
-            setData("category_id", selectedCategory.id);
+        setData("category_id", selectedCategory.id);
         } else {
-            setData("category_id", 1);
+        setData("category_id", 1);
         }
     }, [selectedCategory]);
+
+    useEffect(() => {
+        setData("arrive_hour", checkInTime);
+    }, [checkInTime]);
+
+    useEffect(() => {
+        setData("leave_hour", checkOutTime);
+    }, [checkOutTime]);
 
     const handleCategorySelect = (selectedItem) => {
         setSelectedCategory(selectedItem);
@@ -136,51 +155,62 @@ export default function CreateEstateForm(categories) {
                             apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
                             selectProps={{
                                 placeId,
-                                onChange: (e) =>
+                                onChange: (e) => 
                                     setData("place_id", e.value.place_id)
-                            }}
+                                }}
                         />
+                        <InputError className="mt-2" message={errors.place_id} />
                     </div>
                     {/* Location */}
+
+                    
+                    {/* Check in / Check out */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        {/* Check In */}
+                        <div style={{ flex: 1, marginRight: '10px' }} className="mt-3">
+                            <InputLabel htmlFor="checkIn" value="Check In" />
+                            <TimePicker
+                                id="checkIn"
+                                value={checkInTime}
+                                className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                onChange={(time) => setCheckInTime(time)}
+                            />
+                            <InputError className="mt-2" message={errors.checkIn} />
+                        </div>
+                        {/* Check In */}
+
+                        {/* Check Out */}
+                        <div style={{ flex: 1, marginLeft: '10px' }} className="mt-3">
+                            <InputLabel htmlFor="checkOut" value="Check Out" />
+                            <TimePicker
+                                id="checkOut"
+                                value={checkOutTime}
+                                className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                onChange={(time) => setCheckOutTime(time)}
+                            />
+                            <InputError className="mt-2" message={errors.checkOut} />
+                        </div>
+                        {/* Check Out */}
+                    </div>
+                    {/* Check in / Check out */}
 
                     {/* Category */}
                     <div className="mt-3">
                         <InputLabel htmlFor="category" value="Category" />
 
                         <OptionsMenu
-                            options={categories.categories}
-                            isFocused={false}
-                            onSelect={handleCategorySelect}
-                        />
+                                options={categories.categories}
+                                isFocused={false}
+                                onSelect={handleCategorySelect}
+                            />
                     </div>
                     {/* Category */}
 
-                    {/* Check in / Check out */}
-                    <div>
-                        {/* Check In */}
-                        <InputLabel htmlFor="checkIn" value="Check In" />
-                        <TimePicker
-                            id="checkIn"
-                            value={checkInTime}
-                            className="border-0"
-                            onChange={(time) => setCheckInTime(time)}
-                        />
-                        <InputError className="mt-2" message={errors.checkIn} />
-                        {/* Check In */}
+                    {/*Price and Currency */}
+                    <div className="mt-3">
 
-                        {/* Check Out */}
-                        <InputLabel htmlFor="checkOut" value="Check Out" />
-                        <TimePicker
-                            id="checkOut"
-                            value={checkOutTime}
-                            className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            onChange={(time) => setCheckOutTime(time)}
-                        />
-                        <InputError className="mt-2" message={errors.checkOut} />
-                        {/* Check Out */}
                     </div>
-
-                    {/* Check in / Check out */}
+                    {/* Price and Currency */}
 
                     {/* Description */}
                     <InputLabel
@@ -197,6 +227,45 @@ export default function CreateEstateForm(categories) {
                         onChange={(e) => setData("description", e.target.value)}
                     />
                     {/* Description */}
+
+                    {/* Facilities */}
+                    <InputLabel
+                        className="mt-4 mb-3"
+                        htmlFor="facilities"
+                        value="Facilities"
+                    />
+
+                    <div className="flex justify-between space-x-7">
+                        <Checkbox
+                            label="Wi-fi"
+                            onChange={(e) => setData("wifi", e.target.checked ? 1 : 0)}
+                        />
+                        <Checkbox
+                            label="Parking Place"
+                            onChange={(e) => setData("parking", e.target.checked ? 1 : 0)}
+                        />
+                        <Checkbox
+                            label="Breakfast"
+                            onChange={(e) => setData("breakfast", e.target.checked ? 1 : 0)}
+                        />
+                        <Checkbox
+                            label="Lunch"
+                            onChange={(e) => setData("lunch", e.target.checked ? 1 : 0)}
+                        />
+                        <Checkbox
+                            label="Dinner"
+                            onChange={(e) => setData("dinner", e.target.checked ? 1 : 0)}
+                        />
+                        <Checkbox
+                            label="Swimming Pool"
+                            onChange={(e) => setData("swimming_pool", e.target.checked ? 1 : 0)}
+                        />
+                        <Checkbox
+                            label="Spa"
+                            onChange={(e) => setData("spa", e.target.checked ? 1 : 0)}
+                        />
+                    </div>
+                    {/* Facilities */}
 
                     {/* Images */}
                     {showTooltip && (
@@ -298,7 +367,7 @@ export default function CreateEstateForm(categories) {
                         <CreateFormSubmitButton disabled={processing}>
                             Create
                         </CreateFormSubmitButton>
-
+                        
                         <Transition
                             show={recentlySuccessful}
                             enter="transition ease-in-out"
