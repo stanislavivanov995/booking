@@ -18,5 +18,6 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [forms,
+        require('@neojp/tailwindcss-line-clamp-utilities')],
 };
