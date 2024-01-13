@@ -13,14 +13,15 @@ export default function Home({ auth, categories }) {
     return (
         <>
             <Head title="Home" />
-
-            <Heading auth={auth} />
-            <NavBar />
-            <HeadContainer categories={categories} />
-            <Description />
-            <LatestEstates />
-            <FAQ />
-            <Footer />
+            <div className='overflow-hidden'>
+                <Heading auth={auth} />
+                <NavBar />
+                <HeadContainer categories={categories} />
+                <Description />
+                <LatestEstates />
+                <FAQ />
+                <Footer />
+            </div>
         </>
     );
 }

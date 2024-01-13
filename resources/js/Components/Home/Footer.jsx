@@ -1,7 +1,7 @@
 export default function Footer() {
     return (
         <>
-            <footer className=" bg-zinc-800 h-auto flex lg:flex-row pl-2 flex-col justify-evenly items-start py-[3em] gap-[3em] w-full lg:mt-0 mt-[43em]">
+            <footer className=" bg-zinc-800 h-auto flex lg:flex-row pl-2 flex-col justify-evenly items-start py-[3em] gap-[3em] w-full xl:mt-0 lg:mt-[4em] mt-[43em]">
                 <div>
                     <h1 className="text-white text-[20px] font-bold mb-[1.7em]">More About Company</h1>
                     <p className="text-gray-400 max-w-[30em] lg:text-[19px] text-[18px]">We are more than just a booking platform
