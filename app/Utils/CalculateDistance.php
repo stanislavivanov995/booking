@@ -5,12 +5,10 @@ namespace App\Utils;
 
 trait CalculateDistance
 {
-    public function distance($estate, $request)
+    public function distance($estate, $lat1, $lon1)
     {
         $earthRadius = 6371;
-
-        $lat1 = $request->latitude;
-        $lon1 = $request->longitude;
+        
         $lat2 = $estate->latitude;
         $lon2 = $estate->longitude;
 

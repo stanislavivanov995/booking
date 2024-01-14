@@ -16,6 +16,9 @@ class HomeController extends Controller
 {
     use CalculateDistance, ExtractLocationData;
 
+    protected $latitude = null;
+    protected $longitude = null;
+
     protected function filterByLocation($request, $estates)
     {
         $placeId = $request->place_id;
@@ -25,17 +28,17 @@ class HomeController extends Controller
         if ($locationData['status'] === 'OK') {
             $locationDetails = $locationData['result'];
             
-            $latitude = $locationDetails['geometry']['location']['lat'];
-            $longitude = $locationDetails['geometry']['location']['lng'];
+            $this->latitude = $locationDetails['geometry']['location']['lat'];
+            $this->longitude = $locationDetails['geometry']['location']['lng'];
         }
 
-        if ($latitude && $longitude) {
+        if ($this->latitude && $this->longitude) {
 
             $estates = collect($estates->filter(
                 function ($estate) use ($request) {
                 $radius = $request->query('radius', 0);
 
-                return $this->distance($estate, $request) <= $radius;
+                return $this->distance($estate, $this->latitude, $this->longitude) <= $radius;
             }));
         }
 
@@ -56,7 +59,7 @@ class HomeController extends Controller
         $list = Estate::filter($filter)->get();
 
         $filteredByLocation = $this->filterByLocation($request, $list);
-        dd($filteredByLocation);
+        // dd($filteredByLocation);
 
         return Inertia::render('Results/Results', [
             'estates' => $filteredByLocation
