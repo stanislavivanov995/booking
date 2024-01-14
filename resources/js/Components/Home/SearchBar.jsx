@@ -1,6 +1,6 @@
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import InputLabel from "../InputLabel";
-import { useForm } from "@inertiajs/react";
+import { router, useForm } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import OptionsMenu from "../OptionsMenu";
 import TextInput from "../TextInput";
@@ -35,17 +35,16 @@ export default function SearchBar({ categories }) {
 
         event.preventDefault();
         console.log(data);
-        // const formData = new FormData(event.currentTarget);
-        // const { location, checkIn, checkOut, category } = Object.fromEntries(formData);
+        const results = router.get('/results', data)
+        try {
+            // const results = await fetch(`http://localhost:8000/api/real-estates?latitude=${coordinates.lat}&longitude=${coordinates.lng}&category=${category}`)
 
-        // try {
-        //     const results = await fetch(`http://localhost:8000/api/real-estates?latitude=${coordinates.lat}&longitude=${coordinates.lng}&category=${category}`)
 
-        //     router.push(`/public/search/results?lat=${coordinates.lat}&lng=${coordinates.lng}&checkIn=${checkIn}&checkOut=${checkOut}&category=${category}`);
-        //     console.log(results);
-        // } catch (error) {
-        //     console.log(error);
-        // }
+            // router.push(`/public/search/results?lat=${coordinates.lat}&lng=${coordinates.lng}&checkIn=${checkIn}&checkOut=${checkOut}&category=${category}`);
+            console.log(results);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
