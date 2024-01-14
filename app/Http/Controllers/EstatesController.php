@@ -9,10 +9,45 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEstateRequest;
 use GuzzleHttp\Client;
+use App\Utils\CalculateDistance;
+use App\Http\Filters\EstatesFilter;
+
 
 class EstatesController extends Controller
 {
+    use CalculateDistance;
+
     const GOOGLE_LOCATION_API_KEY = 'AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo';
+
+
+    protected function filterByLocation($request, $estates)
+    {      
+        if ($request->filled('latitude') && $request->filled('longitude')) {
+
+            $estates = collect($estates->filter(
+                function ($estate) use ($request) {
+                $radius = $request->query('radius', 0);
+
+                return $this->distance($estate, $request) <= $radius;
+            }));
+        }
+
+        return $estates;
+    }
+
+
+    public function results(Request $request, EstatesFilter $filter)
+    {
+        $list = Estate::filter($filter)->get();
+
+        $filteredByLocation = $this->filterByLocation($request, $list);
+        dd($filteredByLocation);
+
+        return Inertia::render('Results/Results', [
+            'estates' => $filteredByLocation
+        ]);
+    }
+
 
     public function index()
     {
