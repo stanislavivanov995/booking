@@ -99,4 +99,11 @@ class EstatesController extends Controller
             'estate' => $estate
         ]);
     }
+
+    public function show(Estate $estate) 
+    {
+        return Inertia::render('Admin/Estates/Show', [
+            'estate' => $estate
+        ]);
+    }
 }
