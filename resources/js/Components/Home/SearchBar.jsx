@@ -1,18 +1,23 @@
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import InputLabel from "../InputLabel";
-import { useForm } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import OptionsMenu from "../OptionsMenu";
 import TextInput from "../TextInput";
+
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
+
+import { useForm } from "@inertiajs/react";
 
 export default function SearchBar({ categories }) {
 
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [placeId, setPlaceId] = useState("");
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+
 
     const { data, setData, post, processing, errors } = useForm({
-        checkInDate: "",
-        checkOutDate: "",
         place_id: "",
         category_id: ""
     });
@@ -31,10 +36,16 @@ export default function SearchBar({ categories }) {
         setData("category_id", selectedItem.id);
     };
 
+
+
     const handleSubmit = async (event) => {
 
         event.preventDefault();
+        const checkInDate = startDate.toLocaleDateString()
+        const checkOutDate = endDate.toLocaleDateString()
         console.log(data);
+        console.log(checkInDate, checkOutDate);
+
         // const formData = new FormData(event.currentTarget);
         // const { location, checkIn, checkOut, category } = Object.fromEntries(formData);
 
@@ -76,22 +87,24 @@ export default function SearchBar({ categories }) {
                             onSelect={handleCategorySelect}
                         />
                     </div>
-                    <div>
-                        <TextInput
-                            id="checkInDate"
-                            className="block lg:w-[250px] w-[210px] lg:m-0 ml-8"
-                            name="checkInDate"
-                            type="date"
-                            onChange={(e) => setData("checkInDate", e.target.value)}
+                    <div className="flex gap-2 mt-1">
+                        <DatePicker
+                            selected={startDate}
+                            onChange={(date) => setStartDate(date)}
+                            selectsStart
+                            startDate={startDate}
+                            minDate={new Date()}
+                            endDate={endDate}
+                            className="block lg:w-[250px] w-[210px] lg:m-0 ml-8 border border-[#d1d5db] rounded-lg"
                         />
-                    </div>
-                    <div>
-                        <TextInput
-                            id="checkOutDate"
-                            className="block lg:w-[250px] w-[210px] lg:m-0 ml-8"
-                            name="checkOutDate"
-                            type="date"
-                            onChange={(e) => setData("checkOutDate", e.target.value)}
+                        <DatePicker
+                            selected={endDate}
+                            onChange={(date) => setEndDate(date)}
+                            selectsEnd
+                            startDate={startDate}
+                            endDate={endDate}
+                            minDate={startDate}
+                            className="block lg:w-[250px] w-[210px] lg:m-0 ml-8 border border-[#d1d5db] rounded-lg"
                         />
                     </div>
                     <button type="submit" className="xl:m-0 mt-2 items-center lg:border lg:border-black lg:rounded-full rounded-b-lg p-2 cursor-pointer lg:fill-white fill-white lg:bg-black bg-black xl:w-[40px] w-full hover:bg-black hover:fill-white">
