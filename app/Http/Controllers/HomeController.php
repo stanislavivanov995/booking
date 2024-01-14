@@ -9,16 +9,27 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Utils\CalculateDistance;
 use App\Http\Filters\EstatesFilter;
+use App\Utils\ExtractLocationData;
 
 
 class HomeController extends Controller
 {
-    use CalculateDistance;
-
+    use CalculateDistance, ExtractLocationData;
 
     protected function filterByLocation($request, $estates)
-    {      
-        if ($request->filled('latitude') && $request->filled('longitude')) {
+    {
+        $placeId = $request->place_id;
+
+        $locationData = $this->extract_location_data($placeId, env('GOOGLE_LOCATION_API_KEY', ''));
+
+        if ($locationData['status'] === 'OK') {
+            $locationDetails = $locationData['result'];
+            
+            $latitude = $locationDetails['geometry']['location']['lat'];
+            $longitude = $locationDetails['geometry']['location']['lng'];
+        }
+
+        if ($latitude && $longitude) {
 
             $estates = collect($estates->filter(
                 function ($estate) use ($request) {
