@@ -59,7 +59,7 @@ class HomeController extends Controller
         $list = Estate::filter($filter)->get();
 
         $filteredByLocation = $this->filterByLocation($request, $list);
-        // dd($filteredByLocation);
+        // dd($filteredByLocation->all());
 
         return Inertia::render('Results/Results', [
             'estates' => $filteredByLocation
