@@ -77,10 +77,11 @@ class EstatesController extends Controller
 
         $images = $request->file('images');
 
-        if($images) {
+        if ($images) {
             foreach ($images as $image) {
-                $path = $image->store('images');
-                $url = asset('storage/' . $path);
+                $path = $image->store('public/images');
+                
+                $url = asset('storage/' . str_replace('public/', '', $path));
 
                 Image::create([
                     'path' => $path,
@@ -89,6 +90,7 @@ class EstatesController extends Controller
                 ]);
             }
         }
+
 
         return Redirect::route('estates.index')->with('success', 'Estate was created successfully!');
     }
@@ -102,8 +104,27 @@ class EstatesController extends Controller
 
     public function show(Estate $estate) 
     {
+        $estate->load('category');
+ 
+        $facilitiesArray = $estate->facilities->toArray();
+
+        $availableFacilities = array_filter($facilitiesArray, function($value) {
+            return $value == 1;
+        });
+        
+        $facilities = array_combine(
+            array_map(function ($key) {
+                return str_replace('_', ' ', ucfirst($key));
+            }, array_keys($availableFacilities)),
+            $availableFacilities
+        );
+
+        $images = $estate->images->toArray();
+
         return Inertia::render('Admin/Estates/Show', [
-            'estate' => $estate
+            'estate' => $estate,
+            'facilities' => $facilities,
+            'images'=> $images
         ]);
     }
 }

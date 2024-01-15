@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-export default function Show({ auth, estate }) {
+export default function Show({ auth, estate, facilities, images }) {
     const mockEstate = {
         name: "A simple name",
         description:
@@ -44,12 +44,12 @@ export default function Show({ auth, estate }) {
             <div className="flex justify-center gap-24 max-xl:gap-14 max-lg:flex-col max-lg:items-center mt-20 mx-5">
                 <div>
                     <div className="flex flex-col items-center max-w-[35em]">
-                        <img src={mockEstate.imgs[0]} alt="selected image" />
+                        <img src={images[0].url} alt="selected image" />
                         <div className="flex justify-center gap-4 max-w-[27em] flex-wrap mt-8">
-                            {mockEstate.imgs.map((img) => (
+                            {images.map((img) => (
                                 <img
                                     className="w-24 max-sm:w-20 cursor-pointer opacity-65 hover:opacity-100"
-                                    src={img}
+                                    src={img.url}
                                     alt="estate image"
                                 />
                             ))}
@@ -58,14 +58,14 @@ export default function Show({ auth, estate }) {
                 </div>
                 <div>
                     <h2 className="font-semibold text-2xl text-gray-800 leading-tight mb-1">
-                        {mockEstate.name}
+                        {estate.name}
                     </h2>
                     <p className="text-gray-500 font-medium mb-5">
-                        {mockEstate.location}
+                        {estate.location}
                     </p>
                     <div className="flex flex-col gap-5 p-4 sm:p-8 bg-white shadow sm:rounded-lg ">
                         <p className="font-medium text-gray-500">
-                            {mockEstate.description}
+                            {estate.description}
                         </p>
                         <p className="flex justify-between font-medium text-gray-800">
                             Total price:{" "}
@@ -77,20 +77,20 @@ export default function Show({ auth, estate }) {
                         <p className="flex justify-between font-medium text-gray-800">
                             Type of estate:{" "}
                             <span className="font-medium text-lg">
-                                {mockEstate.category}
+                                {estate.category.name}
                             </span>
                         </p>
                         <div className="flex justify-between">
                             <p className="font-medium text-gray-800">
-                                From:{" "}
+                                Arrive Hour:{" "}
                                 <span className="font-bold text-lg ml-4 max-sm:ml-2 bg-gray-600 text-white p-2 rounded-md">
-                                    {mockEstate.checkIn}
+                                    {estate.arrive_hour}
                                 </span>
                             </p>
                             <p className="font-medium text-gray-800">
-                                To:{" "}
+                                Leave Hour:{" "}
                                 <span className="font-bold text-lg ml-4 max-sm:ml-2 bg-gray-600 text-white p-2 rounded-md">
-                                    {mockEstate.checkOut}
+                                    {estate.leave_hour}
                                 </span>
                             </p>
                         </div>
@@ -99,12 +99,13 @@ export default function Show({ auth, estate }) {
                                 Facilities:
                             </h3>
                             <div className="flex flex-wrap gap-2">
-                                {mockEstate.facilities.map((faciliti) => (
-                                    <div className="bg-gray-200 font-bold cursor-pointer p-2 rounded-lg hover:bg-gray-100">
-                                        {faciliti}
+                                {Object.entries(facilities).map(([key, value], index) => (
+                                    <div key={index} className="bg-gray-200 font-bold cursor-pointer p-2 rounded-lg hover:bg-gray-100">
+                                        {key}
                                     </div>
                                 ))}
                             </div>
+
                         </div>
                     </div>
                 </div>
