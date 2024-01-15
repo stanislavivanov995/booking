@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 
 class Image extends Model
@@ -19,7 +21,7 @@ class Image extends Model
         'estate_id'
     ];
 
-    public function estates()
+    public function estate(): BelongsTo
     {
         return $this->belongsTo(Estate::class, 'estate_id', 'id');
     }
