@@ -21,6 +21,7 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
+        "react-datepicker": "^4.25.0",
         "react-dropzone": "^14.2.3",
         "react-google-places-autocomplete": "^4.0.1",
         "react-slick": "^0.29.0",

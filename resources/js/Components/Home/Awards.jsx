@@ -1,11 +1,11 @@
 export default function Awards() {
     return (
         <>
-            <div className="h-full my-[5em] lg:w-[1220px] w-[400px]">
-                <h1 className="text-left text-[1.2em] pl-3 lg:text-[2.5em]">
+            <div className="h-full my-[5em] xl:w-[1260px] lg:w-[1000px] sm:w-[700px] w-[440px] px-5">
+                <h1 className="text-left text-[1.2em] pl-3 xl:text-[2.5em]">
                     Awards
                 </h1>
-                <div className="lg:flex lg:flex-row grid grid-cols-1 items-center justify-center gap-5 mt-[2em]">
+                <div className="lg:flex xl:flex-row grid grid-cols-1 items-center justify-center gap-5 mt-[2em]">
                     <div className="m-auto">
                         <img className="float-left w-[300px] h-[300px] object-cover bg-white p-4 rounded-xl" src="https://www.casasdelmarlanzarote.com/wp-content/uploads/2020/01/Booking-review-award-10-Casa-Esquina-del-Mar-2020-e1579800924173.jpg" alt="" />
                     </div>
