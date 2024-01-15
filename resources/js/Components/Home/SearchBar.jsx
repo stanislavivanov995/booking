@@ -32,8 +32,11 @@ export default function SearchBar({ categories }) {
     };
 
     const handleSubmit = async (event) => {
-
         event.preventDefault();
+
+        const { place_id, checkOutDate, checkInDate } = data
+        if (place_id === "") { return }
+
         console.log(data);
         const results = router.get('/results', data)
         try {
