@@ -38,7 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/estates', [EstatesController::class, 'index'])->name('estates.index');
     Route::get('/estates/create', [EstatesController::class, 'create'])->name('estates.create');
     Route::post('/estates/store', [EstatesController::class, 'store'])->name('estates.store');
-    Route::get('/estates/{estate}', [EstatesController::class, 'edit'])->name('estates.edit');
+    Route::get('/estates/edit/{estate}', [EstatesController::class, 'edit'])->name('estates.edit');
+    Route::get('/estates/show/{estate}', [EstatesController::class, 'show'])->name('estate.show');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

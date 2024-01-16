@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use App\Concerns\Filterable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 class Estate extends Model
 {
@@ -29,12 +30,17 @@ class Estate extends Model
 
     use HasFactory;
 
-    public function estates(): BelongsTo
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Category::class);
     }
 
-    public function facility(): HasOne
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    public function facilities(): HasOne
     {
         return $this->hasOne(Facility::class);
     }

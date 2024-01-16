@@ -15,14 +15,14 @@ export default function LatestEstates() {
         slidesToShow: 3,
         speed: 400,
         slidesToScroll: 1,
-        arrows: true,
-        dots: true,
+        arrows: false,
+        dots: false,
         responsive: [
             {
                 breakpoint: 768,
                 settings: {
                     arrows: false,
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                 },
             },
             {
@@ -38,13 +38,13 @@ export default function LatestEstates() {
     return (
         <>
             <div className="bg-gray-300 min-h-[70vh] flex flex-col items-center overflow-hidden">
-                <div className="flex items-center justify-between lg:w-[1220px] w-[400px] py-[2em]">
-                    <h1 className="text-left text-[1.2em] lg:text-[2.5em] pl-3">Latest Uploaded Estates</h1>
-                    <Link className="hover:underline transition mr-3">
+                <div className="flex items-center justify-between xl:w-[1260px] lg:w-[1000px] sm:w-[700px] w-[440px] py-[2em]">
+                    <h1 className="text-left text-[1.2em] xl:text-[2.5em] pl-5">Latest Uploaded Estates</h1>
+                    <Link className="hover:underline transition mr-8">
                         See all
                     </Link>
                 </div>
-                <div className="lg:w-[1260px] w-[440px] p-2">
+                <div className="xl:w-[1260px] lg:w-[1000px] sm:w-[700px] w-[440px] p-2">
                     <Slider {...settings}>
                         <LatestOfferCard />
                         <LatestOfferCard />
