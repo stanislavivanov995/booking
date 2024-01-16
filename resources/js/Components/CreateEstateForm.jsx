@@ -24,7 +24,7 @@ export default function CreateEstateForm(categories) {
         arrive_hour: "10:00",
         leave_hour: "12:00",
         price: "",
-        currency: "EUR",
+        currency: "BGN",
         rooms: "",
         beds: "",
         wifi: 0,
