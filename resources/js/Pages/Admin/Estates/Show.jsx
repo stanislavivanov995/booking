@@ -2,7 +2,14 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useState } from "react";
 
 export default function Show({ auth, estate, facilities, images }) {
-    const [selectedImage, setSelectedImage] = useState(images[0].url);
+    const defaultImage =
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
+
+    const [selectedImage, setSelectedImage] = useState(defaultImage);
+
+    if (images.length > 0 && selectedImage === defaultImage) {
+        setSelectedImage(images[0].url);
+    }
 
     const handleSelectedImage = (event) => {
         setSelectedImage(event.target.src);
@@ -32,10 +39,7 @@ export default function Show({ auth, estate, facilities, images }) {
                         </div>
                     ) : (
                         <div className="flex flex-col items-center max-w-[35em]">
-                            <img
-                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019"
-                                alt="selected image"
-                            />
+                            <img src={selectedImage} alt="selected image" />
                         </div>
                     )}
                 </div>
