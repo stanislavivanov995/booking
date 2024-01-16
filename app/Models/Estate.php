@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Estate extends Model
 {
-    use Filterable;
 
     protected $fillable = [
         'user_id',

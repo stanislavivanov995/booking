@@ -9,8 +9,6 @@ import TextInput from "../TextInput";
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 
-import { useForm } from "@inertiajs/react";
-
 export default function SearchBar({ categories }) {
 
     const [selectedCategory, setSelectedCategory] = useState(null);
