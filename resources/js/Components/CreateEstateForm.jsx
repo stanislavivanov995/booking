@@ -9,9 +9,9 @@ import TextArea from "./TextArea";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import OptionsMenu from "./OptionsMenu";
 import CreateFormSubmitButton from "./CreateFormSubmitButton";
-import TimePicker from 'react-time-picker';
-import 'react-clock/dist/Clock.css';
-import 'react-time-picker/dist/TimePicker.css';
+import TimePicker from "react-time-picker";
+import "react-clock/dist/Clock.css";
+import "react-time-picker/dist/TimePicker.css";
 import Checkbox from "./Checkbox";
 
 export default function CreateEstateForm(categories) {
@@ -33,7 +33,7 @@ export default function CreateEstateForm(categories) {
         lunch: 0,
         dinner: 0,
         swimming_pool: 0,
-        spa: 0
+        spa: 0,
     });
 
     const [showTooltip, setShowTooltip] = useState(false);
@@ -46,16 +46,15 @@ export default function CreateEstateForm(categories) {
 
     const [selectedCategory, setSelectedCategory] = useState(1);
 
-    const [checkInTime, setCheckInTime] = useState('10:00'); 
-    const [checkOutTime, setCheckOutTime] = useState('12:00');
+    const [checkInTime, setCheckInTime] = useState("10:00");
+    const [checkOutTime, setCheckOutTime] = useState("12:00");
     const [selectedCurrency, setSelectedCurrency] = useState("BGN");
-
 
     useEffect(() => {
         if (selectedCategory) {
-        setData("category_id", selectedCategory.id);
+            setData("category_id", selectedCategory.id);
         } else {
-        setData("category_id", 1);
+            setData("category_id", 1);
         }
     }, [selectedCategory]);
 
@@ -122,7 +121,6 @@ export default function CreateEstateForm(categories) {
         post(route("estates.store"));
     };
 
-
     return (
         <section>
             <header>
@@ -158,40 +156,59 @@ export default function CreateEstateForm(categories) {
                             apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
                             selectProps={{
                                 placeId,
-                                onChange: (e) => 
-                                    setData("place_id", e.value.place_id)
-                                }}
+                                onChange: (e) =>
+                                    setData("place_id", e.value.place_id),
+                            }}
                         />
-                        <InputError className="mt-2" message={errors.place_id} />
+                        <InputError
+                            className="mt-2"
+                            message={errors.place_id}
+                        />
                     </div>
                     {/* Location */}
 
-                    
                     {/* Check in / Check out */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                        }}
+                    >
                         {/* Check In */}
-                        <div style={{ flex: 1, marginRight: '10px' }} className="mt-3">
+                        <div
+                            style={{ flex: 1, marginRight: "10px" }}
+                            className="mt-3"
+                        >
                             <InputLabel htmlFor="checkIn" value="Check In" />
                             <TimePicker
                                 id="checkIn"
                                 value={checkInTime}
-                                className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                                 onChange={(time) => setCheckInTime(time)}
                             />
-                            <InputError className="mt-2" message={errors.checkIn} />
+                            <InputError
+                                className="mt-2"
+                                message={errors.checkIn}
+                            />
                         </div>
                         {/* Check In */}
 
                         {/* Check Out */}
-                        <div style={{ flex: 1, marginLeft: '10px' }} className="mt-3">
+                        <div
+                            style={{ flex: 1, marginLeft: "10px" }}
+                            className="mt-3"
+                        >
                             <InputLabel htmlFor="checkOut" value="Check Out" />
                             <TimePicker
                                 id="checkOut"
                                 value={checkOutTime}
-                                className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                                 onChange={(time) => setCheckOutTime(time)}
                             />
-                            <InputError className="mt-2" message={errors.checkOut} />
+                            <InputError
+                                className="mt-2"
+                                message={errors.checkOut}
+                            />
                         </div>
                         {/* Check Out */}
                     </div>
@@ -205,14 +222,16 @@ export default function CreateEstateForm(categories) {
                                 <span className="absolute top-2 left-2 px-2.5 py-[0.58em] font-bold text-gray-900 text-md">
                                     {selectedCurrency}
                                 </span>
-                                    <TextInput
-                                        type="number"
-                                        name="price"
-                                        id="price"
-                                        className="bg-gray-50 pl-12 outline-none text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 w-full block p-[0.8em]"
-                                        placeholder="0.00"
-                                        onChange={(e) => setData("price", e.target.value)}
-                                    />                        
+                                <TextInput
+                                    type="number"
+                                    name="price"
+                                    id="price"
+                                    className="bg-gray-50 pl-12 outline-none text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 w-full block p-[0.8em]"
+                                    placeholder="0.00"
+                                    onChange={(e) =>
+                                        setData("price", e.target.value)
+                                    }
+                                />
                             </div>
                             <div className="m-2 mr-[1em]">
                                 <select
@@ -223,7 +242,7 @@ export default function CreateEstateForm(categories) {
                                     className="rounded-lg bg-transparent h-10"
                                     onChange={(e) => {
                                         setSelectedCurrency(e.target.value);
-                                        setData('currency', e.target.value);
+                                        setData("currency", e.target.value);
                                     }}
                                 >
                                     <option
@@ -268,38 +287,51 @@ export default function CreateEstateForm(categories) {
                         <InputLabel htmlFor="category" value="Category" />
 
                         <OptionsMenu
-                                options={categories.categories}
-                                isFocused={false}
-                                onSelect={handleCategorySelect}
-                            />
+                            options={categories.categories}
+                            isFocused={false}
+                            onSelect={handleCategorySelect}
+                        />
                     </div>
                     {/* Category */}
 
                     {/* Rooms and Beds */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                        }}
+                    >
+                        <div
+                            style={{ flex: 1, marginRight: "10px" }}
+                            className="mt-3"
+                        >
+                            <InputLabel htmlFor="rooms" value="Rooms" />
 
-                    <div style={{ flex: 1, marginRight: '10px' }} className="mt-3">
-                        <InputLabel htmlFor="rooms" value="Rooms" />
+                            <TextInput
+                                id="rooms"
+                                className="mt-1 block w-full"
+                                name="rooms"
+                                onChange={(e) =>
+                                    setData("rooms", e.target.value)
+                                }
+                            />
+                        </div>
 
-                        <TextInput
-                            id="rooms"
-                            className="mt-1 block w-full"
-                            name="rooms"
-                            onChange={(e) => setData("rooms", e.target.value)}
-                        />
-                    </div>
+                        <div
+                            style={{ flex: 1, marginRight: "10px" }}
+                            className="mt-3"
+                        >
+                            <InputLabel htmlFor="beds" value="Beds" />
 
-                    <div style={{ flex: 1, marginRight: '10px' }} className="mt-3">
-                        <InputLabel htmlFor="beds" value="Beds" />
-                
-                        <TextInput
-                            id="beds"
-                            className="mt-1 block w-full"
-                            name="beds"
-                            onChange={(e) => setData("beds", e.target.value)}
-                        />
-                    </div>
-
+                            <TextInput
+                                id="beds"
+                                className="mt-1 block w-full"
+                                name="beds"
+                                onChange={(e) =>
+                                    setData("beds", e.target.value)
+                                }
+                            />
+                        </div>
                     </div>
                     {/* Rooms and Beds */}
 
@@ -329,31 +361,48 @@ export default function CreateEstateForm(categories) {
                     <div className="flex justify-between space-x-7">
                         <Checkbox
                             label="Wi-fi"
-                            onChange={(e) => setData("wifi", e.target.checked ? 1 : 0)}
+                            onChange={(e) =>
+                                setData("wifi", e.target.checked ? 1 : 0)
+                            }
                         />
                         <Checkbox
                             label="Parking Place"
-                            onChange={(e) => setData("parking", e.target.checked ? 1 : 0)}
+                            onChange={(e) =>
+                                setData("parking", e.target.checked ? 1 : 0)
+                            }
                         />
                         <Checkbox
                             label="Breakfast"
-                            onChange={(e) => setData("breakfast", e.target.checked ? 1 : 0)}
+                            onChange={(e) =>
+                                setData("breakfast", e.target.checked ? 1 : 0)
+                            }
                         />
                         <Checkbox
                             label="Lunch"
-                            onChange={(e) => setData("lunch", e.target.checked ? 1 : 0)}
+                            onChange={(e) =>
+                                setData("lunch", e.target.checked ? 1 : 0)
+                            }
                         />
                         <Checkbox
                             label="Dinner"
-                            onChange={(e) => setData("dinner", e.target.checked ? 1 : 0)}
+                            onChange={(e) =>
+                                setData("dinner", e.target.checked ? 1 : 0)
+                            }
                         />
                         <Checkbox
                             label="Swimming Pool"
-                            onChange={(e) => setData("swimming_pool", e.target.checked ? 1 : 0)}
+                            onChange={(e) =>
+                                setData(
+                                    "swimming_pool",
+                                    e.target.checked ? 1 : 0
+                                )
+                            }
                         />
                         <Checkbox
                             label="Spa"
-                            onChange={(e) => setData("spa", e.target.checked ? 1 : 0)}
+                            onChange={(e) =>
+                                setData("spa", e.target.checked ? 1 : 0)
+                            }
                         />
                     </div>
                     {/* Facilities */}
@@ -376,7 +425,7 @@ export default function CreateEstateForm(categories) {
                     <div className="w-full mt-7">
                         <InputLabel
                             htmlFor="images"
-                            className="flex flex-col items-center max-md:max-w-[18em] justify-center w-full h-auto border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover-bg-gray-100 dark:border-gray-600 dark:hover-border-gray-500 dark:hover-bg-gray-600"
+                            className="flex flex-col items-center max-md:max-w-[18em] justify-center w-full h-auto border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover-bg-gray-100"
                             onDrop={handleFileDrop}
                             onDragOver={handleDragOver}
                         >
@@ -423,18 +472,18 @@ export default function CreateEstateForm(categories) {
                                 ) : (
                                     <>
                                         <svg
-                                            className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                                            className="w-8 h-8 mb-4 text-gray-500"
                                             aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
                                             viewBox="0 0 20 16"
                                         ></svg>
-                                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                        <p className="mb-2 text-sm text-gray-500">
                                             <span className="font-semibold">
                                                 {fileStatus}
                                             </span>
                                         </p>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400 mx-3">
+                                        <p className="text-xs text-gray-500 mx-3">
                                             SVG, PNG, JPG, or GIF (MAX.
                                             800x400px)
                                         </p>
@@ -458,7 +507,7 @@ export default function CreateEstateForm(categories) {
                         <CreateFormSubmitButton disabled={processing}>
                             Create
                         </CreateFormSubmitButton>
-                        
+
                         <Transition
                             show={recentlySuccessful}
                             enter="transition ease-in-out"
