@@ -24,7 +24,9 @@ export default function CreateEstateForm(categories) {
         arrive_hour: "10:00",
         leave_hour: "12:00",
         price: "",
-        currency: "",
+        currency: "EUR",
+        rooms: "",
+        beds: "",
         wifi: 0,
         parking: 0,
         breakfast: 0,
@@ -46,6 +48,7 @@ export default function CreateEstateForm(categories) {
 
     const [checkInTime, setCheckInTime] = useState('10:00'); 
     const [checkOutTime, setCheckOutTime] = useState('12:00');
+    const [selectedCurrency, setSelectedCurrency] = useState("BGN");
 
 
     useEffect(() => {
@@ -128,14 +131,14 @@ export default function CreateEstateForm(categories) {
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Show your perfect place
+                    Fields with * are required.
                 </p>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
                     {/* Name */}
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="name" value="Name*" />
 
                     <TextInput
                         id="name"
@@ -149,7 +152,7 @@ export default function CreateEstateForm(categories) {
 
                     {/* Location */}
                     <div className="mt-3">
-                        <InputLabel htmlFor="location" value="Location" />
+                        <InputLabel htmlFor="location" value="Location*" />
 
                         <GooglePlacesAutocomplete
                             apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
@@ -194,6 +197,72 @@ export default function CreateEstateForm(categories) {
                     </div>
                     {/* Check in / Check out */}
 
+                    {/*Price*/}
+                    <div className="sm:col-span-2">
+                        <InputLabel htmlFor="price" value="Price*" />
+                        <div className="flex items-center bg-gray-50 border border-gray-300 rounded-lg focus:bg-red-500">
+                            <div className="relative w-full p-2">
+                                <span className="absolute top-2 left-2 px-2.5 py-[0.58em] font-bold text-gray-900 text-md">
+                                    {selectedCurrency}
+                                </span>
+                                    <TextInput
+                                        type="number"
+                                        name="price"
+                                        id="price"
+                                        className="bg-gray-50 pl-12 outline-none text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 w-full block p-[0.8em]"
+                                        placeholder="0.00"
+                                        onChange={(e) => setData("price", e.target.value)}
+                                    />                        
+                            </div>
+                            <div className="m-2 mr-[1em]">
+                                <select
+                                    as="select"
+                                    name="currency"
+                                    id="currency"
+                                    value={selectedCurrency}
+                                    className="rounded-lg bg-transparent h-10"
+                                    onChange={(e) => {
+                                        setSelectedCurrency(e.target.value);
+                                        setData('currency', e.target.value);
+                                    }}
+                                >
+                                    <option
+                                        value="BGN"
+                                        className={
+                                            selectedCurrency === "BGN"
+                                                ? "bg-indigo-300"
+                                                : "bg-gray-200"
+                                        }
+                                    >
+                                        BGN
+                                    </option>
+                                    <option
+                                        value="EUR"
+                                        className={
+                                            selectedCurrency === "EUR"
+                                                ? "bg-indigo-300"
+                                                : "bg-gray-200"
+                                        }
+                                    >
+                                        EUR
+                                    </option>
+                                    <option
+                                        value="USD"
+                                        className={
+                                            selectedCurrency === "USD"
+                                                ? "bg-indigo-300"
+                                                : "bg-gray-200"
+                                        }
+                                    >
+                                        USD
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <InputError className="mt-2" message={errors.price} />
+                    </div>
+                    {/*Price*/}
+
                     {/* Category */}
                     <div className="mt-3">
                         <InputLabel htmlFor="category" value="Category" />
@@ -206,11 +275,33 @@ export default function CreateEstateForm(categories) {
                     </div>
                     {/* Category */}
 
-                    {/*Price and Currency */}
-                    <div className="mt-3">
+                    {/* Rooms and Beds */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+
+                    <div style={{ flex: 1, marginRight: '10px' }} className="mt-3">
+                        <InputLabel htmlFor="rooms" value="Rooms" />
+
+                        <TextInput
+                            id="rooms"
+                            className="mt-1 block w-full"
+                            name="rooms"
+                            onChange={(e) => setData("rooms", e.target.value)}
+                        />
+                    </div>
+
+                    <div style={{ flex: 1, marginRight: '10px' }} className="mt-3">
+                        <InputLabel htmlFor="beds" value="Beds" />
+                
+                        <TextInput
+                            id="beds"
+                            className="mt-1 block w-full"
+                            name="beds"
+                            onChange={(e) => setData("beds", e.target.value)}
+                        />
+                    </div>
 
                     </div>
-                    {/* Price and Currency */}
+                    {/* Rooms and Beds */}
 
                     {/* Description */}
                     <InputLabel

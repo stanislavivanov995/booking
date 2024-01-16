@@ -24,7 +24,8 @@ class StoreEstateRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
-            'place_id' => 'required'
+            'place_id' => 'required',
+            'price' => 'required'
         ];
     }
 

@@ -30,7 +30,7 @@ class EstatesController extends Controller
 
     public function store(StoreEstateRequest $request)
     {
-        // dd($request->all());
+        dd($request->all());
         $placeId = $request->place_id;
 
         $client = new Client();
@@ -54,12 +54,13 @@ class EstatesController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'location' => $locationName,
-            'price' => 100,
-            'currency' => 'bgn',
+            'price' => $request->price,
+            'currency' => $request->currency,
             'latitude' => $latitude,
             'longitude' => $longitude,
             'category_id' => $request->category_id,
-            'rooms' => 3,
+            'rooms' => $reques->rooms,
+            'beds' => $request->beds,
             'arrive_hour' => $request->arrive_hour,
             'leave_hour' => $request->leave_hour
         ]);
