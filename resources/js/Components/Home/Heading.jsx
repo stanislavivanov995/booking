@@ -32,7 +32,7 @@ export default function Heading({ auth }) {
                         </svg>
                         <p>1267-713-158</p>
                     </div>
-                    {auth.user ? (
+                    {auth?.user ? (
                         // <button className="cursor-pointer py-[0.8em] px-[1em] bg-black text-white font-bold outline-none border-none text-[16px]">
                         //     <Link
                         //         href={route('dashboard')}

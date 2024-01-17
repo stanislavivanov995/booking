@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+use App\Models\{Estate, Category};
 use Illuminate\Support\Facades\Auth;
-use App\Models\Category;
 
 class HomeController extends Controller
 {
@@ -12,6 +13,19 @@ class HomeController extends Controller
     {
         return Inertia::render('Home/Home', [
             'categories' => Category::all()
+        ]);
+    }
+
+
+    public function results(Request $request)
+    {
+        $placeId = $request->place_id;
+        $checkIn = $request->check_in;
+        $checkOut = $request->check_out;
+
+        return Inertia::render('Results/Results', [
+            'estates' => Estate::with('images')->get(),
+             'categories' => Category::all()
         ]);
     }
 }
