@@ -10,10 +10,10 @@ export default function error404() {
                     {/* <p className="text-base font-semibold text-indigo-600">404</p> */}
                     <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">Something went wrong</h1>
                     <p className="mt-6 text-base leading-7 text-gray-600">Sorry, we couldn’t find the page you’re looking for.</p>
-                    <div className="mt-10 flex items-center justify-center gap-x-6">
+                    <div className="mt-12 flex xl:flex-row lg:gap-6 gap-6 flex-col justify-center items-center">
                         <a
                             href="/"
-                            className="rounded-md bg-gray-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700  dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
                         >
                             Go back home
                         </a>
@@ -25,5 +25,4 @@ export default function error404() {
             </main>
         </>
     )
-
 }
