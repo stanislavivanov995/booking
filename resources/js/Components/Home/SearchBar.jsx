@@ -1,17 +1,14 @@
 import { router, useForm } from "@inertiajs/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
-import InputLabel from "../InputLabel";
-import OptionsMenu from "../OptionsMenu";
-import TextInput from "../TextInput";
 
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function SearchBar({ categories }) {
 
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    // const [selectedCategory, setSelectedCategory] = useState(null);
     const [placeId, setPlaceId] = useState("");
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
@@ -19,22 +16,32 @@ export default function SearchBar({ categories }) {
 
     const { data, setData, post, processing, errors } = useForm({
         place_id: "",
-        category_id: ""
+        // category_id: "",
+        check_in: startDate,
+        check_out: endDate
     });
 
 
-    useEffect(() => {
-        if (selectedCategory) {
-            setData("category_id", selectedCategory.id);
-        } else {
-            setData("category_id", 1);
-        }
-    }, [selectedCategory]);
+    // useEffect(() => {
+    //     if (selectedCategory) {
+    //         setData("category_id", selectedCategory.id);
+    //     } else {
+    //         setData("category_id", 1);
+    //     }
+    // }, [selectedCategory]);
 
-    const handleCategorySelect = (selectedItem) => {
-        setSelectedCategory(selectedItem);
-        setData("category_id", selectedItem.id);
-    };
+    // const handleCategorySelect = (selectedItem) => {
+    //     setSelectedCategory(selectedItem);
+    //     setData("category_id", selectedItem.id);
+    // };
+
+    const handleCheckInDate = (selectedItem) => {
+        setData('check_in', selectedItem);
+    }
+
+        const handleCheckOutDate = (selectedItem) => {
+        setData('check_out', selectedItem);
+    }
 
 
 
@@ -43,8 +50,7 @@ export default function SearchBar({ categories }) {
         const checkInDate = startDate.toLocaleDateString()
         const checkOutDate = endDate.toLocaleDateString()
         console.log(data);
-        console.log(checkInDate, checkOutDate);
-
+        
         try {
             const results = router.get('/results', data)
 
@@ -61,7 +67,7 @@ export default function SearchBar({ categories }) {
                     <div className="flex items-center lg:gap-5 gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 384 512"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" /></svg>
                         {/* Search Input */}
-                        <div className="lg:w-[250px] w-[210px] mt-1">
+                        <div className="lg:w-[350px] w-[210px] mt-1">
 
                             <GooglePlacesAutocomplete
                                 apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
@@ -74,18 +80,21 @@ export default function SearchBar({ categories }) {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    {/* <div className="flex items-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 384 512"><path d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16z" /></svg>
                         <OptionsMenu
                             options={categories}
                             isFocused={false}
                             onSelect={handleCategorySelect}
                         />
-                    </div>
+                    </div> */}
                     <div className="flex gap-2 mt-1">
                         <DatePicker
                             selected={startDate}
-                            onChange={(date) => setStartDate(date)}
+                            onChange={(date) => {
+                                handleCheckInDate(date);
+                                setStartDate(date)
+                            }}
                             selectsStart
                             startDate={startDate}
                             minDate={new Date()}
@@ -94,7 +103,10 @@ export default function SearchBar({ categories }) {
                         />
                         <DatePicker
                             selected={endDate}
-                            onChange={(date) => setEndDate(date)}
+                            onChange={(date) => {
+                                handleCheckOutDate(date);
+                                setEndDate(date)
+                            }}
                             selectsEnd
                             startDate={startDate}
                             endDate={endDate}

@@ -7,12 +7,11 @@ use App\Models\{Estate, Image, Category, Facility};
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEstateRequest;
-use App\Utils\ExtractLocationData;
-use PhpOption\None;
+use GuzzleHttp\Client;
 
 class EstatesController extends Controller
 {
-    use ExtractLocationData;
+    const GOOGLE_LOCATION_API_KEY = 'AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo';
 
     public function index()
     {
@@ -30,18 +29,15 @@ class EstatesController extends Controller
 
     public function store(StoreEstateRequest $request)
     {
-        // dd($request->all());
         $placeId = $request->place_id;
 
-        // $client = new Client();
-        // $response = $client->get(
-        //     "https://maps.googleapis.com/maps/api/place/details/json?placeid=$placeId&key="
-        //     . self::GOOGLE_LOCATION_API_KEY
-        // );
+        $client = new Client();
+        $response = $client->get(
+            "https://maps.googleapis.com/maps/api/place/details/json?placeid=$placeId&key="
+            . self::GOOGLE_LOCATION_API_KEY
+        );
 
-        // $locationData = json_decode($response->getBody(), true);
-
-        $locationData = $this->extract_location_data($placeId, env('GOOGLE_LOCATION_API_KEY', ''));
+        $locationData = json_decode($response->getBody(), true);
 
         if ($locationData['status'] === 'OK') {
             $locationDetails = $locationData['result'];

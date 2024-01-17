@@ -1,98 +1,20 @@
 import Heading from "@/Components/Home/Heading"
 import NavBar from "@/Components/Home/Navbar"
+import SearchBar from "@/Components/Home/SearchBar";
 import { Head, Link } from "@inertiajs/react"
 import { useState } from "react"
 
-const demoResults = [
-    {
-        name: "MM Boutique HotelOpens",
-        location: "Burgas, Bulgaria",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Dolores distinctio repellendus corrupti earum aperiam, a sint impedit cum expedita eius quos excepturi! Inventore consequuntur quo sed consequatur earum distinctio impedit.",
-        imageUrl: "https://cf.bstatic.com/xdata/images/hotel/square200/472497248.webp?k=b05a29e057f0e2d83561ccb527f6ef368377b262c76a0ba171c37397f93bac91&o=",
-        beds: 3
-    },
-    {
-        name: "MM Boutique HotelOpens",
-        location: "Burgas, Bulgaria",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Dolores distinctio repellendus corrupti earum aperiam, a sint impedit cum expedita eius quos excepturi! Inventore consequuntur quo sed consequatur earum distinctio impedit.",
-        imageUrl: "https://cf.bstatic.com/xdata/images/hotel/square200/472497248.webp?k=b05a29e057f0e2d83561ccb527f6ef368377b262c76a0ba171c37397f93bac91&o=",
-        beds: 3
-    },
-    {
-        name: "MM Boutique HotelOpens",
-        location: "Burgas, Bulgaria",
-        description: "Lorem ipsum dolor sit amet something ood that i cant type cuz i dont know how just for test the text and nothing much consectetur adipisicing elit.Dolores distinctio repellendus corrupti earum aperiam, a sint impedit cum expedita eius quos excepturi! Inventore consequuntur quo sed consequatur earum distinctio impedit.",
-        imageUrl: "https://cf.bstatic.com/xdata/images/hotel/square200/472497248.webp?k=b05a29e057f0e2d83561ccb527f6ef368377b262c76a0ba171c37397f93bac91&o=",
-        beds: 3
-    },
-    {
-        name: "MM Boutique HotelOpens",
-        location: "Burgas, Bulgaria",
-        description: "Lorem ipsum dolor sit amet something ood that i cant type cuz i dont know how just for test the text and nothing much consectetur adipisicing elit.Dolores distinctio repellendus corrupti earum aperiam, a sint impedit cum expedita eius quos excepturi! Inventore consequuntur quo sed consequatur earum distinctio impedit.",
-        imageUrl: "https://cf.bstatic.com/xdata/images/hotel/square200/472497248.webp?k=b05a29e057f0e2d83561ccb527f6ef368377b262c76a0ba171c37397f93bac91&o=",
-        beds: 3
-    },
-    {
-        name: "MM Boutique HotelOpens",
-        location: "Burgas, Bulgaria",
-        description: "Lorem ipsum dolor sit amet something ood that i cant type cuz i dont know how just for test the text and nothing much consectetur adipisicing elit.Dolores distinctio repellendus corrupti earum aperiam, a sint impedit cum expedita eius quos excepturi! Inventore consequuntur quo sed consequatur earum distinctio impedit.",
-        imageUrl: "https://cf.bstatic.com/xdata/images/hotel/square200/472497248.webp?k=b05a29e057f0e2d83561ccb527f6ef368377b262c76a0ba171c37397f93bac91&o=",
-        beds: 3
-    },
-    {
-        name: "MM Boutique HotelOpens",
-        location: "Burgas, Bulgaria",
-        description: "Lorem ipsum dolor sit amet something ood that i cant type cuz i dont know how just for test the text and nothing much consectetur adipisicing elit.Dolores distinctio repellendus corrupti earum aperiam, a sint impedit cum expedita eius quos excepturi! Inventore consequuntur quo sed consequatur earum distinctio impedit.",
-        imageUrl: "https://cf.bstatic.com/xdata/images/hotel/square200/472497248.webp?k=b05a29e057f0e2d83561ccb527f6ef368377b262c76a0ba171c37397f93bac91&o=",
-        beds: 3
-    },
-    {
-        name: "MM Boutique HotelOpens",
-        location: "Burgas, Bulgaria",
-        description: "Lorem ipsum dolor sit amet something ood that i cant type cuz i dont know how just for test the text and nothing much consectetur adipisicing elit.Dolores distinctio repellendus corrupti earum aperiam, a sint impedit cum expedita eius quos excepturi! Inventore consequuntur quo sed consequatur earum distinctio impedit.",
-        imageUrl: "https://cf.bstatic.com/xdata/images/hotel/square200/472497248.webp?k=b05a29e057f0e2d83561ccb527f6ef368377b262c76a0ba171c37397f93bac91&o=",
-        beds: 3
-    },
-    {
-        name: "MM Boutique HotelOpens",
-        location: "Burgas, Bulgaria",
-        description: "Lorem ipsum dolor sit amet something ood that i cant type cuz i dont know how just for test the text and nothing much consectetur adipisicing elit.Dolores distinctio repellendus corrupti earum aperiam, a sint impedit cum expedita eius quos excepturi! Inventore consequuntur quo sed consequatur earum distinctio impedit.",
-        imageUrl: "https://cf.bstatic.com/xdata/images/hotel/square200/472497248.webp?k=b05a29e057f0e2d83561ccb527f6ef368377b262c76a0ba171c37397f93bac91&o=",
-        beds: 3
-    },
-    {
-        name: "MM Boutique HotelOpens",
-        location: "Burgas, Bulgaria",
-        description: "Lorem ipsum dolor sit amet something ood that i cant type cuz i dont know how just for test the text and nothing much consectetur adipisicing elit.Dolores distinctio repellendus corrupti earum aperiam, a sint impedit cum expedita eius quos excepturi! Inventore consequuntur quo sed consequatur earum distinctio impedit.",
-        imageUrl: "https://cf.bstatic.com/xdata/images/hotel/square200/472497248.webp?k=b05a29e057f0e2d83561ccb527f6ef368377b262c76a0ba171c37397f93bac91&o=",
-        beds: 3
-    },
-    {
-        name: "MM Boutique HotelOpens",
-        location: "Burgas, Bulgaria",
-        description: "Lorem ipsum dolor sit amet something ood that i cant type cuz i dont know how just for test the text and nothing much consectetur adipisicing elit.Dolores distinctio repellendus corrupti earum aperiam, a sint impedit cum expedita eius quos excepturi! Inventore consequuntur quo sed consequatur earum distinctio impedit.",
-        imageUrl: "https://cf.bstatic.com/xdata/images/hotel/square200/472497248.webp?k=b05a29e057f0e2d83561ccb527f6ef368377b262c76a0ba171c37397f93bac91&o=",
-        beds: 3
-    },
-    {
-        name: "MM Boutique HotelOpens",
-        location: "Burgas, Bulgaria",
-        description: "Lorem ipsum dolor sit amet something ood that i cant type cuz i dont know how just for test the text and nothing much consectetur adipisicing elit.Dolores distinctio repellendus corrupti earum aperiam, a sint impedit cum expedita eius quos excepturi! Inventore consequuntur quo sed consequatur earum distinctio impedit.",
-        imageUrl: "https://cf.bstatic.com/xdata/images/hotel/square200/472497248.webp?k=b05a29e057f0e2d83561ccb527f6ef368377b262c76a0ba171c37397f93bac91&o=",
-        beds: 3
-    },
-]
 
-export default function Results() {
+export default function Results({estates, categories}) {
 
-
+    console.log(estates);
 
     const [currentPage, setCurrentPage] = useState(1)
     const recordsPerPage = 10;
     const lastIndex = currentPage * recordsPerPage;
     const firstIndex = lastIndex - recordsPerPage;
-    const records = demoResults.slice(firstIndex, lastIndex);
-    const nPage = Math.ceil(demoResults.length / recordsPerPage);
+    const records = estates.slice(firstIndex, lastIndex);
+    const nPage = Math.ceil(estates.length / recordsPerPage);
     const numbers = [...Array(nPage + 1).keys()].slice(1);
 
     const prevPage = () => {
@@ -114,7 +36,7 @@ export default function Results() {
     return (
         <>
             <Head title="Results" />
-
+            
             <Heading />
             <NavBar />
             <div className="w-[90%] m-auto">
@@ -123,11 +45,15 @@ export default function Results() {
                         <svg xmlns="http://www.w3.org/2000/svg" className="hover:opacity-15 duration-[0.3s] bg-black w-[150px] fill-white p-2 rounded-xl cursor-pointer" height="35" width="35" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" /></svg>
                     </button>
                 </Link>
+
+                { estates.length > 0  ?
                 <div className="flex flex-col mt-[2em] gap-[2.5em] items-center justify-middle">
                     {records.map((estate) => (
                         <Link href="#" className="inline-block">
                             <div className="flex shadow-xl hover:shadow-2xl m-2 rounded-xl">
-                                <img src={estate.imageUrl} alt="" className="w-[230px] h-[230px] rounded-s-xl" />
+                                {estate.images ? 
+                                <img src={estate.images[0].url} alt="" className="w-[230px] h-[230px] rounded-s-xl" />
+                                : <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019" alt="selected image" className="w-[230px] h-[230px] rounded-s-xl" /> }
                                 <div className="py-3 px-5">
                                     <h1 className="font-bold text-[1.5em]">{estate.name}</h1>
                                     <div className="flex gap-[6em] mt-3">
@@ -137,7 +63,7 @@ export default function Results() {
                                         </div>
                                         <div className="flex gap-2 items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512"><path d="M32 32c17.7 0 32 14.3 32 32V320H288V160c0-17.7 14.3-32 32-32H544c53 0 96 43 96 96V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32zm144 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160z" /></svg>
-                                            <h3>{estate.beds}</h3>
+                                            <h3>{estate.beds ? estate.beds : 'N/A'}</h3>
                                         </div>
                                     </div>
                                     <p className="text-[20px] mt-5 line-clamp-4 max-w-[50em]">{estate.description}</p>
@@ -146,6 +72,9 @@ export default function Results() {
                         </Link>
                     ))}
                 </div>
+                : <div className="flex flex-col mt-[2em] gap-[2.5em] items-center justify-middle">
+                    No records found
+                </div>}
                 {/* Pagination */}
                 <div className="flex flex-col md:flex-row justify-center items-center space-y-3 md:space-y-0 p-4 my-[3em]" aria-label="Table navigation">
                     {/* <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
