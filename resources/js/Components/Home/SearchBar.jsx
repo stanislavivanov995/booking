@@ -3,7 +3,7 @@ import { useState } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 
-import DatePicker from 'react-datepicker'
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function SearchBar({ categories }) {
@@ -12,7 +12,6 @@ export default function SearchBar({ categories }) {
     const [placeId, setPlaceId] = useState("");
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-
 
     const { data, setData, post, processing, errors } = useForm({
         place_id: "",
@@ -47,8 +46,8 @@ export default function SearchBar({ categories }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const checkInDate = startDate.toLocaleDateString()
-        const checkOutDate = endDate.toLocaleDateString()
+        const checkInDate = startDate.toLocaleDateString();
+        const checkOutDate = endDate.toLocaleDateString();
         console.log(data);
         
         try {
@@ -63,9 +62,19 @@ export default function SearchBar({ categories }) {
     return (
         <>
             <div className="xl:w-[1200px] w-[75%] lg:p-1 pt-2 bg-white shadow-2xl absolute lg:bottom-[-10px] bottom-[-15px] rounded-lg">
-                <form onSubmit={(e) => handleSubmit(e)} className="flex xl:flex-row lg:gap-0 gap-1 flex-col justify-evenly items-center lg:p-2">
+                <form
+                    onSubmit={(e) => handleSubmit(e)}
+                    className="flex xl:flex-row lg:gap-0 gap-1 flex-col justify-evenly items-center lg:p-2"
+                >
                     <div className="flex items-center lg:gap-5 gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 384 512"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" /></svg>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="20"
+                            width="20"
+                            viewBox="0 0 384 512"
+                        >
+                            <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
+                        </svg>
                         {/* Search Input */}
                         <div className="lg:w-[350px] w-[210px] mt-1">
 
@@ -74,7 +83,7 @@ export default function SearchBar({ categories }) {
                                 selectProps={{
                                     placeId,
                                     onChange: (e) =>
-                                        setData("place_id", e.value.place_id)
+                                        setData("place_id", e.value.place_id),
                                 }}
                             />
                         </div>
@@ -114,11 +123,22 @@ export default function SearchBar({ categories }) {
                             className="block lg:w-[250px] w-[210px] lg:m-0 ml-8 border border-[#d1d5db] rounded-lg"
                         />
                     </div>
-                    <button type="submit" className="xl:m-0 mt-2 items-center lg:border lg:border-black lg:rounded-full rounded-b-lg p-2 cursor-pointer lg:fill-white fill-white lg:bg-black bg-black xl:w-[40px] w-full hover:bg-black hover:fill-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-full" height="20" width="20" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" /></svg>
+                    <button
+                        type="submit"
+                        className="xl:m-0 mt-2 items-center lg:border lg:border-black lg:rounded-full rounded-b-lg p-2 cursor-pointer lg:fill-white fill-white lg:bg-black bg-black xl:w-[40px] w-full hover:bg-black hover:fill-white"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-full"
+                            height="20"
+                            width="20"
+                            viewBox="0 0 512 512"
+                        >
+                            <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+                        </svg>
                     </button>
-                </form >
+                </form>
             </div>
         </>
-    )
+    );
 }

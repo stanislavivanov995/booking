@@ -1,5 +1,4 @@
-import Dropdown from '@/Components/Dropdown';
-
+import Dropdown from "@/Components/Dropdown";
 
 export default function AvatarDropDown({ user }) {
     return (
@@ -13,7 +12,15 @@ export default function AvatarDropDown({ user }) {
                                     type="button"
                                     className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                 >
-                                    <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" className="w-10 h-10 rounded-full cursor-pointer" src="https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png" alt="User dropdown"></img>
+                                    <img
+                                        id="avatarButton"
+                                        type="button"
+                                        data-dropdown-toggle="userDropdown"
+                                        data-dropdown-placement="bottom-start"
+                                        className="w-10 h-10 rounded-full cursor-pointer"
+                                        src="https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png"
+                                        alt="User dropdown"
+                                    ></img>
 
                                     <svg
                                         className="ms-2 -me-0.5 h-4 w-4"
@@ -32,13 +39,25 @@ export default function AvatarDropDown({ user }) {
                         </Dropdown.Trigger>
 
                         <Dropdown.Content>
-                            <p className='w-full px-4 py-2 font-bold'>{user.name}</p>
-                            <p className='w-full px-4 py-2 font-bold'>{user.email}</p>
+                            <p className="w-full px-4 py-2 font-bold">
+                                {user.name}
+                            </p>
+                            <p className="w-full px-4 py-2 font-bold">
+                                {user.email}
+                            </p>
                             <hr />
-                            <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                            <Dropdown.Link href={route('dashboard')}>Dashboard</Dropdown.Link>
+                            <Dropdown.Link href={route("profile.edit")}>
+                                Profile
+                            </Dropdown.Link>
+                            <Dropdown.Link href={route("dashboard")}>
+                                Dashboard
+                            </Dropdown.Link>
                             <hr />
-                            <Dropdown.Link href={route('logout')} method="post" as="button">
+                            <Dropdown.Link
+                                href={route("logout")}
+                                method="post"
+                                as="button"
+                            >
                                 Log Out
                             </Dropdown.Link>
                         </Dropdown.Content>
@@ -46,5 +65,5 @@ export default function AvatarDropDown({ user }) {
                 </div>
             </div>
         </>
-    )
+    );
 }
