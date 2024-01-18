@@ -16,7 +16,7 @@ class EstatesController extends Controller
     public function index()
     {
         return Inertia::render('Admin/Estates/List', [
-            'estates' => Auth::user()->estates()->with('images')->get()
+            'estates' => Auth::user()->estates()->with('images')->with('category')->get()
         ]);
     }
 

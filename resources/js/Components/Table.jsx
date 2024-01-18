@@ -10,7 +10,7 @@ export default function Table({ items: records }) {
                         <div className="flex items-center flex-1 space-x-4">
                             <h5>
                                 <span className="text-gray-500">
-                                    All Products:{" "}
+                                    All Estates:{" "}
                                     <i className="fa-solid fa-pen-to-square"></i>
                                 </span>
                                 <span> {records.length}</span>
@@ -30,14 +30,14 @@ export default function Table({ items: records }) {
                                     <th scope="col" className="px-4 py-3">
                                         Category
                                     </th>
-                                    <th scope="col" className="px-4 py-3">
+                                    {/* <th scope="col" className="px-4 py-3">
                                         Status
-                                    </th>
+                                    </th> */}
                                     <th scope="col" className="px-4 py-3">
                                         Rating
                                     </th>
                                     <th scope="col" className="px-4 py-3">
-                                        Sales
+                                        Location
                                     </th>
                                     <th scope="col" className="px-4 py-3">
                                         Price
@@ -69,14 +69,16 @@ export default function Table({ items: records }) {
                                             <p>{record.name}</p>
                                         </th>
                                         <td className="px-4 py-2">
-                                            <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded"></span>
+                                            <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded">
+                                                {record.category.name}
+                                            </span>
                                         </td>
-                                        <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
+                                        {/* <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                                             <div className="flex items-center">
                                                 <div className="inline-block w-4 h-4 mr-2 bg-red-700 rounded-full"></div>
                                                 95
                                             </div>
-                                        </td>
+                                        </td> */}
                                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                                             <div className="flex items-center">
                                                 <svg
@@ -131,38 +133,48 @@ export default function Table({ items: records }) {
                                         </td>
                                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                                             <div className="flex items-center">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 24 24"
-                                                    fill="currentColor"
-                                                    className="w-5 h-5 mr-2 text-gray-400"
-                                                    aria-hidden="true"
-                                                >
-                                                    <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
-                                                </svg>
-                                                3000
+                                            <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 21">
+                                                <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1">
+                                                <path d="M8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                                                <path d="M13.8 12.938h-.01a7 7 0 1 0-11.465.144h-.016l.141.17c.1.128.2.252.3.372L8 20l5.13-6.248c.193-.209.373-.429.54-.66l.13-.154Z"/>
+                                                </g>
+                                            </svg>
+                                                {record.location}
                                             </div>
                                         </td>
                                         <td className="px-4 py-2">
                                             {record.price} {record.currency}
                                         </td>
                                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                                            <div>
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                className="w-5 h-5 mr-2 text-gray-400"
-                                                aria-hidden="true"
-                                            >
-                                                <circle cx="12" cy="12" r="1" />
-                                                <circle cx="12" cy="19" r="1" />
-                                                <circle cx="12" cy="5" r="1" />
+                                            <div className = "flex items-center space-x-4">
+                                            {/* Show */}
+                                            <a href={route("estate.show", record.id)}>
+                                                <div class="tooltip" title="Show more details">
+                                                    <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14">
+                                                        <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1">
+                                                            <path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                                                            <path d="M10 13c4.97 0 9-2.686 9-6s-4.03-6-9-6-9 2.686-9 6 4.03 6 9 6Z"/>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </a>
+                                            {/* Show */}
+
+                                            {/* Edit */}
+                                            <a href={route("estate.edit", record.id)}>
+                                                <div class="tooltip" title="Edit Estate">
+                                                    <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 21">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M7.418 17.861 1 20l2.139-6.418m4.279 4.279 10.7-10.7a3.027 3.027 0 0 0-2.14-5.165c-.802 0-1.571.319-2.139.886l-10.7 10.7m4.279 4.279-4.279-4.279m2.139 2.14 7.844-7.844m-1.426-2.853 4.279 4.279"/>
+                                                    </svg>
+                                                </div>
+                                            </a>
+                                            {/* Edit */}
+
+                                            {/* Delete */}
+                                            <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z"/>
                                             </svg>
+                                            {/* Delete */}
 
                                             </div>
                                         </td>
