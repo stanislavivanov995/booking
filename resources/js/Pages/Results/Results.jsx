@@ -28,6 +28,19 @@ export default function Results({ auth, estates, categories }) {
         }
     };
 
+    const pathName = window.location.href;
+    const splitName = pathName.split("=")
+
+    const place_id = splitName[1].split('&')[0];
+    const checkInDate = decodeURIComponent(splitName[2].split('&')[0]).split("T")[0]
+    const checkOutDate = decodeURIComponent(splitName[3]).split("T")[0]
+    const newSearchValues = {
+        place_id,
+        checkInDate,
+        checkOutDate
+    }
+    console.log(newSearchValues);
+
     return (
         <>
             <Head title="Results" />
@@ -51,7 +64,7 @@ export default function Results({ auth, estates, categories }) {
                 </Link>
 
                 <SearchBar
-                    categories={categories}
+                    newSearchValues={newSearchValues}
                     className={"top-0 h-20 mt-[10em] right-[20em]"}
                 />
 
@@ -157,9 +170,8 @@ export default function Results({ auth, estates, categories }) {
                                 <a
                                     href="#"
                                     onClick={() => changeCurrentPage(n)}
-                                    className={`${
-                                        currentPage === n ? "bg-gray-700" : ""
-                                    } flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+                                    className={`${currentPage === n ? "bg-gray-700" : ""
+                                        } flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
                                 >
                                     {n}
                                 </a>
