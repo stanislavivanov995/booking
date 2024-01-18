@@ -1,11 +1,11 @@
 import React, { useState, forwardRef, useEffect, useRef } from 'react';
 
-const OptionsMenu = forwardRef(({ options, onSelect, className = '', isFocused = false, ...props }, ref) => {
+const OptionsMenu = forwardRef(({ options,selected, onSelect, className = '', isFocused = false, ...props }, ref) => {
   const inputRef = ref || useRef();
   const dropdownRef = useRef();
   const [isOpen, setIsOpen] = useState(false);
 //   const [selectedOption, setSelectedOption] = useState(null);
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+  const [selectedOption, setSelectedOption] = useState(selected ? options[selected -1] : options[0]);
 
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const OptionsMenu = forwardRef(({ options, onSelect, className = '', isFocused =
     onSelect && onSelect(option);
   };
 
-  
+
   return (
     <div className="relative" ref={dropdownRef}>
       <input
