@@ -1,13 +1,11 @@
 import Heading from "@/Components/Home/Heading"
 import NavBar from "@/Components/Home/Navbar"
-import SearchBar from "@/Components/Home/SearchBar";
+import SearchBar from "@/Components/Home/SearchBar"
 import { Head, Link } from "@inertiajs/react"
 import { useState } from "react"
 
 
-export default function Results({estates, categories}) {
-
-    console.log(estates);
+export default function Results({auth, estates, categories}) {
 
     const [currentPage, setCurrentPage] = useState(1)
     const recordsPerPage = 10;
@@ -37,7 +35,7 @@ export default function Results({estates, categories}) {
         <>
             <Head title="Results" />
             
-            <Heading />
+            <Heading auth={auth} />
             <NavBar />
             <div className="w-[90%] m-auto">
                 <Link href="/" className="inline-block">
@@ -51,7 +49,7 @@ export default function Results({estates, categories}) {
                     {records.map((estate) => (
                         <Link href="#" className="inline-block">
                             <div className="flex shadow-xl hover:shadow-2xl m-2 rounded-xl">
-                                {estate.images ? 
+                                {estate.images.length > 0 ? 
                                 <img src={estate.images[0].url} alt="" className="w-[230px] h-[230px] rounded-s-xl" />
                                 : <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019" alt="selected image" className="w-[230px] h-[230px] rounded-s-xl" /> }
                                 <div className="py-3 px-5">

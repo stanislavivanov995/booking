@@ -12,7 +12,7 @@ export default function AvatarDropDown({ user }) {
                                     type="button"
                                     className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                 >
-                                    <img
+                                    {/* <img
                                         id="avatarButton"
                                         type="button"
                                         data-dropdown-toggle="userDropdown"
@@ -20,7 +20,8 @@ export default function AvatarDropDown({ user }) {
                                         className="w-10 h-10 rounded-full cursor-pointer"
                                         src="https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png"
                                         alt="User dropdown"
-                                    ></img>
+                                    ></img> */}
+                                    <p>{user.name}</p>
 
                                     <svg
                                         className="ms-2 -me-0.5 h-4 w-4"

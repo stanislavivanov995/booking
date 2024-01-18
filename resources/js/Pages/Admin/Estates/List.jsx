@@ -50,7 +50,7 @@ export default function All({ auth, estates, success }) {
             <section className="bg-gray-50 p-3 sm:p-5 antialiased">
                 <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
                     <div className="bg-white  relative shadow-md sm:rounded-lg overflow-hidden">
-                        <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+                        {/* <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                             <div className="w-full md:w-1/2">
                                 <form className="flex items-center">
                                     <label
@@ -105,7 +105,7 @@ export default function All({ auth, estates, success }) {
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="overflow-x-auto">
                             <div className="py-12 p-5">
                                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -134,7 +134,7 @@ export default function All({ auth, estates, success }) {
                                 of
                                 <span className="font-semibold text-gray-900 dark:text-white">1000</span>
                             </span> */}
-                            <ul className="inline-flex items-stretch -space-x-px">
+                            {/* <ul className="inline-flex items-stretch -space-x-px">
                                 <li>
                                     <a
                                         href="#"
@@ -193,7 +193,7 @@ export default function All({ auth, estates, success }) {
                                         </svg>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> */}
                         </nav>
                     </div>
                 </div>
