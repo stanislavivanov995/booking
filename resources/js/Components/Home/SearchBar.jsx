@@ -2,12 +2,10 @@ import { router, useForm } from "@inertiajs/react";
 import { useState } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function SearchBar({ categories }) {
-
+export default function SearchBar({ categories, className }) {
     // const [selectedCategory, setSelectedCategory] = useState(null);
     const [placeId, setPlaceId] = useState("");
     const [startDate, setStartDate] = useState(new Date());
@@ -17,9 +15,8 @@ export default function SearchBar({ categories }) {
         place_id: "",
         // category_id: "",
         check_in: startDate,
-        check_out: endDate
+        check_out: endDate,
     });
-
 
     // useEffect(() => {
     //     if (selectedCategory) {
@@ -35,23 +32,21 @@ export default function SearchBar({ categories }) {
     // };
 
     const handleCheckInDate = (selectedItem) => {
-        setData('check_in', selectedItem);
-    }
+        setData("check_in", selectedItem);
+    };
 
-        const handleCheckOutDate = (selectedItem) => {
-        setData('check_out', selectedItem);
-    }
-
-
+    const handleCheckOutDate = (selectedItem) => {
+        setData("check_out", selectedItem);
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const checkInDate = startDate.toLocaleDateString();
         const checkOutDate = endDate.toLocaleDateString();
-        console.log(data);
-        
+        console.log("in search", data);
+
         try {
-            const results = router.get('/results', data)
+            const results = router.get("/results", data);
 
             console.log(results);
         } catch (error) {
@@ -61,7 +56,9 @@ export default function SearchBar({ categories }) {
 
     return (
         <>
-            <div className="xl:w-[1200px] w-[75%] lg:p-1 pt-2 bg-white shadow-2xl absolute lg:bottom-[-10px] bottom-[-15px] rounded-lg">
+            <div
+                className={`xl:w-[1200px] w-[75%] lg:p-1 pt-2 bg-white shadow-2xl absolute lg:bottom-[-10px] bottom-[-15px] rounded-lg ${className}`}
+            >
                 <form
                     onSubmit={(e) => handleSubmit(e)}
                     className="flex xl:flex-row lg:gap-0 gap-1 flex-col justify-evenly items-center lg:p-2"
@@ -77,7 +74,6 @@ export default function SearchBar({ categories }) {
                         </svg>
                         {/* Search Input */}
                         <div className="lg:w-[350px] w-[210px] mt-1">
-
                             <GooglePlacesAutocomplete
                                 apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
                                 selectProps={{
@@ -102,7 +98,7 @@ export default function SearchBar({ categories }) {
                             selected={startDate}
                             onChange={(date) => {
                                 handleCheckInDate(date);
-                                setStartDate(date)
+                                setStartDate(date);
                             }}
                             selectsStart
                             startDate={startDate}
@@ -114,7 +110,7 @@ export default function SearchBar({ categories }) {
                             selected={endDate}
                             onChange={(date) => {
                                 handleCheckOutDate(date);
-                                setEndDate(date)
+                                setEndDate(date);
                             }}
                             selectsEnd
                             startDate={startDate}
