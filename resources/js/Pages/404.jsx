@@ -2,14 +2,15 @@ import { Head } from '@inertiajs/react';
 import Heading from '@/Components/Home/Heading';
 
 
-export default function error404(auth) {
+export default function error404({auth}) {
+    console.log(auth);
     return (
         <>
             <Head title="Error" />
-            <Heading auth={auth} />
+            {/* <Heading auth={auth} /> */}
 
             <main className="bg-[url('https://wallpapercave.com/wp/wp1846069.jpg')] 
-            bg-cover relative bg-center min-h-[80vh] text-center flex flex-col justify-center items-center opacity-1">
+            bg-cover relative bg-center min-h-[100vh] text-center flex flex-col justify-center items-center opacity-1">
             <div className="grid min-h-full place-items-center bg-white bg-opacity-70 px-6 py-24 sm:py-32 lg:px-8 border-solid border-2 border-orange-500 rounded-lg shadow-md  ">
                 <div className="text-center px-4">
                     {/* <p className="text-base font-semibold text-indigo-600">404</p> */}
