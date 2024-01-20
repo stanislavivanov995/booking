@@ -1,8 +1,40 @@
-export default function Table({ items: records }) {
+import { useState } from "react";
+
+export default function Table({ items: records, query }) {
+
+
+    // Pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const recordsPerPage = 5;
+    const lastIndex = currentPage * recordsPerPage;
+    const firstIndex = lastIndex - recordsPerPage;
+    const estates = records.slice(firstIndex, lastIndex);
+    const nPage = Math.ceil(records.length / recordsPerPage);
+    const numbers = [...Array(nPage + 1).keys()].slice(1);
+
+    const prevPage = () => {
+        if (currentPage <= 1) {
+            return;
+        }
+        if (currentPage !== firstIndex) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+    const changeCurrentPage = (id) => {
+        setCurrentPage(id);
+    };
+
+    const nextPage = () => {
+        if (currentPage !== nPage) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
     console.log(records);
     const defaultImage =
         "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
     return (
+
         <section className="bg-gray-50 py-3 sm:py-5">
             <div className="px-4 mx-auto max-w-screen-2xl lg:px-12">
                 <div className="relative overflow-hidden bg-white shadow-md sm:rounded-lg">
@@ -17,7 +49,7 @@ export default function Table({ items: records }) {
                             </h5>
                         </div>
                         <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
-                         {/* Buttons */}
+                            {/* Buttons */}
                         </div>
                     </div>
                     <div className="overflow-x-auto">
@@ -48,7 +80,7 @@ export default function Table({ items: records }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {records.map((record) => (
+                                {estates.filter((estate) => estate.name.toLowerCase().includes(query.toLowerCase())).map((record) => (
                                     <tr
                                         key={record.id}
                                         className="border-b hover:bg-gray-100"
@@ -133,12 +165,12 @@ export default function Table({ items: records }) {
                                         </td>
                                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                                             <div className="flex items-center">
-                                            <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 21">
-                                                <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1">
-                                                <path d="M8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-                                                <path d="M13.8 12.938h-.01a7 7 0 1 0-11.465.144h-.016l.141.17c.1.128.2.252.3.372L8 20l5.13-6.248c.193-.209.373-.429.54-.66l.13-.154Z"/>
-                                                </g>
-                                            </svg>
+                                                <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 21">
+                                                    <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1">
+                                                        <path d="M8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                                        <path d="M13.8 12.938h-.01a7 7 0 1 0-11.465.144h-.016l.141.17c.1.128.2.252.3.372L8 20l5.13-6.248c.193-.209.373-.429.54-.66l.13-.154Z" />
+                                                    </g>
+                                                </svg>
                                                 {record.location}
                                             </div>
                                         </td>
@@ -146,35 +178,35 @@ export default function Table({ items: records }) {
                                             {record.price} {record.currency}
                                         </td>
                                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                                            <div className = "flex items-center space-x-4">
-                                            {/* Show */}
-                                            <a href={route("estate.show", record.id)}>
-                                                <div class="tooltip" title="Show more details">
-                                                    <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14">
-                                                        <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1">
-                                                            <path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-                                                            <path d="M10 13c4.97 0 9-2.686 9-6s-4.03-6-9-6-9 2.686-9 6 4.03 6 9 6Z"/>
-                                                        </g>
-                                                    </svg>
-                                                </div>
-                                            </a>
-                                            {/* Show */}
+                                            <div className="flex items-center space-x-4">
+                                                {/* Show */}
+                                                <a href={route("estate.show", record.id)}>
+                                                    <div class="tooltip" title="Show more details">
+                                                        <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14">
+                                                            <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1">
+                                                                <path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                                                <path d="M10 13c4.97 0 9-2.686 9-6s-4.03-6-9-6-9 2.686-9 6 4.03 6 9 6Z" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                </a>
+                                                {/* Show */}
 
-                                            {/* Edit */}
-                                            <a href={route("estate.edit", record.id)}>
-                                                <div class="tooltip" title="Edit Estate">
-                                                    <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 21">
-                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M7.418 17.861 1 20l2.139-6.418m4.279 4.279 10.7-10.7a3.027 3.027 0 0 0-2.14-5.165c-.802 0-1.571.319-2.139.886l-10.7 10.7m4.279 4.279-4.279-4.279m2.139 2.14 7.844-7.844m-1.426-2.853 4.279 4.279"/>
-                                                    </svg>
-                                                </div>
-                                            </a>
-                                            {/* Edit */}
+                                                {/* Edit */}
+                                                <a href={route("estate.edit", record.id)}>
+                                                    <div class="tooltip" title="Edit Estate">
+                                                        <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 21">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M7.418 17.861 1 20l2.139-6.418m4.279 4.279 10.7-10.7a3.027 3.027 0 0 0-2.14-5.165c-.802 0-1.571.319-2.139.886l-10.7 10.7m4.279 4.279-4.279-4.279m2.139 2.14 7.844-7.844m-1.426-2.853 4.279 4.279" />
+                                                        </svg>
+                                                    </div>
+                                                </a>
+                                                {/* Edit */}
 
-                                            {/* Delete */}
-                                            <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z"/>
-                                            </svg>
-                                            {/* Delete */}
+                                                {/* Delete */}
+                                                <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z" />
+                                                </svg>
+                                                {/* Delete */}
 
                                             </div>
                                         </td>
@@ -184,16 +216,25 @@ export default function Table({ items: records }) {
                         </table>
                     </div>
                     <nav
-                        className="flex flex-col items-start justify-between p-4 space-y-3 md:flex-row md:items-center md:space-y-0"
+                        className="flex flex-col md:flex-row justify-center items-center space-y-3 md:space-y-0 p-4"
                         aria-label="Table navigation"
                     >
+                        {/* <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                                Showing
+                                <span className="font-semibold text-gray-900 dark:text-white">1-10</span>
+                                of
+                                <span className="font-semibold text-gray-900 dark:text-white">1000</span>
+                            </span> */}
                         <ul className="inline-flex items-stretch -space-x-px">
                             <li>
                                 <a
                                     href="#"
-                                    className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark"
+                                    onClick={prevPage}
+                                    className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700  dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                                 >
-                                    <span className="sr-only">Previous</span>
+                                    <span className="sr-only">
+                                        Previous
+                                    </span>
                                     <svg
                                         className="w-5 h-5"
                                         aria-hidden="true"
@@ -209,51 +250,23 @@ export default function Table({ items: records }) {
                                     </svg>
                                 </a>
                             </li>
+                            {numbers.map((n, i) => (
+                                <li key={i}>
+                                    <a
+                                        href="#"
+                                        onClick={() => changeCurrentPage(n)}
+                                        className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                    >
+                                        {n}
+                                    </a>
+                                </li>
+                            ))}
+
                             <li>
                                 <a
                                     href="#"
-                                    className="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                                >
-                                    1
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                                >
-                                    2
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    aria-current="page"
-                                    className="z-10 flex items-center justify-center px-3 py-2 text-sm leading-tight border text-primary-600 bg-primary-50 border-primary-300 hover:bg-primary-100 hover:text-primary-700"
-                                >
-                                    3
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                                >
-                                    ...
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                                >
-                                    100
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+                                    onClick={nextPage}
+                                    className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700  dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                                 >
                                     <span className="sr-only">Next</span>
                                     <svg
