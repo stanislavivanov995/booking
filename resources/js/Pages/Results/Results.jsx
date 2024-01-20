@@ -65,7 +65,7 @@ export default function Results({ auth, estates, categories }) {
 
                 <SearchBar
                     newSearchValues={newSearchValues}
-                    className={"top-0 h-20 mt-[10em] right-[20em]"}
+                    className={"top-0 h-20 mt-[10em]"}
                 />
 
                 {estates.length > 0 ? (
