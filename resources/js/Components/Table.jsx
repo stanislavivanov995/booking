@@ -165,8 +165,8 @@ export default function Table({ items: records, query }) {
                                         </td>
                                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                                             <div className="flex items-center">
-                                                <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 21">
-                                                    <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1">
+                                                <svg className="w-[18px] h-[18px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 21">
+                                                    <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.1">
                                                         <path d="M8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                                                         <path d="M13.8 12.938h-.01a7 7 0 1 0-11.465.144h-.016l.141.17c.1.128.2.252.3.372L8 20l5.13-6.248c.193-.209.373-.429.54-.66l.13-.154Z" />
                                                     </g>
@@ -181,9 +181,9 @@ export default function Table({ items: records, query }) {
                                             <div className="flex items-center space-x-4">
                                                 {/* Show */}
                                                 <a href={route("estate.show", record.id)}>
-                                                    <div class="tooltip" title="Show more details">
-                                                        <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14">
-                                                            <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1">
+                                                    <div className="tooltip" title="Show more details">
+                                                        <svg className="w-[18px] h-[18px] text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14">
+                                                            <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.1">
                                                                 <path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                                                                 <path d="M10 13c4.97 0 9-2.686 9-6s-4.03-6-9-6-9 2.686-9 6 4.03 6 9 6Z" />
                                                             </g>
@@ -194,17 +194,17 @@ export default function Table({ items: records, query }) {
 
                                                 {/* Edit */}
                                                 <a href={route("estate.edit", record.id)}>
-                                                    <div class="tooltip" title="Edit Estate">
-                                                        <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 21">
-                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M7.418 17.861 1 20l2.139-6.418m4.279 4.279 10.7-10.7a3.027 3.027 0 0 0-2.14-5.165c-.802 0-1.571.319-2.139.886l-10.7 10.7m4.279 4.279-4.279-4.279m2.139 2.14 7.844-7.844m-1.426-2.853 4.279 4.279" />
+                                                    <div className="tooltip" title="Edit Estate">
+                                                        <svg className="w-[18px] h-[18px] text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 21">
+                                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.1" d="M7.418 17.861 1 20l2.139-6.418m4.279 4.279 10.7-10.7a3.027 3.027 0 0 0-2.14-5.165c-.802 0-1.571.319-2.139.886l-10.7 10.7m4.279 4.279-4.279-4.279m2.139 2.14 7.844-7.844m-1.426-2.853 4.279 4.279" />
                                                         </svg>
                                                     </div>
                                                 </a>
                                                 {/* Edit */}
 
                                                 {/* Delete */}
-                                                <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z" />
+                                                <svg className="w-[18px] h-[18px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.1" d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z" />
                                                 </svg>
                                                 {/* Delete */}
 
