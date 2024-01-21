@@ -29,8 +29,8 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Throwable $e)
-    {
-        return Inertia::render('404');
-    }
+    // public function render($request, Throwable $e)
+    // {
+    //     return Inertia::render('404');
+    // }
 }
