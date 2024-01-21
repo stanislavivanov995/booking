@@ -13,6 +13,7 @@ import TimePicker from "react-time-picker";
 import "react-clock/dist/Clock.css";
 import "react-time-picker/dist/TimePicker.css";
 import Checkbox from "./Checkbox";
+import AutoComplete from "react-google-autocomplete"
 
 export default function CreateEstateForm(categories) {
     const { setData, post, errors, processing, recentlySuccessful } = useForm({
@@ -152,14 +153,14 @@ export default function CreateEstateForm(categories) {
                     <div className="mt-3">
                         <InputLabel htmlFor="location" value="Location*" />
 
-                        <GooglePlacesAutocomplete
+                        <AutoComplete
                             apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
-                            selectProps={{
-                                placeId,
-                                onChange: (e) =>
-                                    setData("place_id", e.value.place_id),
+                            className="mt-1 block w-full border border-gray-300 rounded-lg"
+                            onPlaceSelected={(place) => {
+                                setData("place_id", place.place_id)
                             }}
                         />
+
                         <InputError
                             className="mt-2"
                             message={errors.place_id}
