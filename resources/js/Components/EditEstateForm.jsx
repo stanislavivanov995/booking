@@ -4,6 +4,8 @@ import InputLabel from "@/Components/InputLabel.jsx";
 import TextInput from "@/Components/TextInput.jsx";
 import InputError from "@/Components/InputError.jsx";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import "react-clock/dist/Clock.css";
+import "react-time-picker/dist/TimePicker.css";
 import TimePicker from "react-time-picker";
 import OptionsMenu from "@/Components/OptionsMenu.jsx";
 import TextArea from "@/Components/TextArea.jsx";
@@ -11,7 +13,7 @@ import Checkbox from "@/Components/Checkbox.jsx";
 import CreateFormSubmitButton from "@/Components/CreateFormSubmitButton.jsx";
 import {Transition} from "@headlessui/react";
 
-export default function EditEstateForm({estate}) {
+export default function EditEstateForm({ estate, categories }) {
     const {setData, post, errors, processing, recentlySuccessful} = useForm({
         name: "",
         description: "",
@@ -24,32 +26,27 @@ export default function EditEstateForm({estate}) {
         currency: "BGN",
         rooms: "",
         beds: "",
-        wifi: 0,
-        parking: 0,
-        breakfast: 0,
-        lunch: 0,
-        dinner: 0,
-        swimming_pool: 0,
-        spa: 0,
+        wifi: estate.facilities.wifi,
+        parking: estate.facilities.parking,
+        breakfast: estate.facilities.breakfast,
+        lunch: estate.facilities.lunch,
+        dinner: estate.facilities.dinner,
+        swimming_pool: estate.facilities.swimming_pool,
+        spa: estate.facilities.spa,
     });
 
-    const categories = [
-        {id:1,name:'Hotel'},
-        {id:2,name:'Apartment'},
-        {id:3,name:'House'},
-        {id:4,name:'Hostel / room'},
-        {id:5,name:'Camping'},
-    ];
-
     const [showTooltip, setShowTooltip] = useState(false);
-    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [selectedFiles, setSelectedFiles] = useState(estate.images);
     const [fileStatus, setFileStatus] = useState(
         "Click to upload or drag and drop"
     );
 
-    const [placeId, setPlaceId] = useState("");
+    console.log(selectedFiles);
 
-    const [selectedCategory, setSelectedCategory] = useState(1);
+    // const [placeId, setPlaceId] = useState("");
+    const [placeId, setPlaceId] = useState(estate.location);
+
+    const [selectedCategory, setSelectedCategory] = useState(estate.category_id);
 
     const [checkInTime, setCheckInTime] = useState(estate.arrive_hour);
     const [checkOutTime, setCheckOutTime] = useState(estate.leave_hour);
@@ -374,36 +371,41 @@ export default function EditEstateForm({estate}) {
                     <div className="flex justify-between space-x-7">
                         <Checkbox
                             label="Wi-fi"
-                            onChange={(e) =>
-                                setData("wifi", e.target.checked ? 1 : 0)
-                            }
+                            checked={estate.facilities.wifi} 
+                            onChange={(e) => setData("wifi", e.target.checked ? 1 : 0)}
                         />
+
                         <Checkbox
                             label="Parking Place"
+                            checked={estate.facilities.parking} 
                             onChange={(e) =>
                                 setData("parking", e.target.checked ? 1 : 0)
                             }
                         />
                         <Checkbox
                             label="Breakfast"
+                            checked={estate.facilities.breakfast}
                             onChange={(e) =>
                                 setData("breakfast", e.target.checked ? 1 : 0)
                             }
                         />
                         <Checkbox
                             label="Lunch"
+                            checked={estate.facilities.lunch}
                             onChange={(e) =>
                                 setData("lunch", e.target.checked ? 1 : 0)
                             }
                         />
                         <Checkbox
                             label="Dinner"
+                            checked={estate.facilities.dinner}
                             onChange={(e) =>
                                 setData("dinner", e.target.checked ? 1 : 0)
                             }
                         />
                         <Checkbox
                             label="Swimming Pool"
+                            checked={estate.facilities.swimming_pool}
                             onChange={(e) =>
                                 setData(
                                     "swimming_pool",
@@ -413,6 +415,7 @@ export default function EditEstateForm({estate}) {
                         />
                         <Checkbox
                             label="Spa"
+                            checked={estate.facilities.spa}
                             onChange={(e) =>
                                 setData("spa", e.target.checked ? 1 : 0)
                             }
@@ -450,10 +453,8 @@ export default function EditEstateForm({estate}) {
                                                 key={index}
                                                 className="relative"
                                             >
-                                                <img
-                                                    src={URL.createObjectURL(
-                                                        file
-                                                    )}
+                                               <img
+                                                    src={file.url}
                                                     alt={`Image ${index}`}
                                                     className="w-20 h-20 object-cover rounded-lg"
                                                 />

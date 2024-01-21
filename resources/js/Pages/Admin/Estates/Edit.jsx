@@ -3,9 +3,7 @@ import {Head} from '@inertiajs/react';
 import EditEstateForm from "@/Components/EditEstateForm.jsx";
 
 
-export default function Edit({auth, estate}) {
-    console.log(estate)
-    console.log(estate.name)
+export default function Edit({auth, estate, categories}) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -16,7 +14,7 @@ export default function Edit({auth, estate}) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                     <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <EditEstateForm estate={estate}/>
+                        <EditEstateForm estate={estate} categories={categories}/>
                     </div>
                 </div>
             </div>

@@ -96,8 +96,21 @@ class EstatesController extends Controller
 
     public function edit(Estate $estate) 
     {
+        $estate->load('facilities');
+        $estate->load('images');
+
+        $estate->facilities->wifi = $estate->facilities->wifi === "1";
+        $estate->facilities->parking = $estate->facilities->parking === "1";
+        $estate->facilities->breakfast = $estate->facilities->breakfast === "1";
+        $estate->facilities->lunch = $estate->facilities->lunch === "1";
+        $estate->facilities->dinner = $estate->facilities->dinner === "1";
+        $estate->facilities->swimming_pool = $estate->facilities->swimming_pool === "1";    
+        $estate->facilities->spa = $estate->facilities->spa === "1";    
+
+
         return Inertia::render('Admin/Estates/Edit', [
-            'estate' => $estate
+            'estate' => $estate,
+            'categories' => Category::all(),
         ]);
     }
 
