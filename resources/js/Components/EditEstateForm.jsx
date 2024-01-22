@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import InputLabel from "@/Components/InputLabel.jsx";
 import TextInput from "@/Components/TextInput.jsx";
 import InputError from "@/Components/InputError.jsx";
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import AutoComplete from "react-google-autocomplete"
 import "react-clock/dist/Clock.css";
 import "react-time-picker/dist/TimePicker.css";
 import TimePicker from "react-time-picker";
@@ -14,6 +14,7 @@ import CreateFormSubmitButton from "@/Components/CreateFormSubmitButton.jsx";
 import {Transition} from "@headlessui/react";
 
 export default function EditEstateForm({ estate, categories }) {
+    console.log('extras: ' ,estate.facilities.wifi);
     const {setData, post, errors, processing, recentlySuccessful} = useForm({
         name: "",
         description: "",
@@ -155,14 +156,15 @@ export default function EditEstateForm({ estate, categories }) {
                     <div className="mt-3">
                         <InputLabel htmlFor="location" value="Location*"/>
 
-                        <GooglePlacesAutocomplete
+                        <AutoComplete
+                            defaultValue={estate.location}
                             apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
-                            selectProps={{
-                                placeId,
-                                onChange: (e) =>
-                                    setData("place_id", e.value.place_id),
+                            className="mt-1 block w-full border border-gray-300 rounded-lg"
+                            onPlaceSelected={(place) => {
+                                setData("place_id", place.place_id)
                             }}
                         />
+
                         <InputError
                             className="mt-2"
                             message={errors.place_id}
@@ -369,57 +371,19 @@ export default function EditEstateForm({ estate, categories }) {
                     />
 
                     <div className="flex justify-between space-x-7">
-                        <Checkbox
-                            label="Wi-fi"
-                            checked={estate.facilities.wifi} 
-                            onChange={(e) => setData("wifi", e.target.checked ? 1 : 0)}
-                        />
+                        <Checkbox label="Wi-fi" FacilityCheck={estate.facilities.wifi}/>
 
-                        <Checkbox
-                            label="Parking Place"
-                            checked={estate.facilities.parking} 
-                            onChange={(e) =>
-                                setData("parking", e.target.checked ? 1 : 0)
-                            }
-                        />
-                        <Checkbox
-                            label="Breakfast"
-                            checked={estate.facilities.breakfast}
-                            onChange={(e) =>
-                                setData("breakfast", e.target.checked ? 1 : 0)
-                            }
-                        />
-                        <Checkbox
-                            label="Lunch"
-                            checked={estate.facilities.lunch}
-                            onChange={(e) =>
-                                setData("lunch", e.target.checked ? 1 : 0)
-                            }
-                        />
-                        <Checkbox
-                            label="Dinner"
-                            checked={estate.facilities.dinner}
-                            onChange={(e) =>
-                                setData("dinner", e.target.checked ? 1 : 0)
-                            }
-                        />
-                        <Checkbox
-                            label="Swimming Pool"
-                            checked={estate.facilities.swimming_pool}
-                            onChange={(e) =>
-                                setData(
-                                    "swimming_pool",
-                                    e.target.checked ? 1 : 0
-                                )
-                            }
-                        />
-                        <Checkbox
-                            label="Spa"
-                            checked={estate.facilities.spa}
-                            onChange={(e) =>
-                                setData("spa", e.target.checked ? 1 : 0)
-                            }
-                        />
+                        <Checkbox label="Parking" FacilityCheck={estate.facilities.parking}/>
+
+                        <Checkbox label="Breakfast" FacilityCheck={estate.facilities.breakfast}/>
+
+                        <Checkbox label="Lunch" FacilityCheck={estate.facilities.lunch}/>
+
+                        <Checkbox label="Dinner" FacilityCheck={estate.facilities.dinner}/>
+
+                        <Checkbox label="Swimming Pool" FacilityCheck={estate.facilities.swimming_pool}/>
+
+                        <Checkbox label="Spa" FacilityCheck={estate.facilities.spa}/>
                     </div>
                     {/* Facilities */}
 
