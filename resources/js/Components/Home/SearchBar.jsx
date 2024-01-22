@@ -1,6 +1,7 @@
 import { router, useForm } from "@inertiajs/react";
 import { useState } from "react";
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import AutoComplete from 'react-google-autocomplete'
+import { geocodeByPlaceId } from "react-google-places-autocomplete";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -10,6 +11,14 @@ export default function SearchBar({ newSearchValues, className }) {
         newSearchValues?.place_id ? newSearchValues.place_id : ""
     );
 
+    const [location, setLocation] = useState("");
+
+    if (newSearchValues?.place_id) {
+        geocodeByPlaceId(placeId)
+            .then((results) => setLocation(results[0].formatted_address))
+            .catch((error) => console.log(error))
+    }
+
     const [startDate, setStartDate] = useState(
         newSearchValues?.checkInDate ? new Date(newSearchValues.checkInDate) : new Date()
     );
@@ -17,6 +26,7 @@ export default function SearchBar({ newSearchValues, className }) {
     const [endDate, setEndDate] = useState(
         newSearchValues?.checkOutDate ? new Date(newSearchValues.checkOutDate) : new Date()
     );
+
 
     const { data, setData, post, processing, errors } = useForm({
         place_id: placeId,
@@ -39,9 +49,9 @@ export default function SearchBar({ newSearchValues, className }) {
         const checkOutDate = endDate.toLocaleDateString();
 
         try {
-            const results = router.get("/results", data);
+            if (!data.place_id) { throw new Error("Should be selected location!") }
+            router.get("/results", data);
 
-            console.log(results);
         } catch (error) {
             console.log(error);
         }
@@ -67,14 +77,12 @@ export default function SearchBar({ newSearchValues, className }) {
                         </svg>
                         {/* Search Input */}
                         <div className="lg:w-[350px] w-[210px] mt-1">
-                            <GooglePlacesAutocomplete
-                                value={placeId}
+                            <AutoComplete
                                 apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
-                                selectProps={{
-                                    placeId,
-                                    onChange: (e) =>{
-                                        setData("place_id", e.value.place_id)
-                                    }
+                                className="mt-1 block w-full border border-gray-300 rounded-lg"
+                                defaultValue={location}
+                                onPlaceSelected={(place) => {
+                                    setData("place_id", place.place_id)
                                 }}
                             />
                         </div>

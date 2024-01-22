@@ -4,6 +4,7 @@ import SearchBar from "@/Components/Home/SearchBar";
 import { Head, Link } from "@inertiajs/react";
 import { useState } from "react";
 
+
 export default function Results({ auth, estates, categories }) {
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 10;
@@ -49,24 +50,26 @@ export default function Results({ auth, estates, categories }) {
             <NavBar />
 
             <div className="w-[90%] m-auto mt-8">
-                <Link href="/" className="inline-block">
-                    <button>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="hover:opacity-15 duration-[0.3s] bg-black w-[150px] fill-white p-2 rounded-xl cursor-pointer"
-                            height="35"
-                            width="35"
-                            viewBox="0 0 448 512"
-                        >
-                            <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
-                        </svg>
-                    </button>
-                </Link>
+                <div className="flex w-full gap-[10em]">
+                    <Link href="/" className="inline-block">
+                        <button>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="hover:opacity-15 duration-[0.3s] bg-black w-[150px] fill-white p-2 rounded-xl cursor-pointer"
+                                height="35"
+                                width="35"
+                                viewBox="0 0 448 512"
+                            >
+                                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+                            </svg>
+                        </button>
+                    </Link>
 
-                <SearchBar
-                    newSearchValues={newSearchValues}
-                    className={"top-0 h-20 mt-[10em]"}
-                />
+                    <SearchBar
+                        newSearchValues={newSearchValues}
+                        className={"top-0 h-20 mt-[10em] right-[20em]"}
+                    />
+                </div>
 
                 {estates.length > 0 ? (
                     <div className="flex flex-col mt-[4em] gap-[2.5em] items-center justify-middle">
