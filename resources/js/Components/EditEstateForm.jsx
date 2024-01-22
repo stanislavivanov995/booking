@@ -14,7 +14,6 @@ import CreateFormSubmitButton from "@/Components/CreateFormSubmitButton.jsx";
 import {Transition} from "@headlessui/react";
 
 export default function EditEstateForm({ estate, categories }) {
-    console.log('extras: ' ,estate.facilities.wifi);
     const {setData, post, errors, processing, recentlySuccessful} = useForm({
         name: "",
         description: "",
@@ -37,7 +36,7 @@ export default function EditEstateForm({ estate, categories }) {
     });
 
     const [showTooltip, setShowTooltip] = useState(false);
-    const [selectedFiles, setSelectedFiles] = useState(estate.images);
+    const [selectedFiles, setSelectedFiles] = useState(estate.images || []);
     const [fileStatus, setFileStatus] = useState(
         "Click to upload or drag and drop"
     );
@@ -388,7 +387,7 @@ export default function EditEstateForm({ estate, categories }) {
                     {/* Facilities */}
 
                     {/* Images */}
-                    {showTooltip && (
+                   {showTooltip && (
                         <div
                             id="tooltip-click"
                             role="tooltip"
@@ -417,11 +416,19 @@ export default function EditEstateForm({ estate, categories }) {
                                                 key={index}
                                                 className="relative"
                                             >
-                                               <img
-                                                    src={file.url}
-                                                    alt={`Image ${index}`}
-                                                    className="w-20 h-20 object-cover rounded-lg"
+                                                {file instanceof File ? (
+                                                <img
+                                                src={URL.createObjectURL(file)}
+                                                alt={`Image ${index}`}
+                                                className="w-20 h-20 object-cover rounded-lg"
                                                 />
+                                            ) : (
+                                                <img
+                                                src={file.url}
+                                                alt={`Image ${index}`}
+                                                className="w-20 h-20 object-cover rounded-lg"
+                                                />
+                                            )}
                                                 <button
                                                     onClick={(e) => {
                                                         e.preventDefault();
