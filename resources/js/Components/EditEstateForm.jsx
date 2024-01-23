@@ -15,17 +15,17 @@ import {Transition} from "@headlessui/react";
 
 export default function EditEstateForm({ estate, categories }) {
     const {setData, post, errors, processing, recentlySuccessful} = useForm({
-        name: "",
-        description: "",
-        images: [],
+        name: estate.name,
+        description: estate.description,
+        images: estate.images,
         place_id: "",
-        category_id: 1,
-        arrive_hour: "10:00",
-        leave_hour: "12:00",
-        price: "",
-        currency: "BGN",
-        rooms: "",
-        beds: "",
+        category_id: estate.category_id,
+        arrive_hour: estate.arrive_hour,
+        leave_hour: estate.leave_hour,
+        price: estate.price,
+        currency: estate.currency,
+        rooms: estate.rooms,
+        beds: estate.beds,
         wifi: estate.facilities.wifi,
         parking: estate.facilities.parking,
         breakfast: estate.facilities.breakfast,
@@ -40,8 +40,6 @@ export default function EditEstateForm({ estate, categories }) {
     const [fileStatus, setFileStatus] = useState(
         "Click to upload or drag and drop"
     );
-
-    console.log(selectedFiles);
 
     // const [placeId, setPlaceId] = useState("");
     const [placeId, setPlaceId] = useState(estate.location);
@@ -120,7 +118,7 @@ export default function EditEstateForm({ estate, categories }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("estates.store"));
+        post(route("estate.update", estate.id));
     };
 
     return (
