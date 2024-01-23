@@ -1,10 +1,11 @@
 import { router, useForm } from "@inertiajs/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AutoComplete from 'react-google-autocomplete'
 import { geocodeByPlaceId } from "react-google-places-autocomplete";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
 
 export default function SearchBar({ newSearchValues, className }) {
     const [placeId, setPlaceId] = useState(
@@ -13,11 +14,18 @@ export default function SearchBar({ newSearchValues, className }) {
 
     const [location, setLocation] = useState("");
 
-    if (newSearchValues?.place_id) {
-        geocodeByPlaceId(placeId)
-            .then((results) => setLocation(results[0].formatted_address))
-            .catch((error) => console.log(error))
+
+    try {
+        if (newSearchValues.place_id) {
+            geocodeByPlaceId(placeId)
+                .then((results) => setLocation(results[0].formatted_address))
+                .catch((error) => console.error(error));
+        }
+    } catch (error) {
+        console.log(error);
     }
+
+
 
     const [startDate, setStartDate] = useState(
         newSearchValues?.checkInDate ? new Date(newSearchValues.checkInDate) : new Date()

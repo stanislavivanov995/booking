@@ -40,7 +40,6 @@ export default function Results({ auth, estates, categories }) {
         checkInDate,
         checkOutDate
     }
-    console.log(newSearchValues);
 
     return (
         <>
