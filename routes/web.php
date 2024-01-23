@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/estates', [EstatesController::class, 'index'])->name('estates.index');
     Route::get('/estates/create', [EstatesController::class, 'create'])->name('estates.create');
     Route::post('/estates/store', [EstatesController::class, 'store'])->name('estates.store');
+    Route::get('/estates/export', [EstatesController::class, 'export'])->name('estates.export');
     Route::get('/estates/edit/{estate}', [EstatesController::class, 'edit'])->name('estate.edit')
         ->missing(function (Request $request) {
             return Redirect::route('estates.index');

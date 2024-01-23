@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\EstatesExport;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\{Estate, Image, Category, Facility};
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEstateRequest;
 use GuzzleHttp\Client;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EstatesController extends Controller
 {
@@ -22,7 +24,7 @@ class EstatesController extends Controller
 
     public function create()
     {
-        return Inertia::render('Admin/Estates/Create' ,[
+        return Inertia::render('Admin/Estates/Create', [
             'categories' => Category::all()
         ]);
     }
@@ -34,7 +36,7 @@ class EstatesController extends Controller
         $client = new Client();
         $response = $client->get(
             "https://maps.googleapis.com/maps/api/place/details/json?placeid=$placeId&key="
-            . self::GOOGLE_LOCATION_API_KEY
+                . self::GOOGLE_LOCATION_API_KEY
         );
 
         $locationData = json_decode($response->getBody(), true);
@@ -79,7 +81,7 @@ class EstatesController extends Controller
         if ($images) {
             foreach ($images as $image) {
                 $path = $image->store('public/images');
-                
+
                 $url = asset('storage/' . str_replace('public/', '', $path));
 
                 Image::create([
@@ -94,7 +96,7 @@ class EstatesController extends Controller
         return Redirect::route('estates.index')->with('success', 'Estate was created successfully!');
     }
 
-    public function edit(Estate $estate) 
+    public function edit(Estate $estate)
     {
         $estate->load('facilities');
         $estate->load('images');
@@ -104,8 +106,8 @@ class EstatesController extends Controller
         $estate->facilities->breakfast = $estate->facilities->breakfast === "1";
         $estate->facilities->lunch = $estate->facilities->lunch === "1";
         $estate->facilities->dinner = $estate->facilities->dinner === "1";
-        $estate->facilities->swimming_pool = $estate->facilities->swimming_pool === "1";    
-        $estate->facilities->spa = $estate->facilities->spa === "1";    
+        $estate->facilities->swimming_pool = $estate->facilities->swimming_pool === "1";
+        $estate->facilities->spa = $estate->facilities->spa === "1";
 
 
         return Inertia::render('Admin/Estates/Edit', [
@@ -114,16 +116,16 @@ class EstatesController extends Controller
         ]);
     }
 
-    public function show(Estate $estate) 
+    public function show(Estate $estate)
     {
         $estate->load('category');
- 
+
         $facilitiesArray = $estate->facilities->toArray();
 
-        $availableFacilities = array_filter($facilitiesArray, function($value) {
+        $availableFacilities = array_filter($facilitiesArray, function ($value) {
             return $value == 1;
         });
-        
+
         $facilities = array_combine(
             array_map(function ($key) {
                 return str_replace('_', ' ', ucfirst($key));
@@ -136,7 +138,12 @@ class EstatesController extends Controller
         return Inertia::render('Admin/Estates/Show', [
             'estate' => $estate,
             'facilities' => $facilities,
-            'images'=> $images
+            'images' => $images
         ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new EstatesExport, 'estates.xlsx');
     }
 }
