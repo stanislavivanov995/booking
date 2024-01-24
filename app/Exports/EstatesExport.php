@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
+
 class EstatesExport implements FromCollection, ShouldAutoSize, WithMapping, WithHeadings
 {
     public function collection()
