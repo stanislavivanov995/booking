@@ -10,31 +10,31 @@ export default function All({ auth, estates, success }) {
     const [query, setQuery] = useState("");
 
     // Pagination
-    const [currentPage, setCurrentPage] = useState(1);
-    const recordsPerPage = 6;
-    const lastIndex = currentPage * recordsPerPage;
-    const firstIndex = lastIndex - recordsPerPage;
-    const records = estates.slice(firstIndex, lastIndex);
-    const nPage = Math.ceil(estates.length / recordsPerPage);
-    const numbers = [...Array(nPage + 1).keys()].slice(1);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const recordsPerPage = 6;
+    // const lastIndex = currentPage * recordsPerPage;
+    // const firstIndex = lastIndex - recordsPerPage;
+    // const records = estates.slice(firstIndex, lastIndex);
+    // const nPage = Math.ceil(estates.length / recordsPerPage);
+    // const numbers = [...Array(nPage + 1).keys()].slice(1);
 
-    const prevPage = () => {
-        if (currentPage <= 1) {
-            return;
-        }
-        if (currentPage !== firstIndex) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
-    const changeCurrentPage = (id) => {
-        setCurrentPage(id);
-    };
+    // const prevPage = () => {
+    //     if (currentPage <= 1) {
+    //         return;
+    //     }
+    //     if (currentPage !== firstIndex) {
+    //         setCurrentPage(currentPage - 1);
+    //     }
+    // };
+    // const changeCurrentPage = (id) => {
+    //     setCurrentPage(id);
+    // };
 
-    const nextPage = () => {
-        if (currentPage !== nPage) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
+    // const nextPage = () => {
+    //     if (currentPage !== nPage) {
+    //         setCurrentPage(currentPage + 1);
+    //     }
+    // };
 
     return (
         <AuthenticatedLayout
@@ -106,12 +106,72 @@ export default function All({ auth, estates, success }) {
                                 </div>
                             </div>
                         </div> */}
+                        <div className="flex justify-between items-end">
+                            <div className="w-full md:w-1/2 pt-5 pl-5">
+                                <form className="flex items-center">
+                                    <label
+                                        htmlFor="simple-search"
+                                        className="sr-only"
+                                    >
+                                        Search
+                                    </label>
+                                    <div className="relative w-full">
+                                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                            <svg
+                                                aria-hidden="true"
+                                                className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                                fill="currentColor"
+                                                viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    fillRule="evenodd"
+                                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                                    clipRule="evenodd"
+                                                />
+                                            </svg>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            id="simple-search"
+                                            className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:placeholder-gray-400 dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="Search"
+                                            required=""
+                                            onChange={(e) =>
+                                                setQuery(e.target.value)
+                                            }
+                                        />
+                                    </div>
+                                </form>
+                            </div>
+                            <div className="flex gap-5 px-5">
+                                <button
+                                    id="actionsDropdownButton"
+                                    data-dropdown-toggle="actionsDropdown"
+                                    className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700  dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
+                                    type="button"
+                                >
+                                    <Link
+                                        href={route("estates.create")}
+                                        active={route("estates.index")}
+                                    >
+                                        Create Estate
+                                    </Link>
+                                </button>
+                                <button
+                                    id="actionsDropdownButton"
+                                    data-dropdown-toggle="actionsDropdown"
+                                    className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700  dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
+                                    type="button"
+                                >Export</button>
+                            </div>
+                        </div>
                         <div className="overflow-x-auto">
                             <div className="py-12 p-5">
                                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                                     {estates.length > 0 ? (
                                         <Table
-                                            items={records}
+                                            items={estates}
                                             columns={columns}
                                             action="estates.edit"
                                             query={query}
@@ -124,17 +184,17 @@ export default function All({ auth, estates, success }) {
                                 </div>
                             </div>
                         </div>
-                        <nav
+                        {/* <nav
                             className="flex flex-col md:flex-row justify-center items-center space-y-3 md:space-y-0 p-4"
                             aria-label="Table navigation"
                         >
-                            {/* <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                            <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
                                 Showing
                                 <span className="font-semibold text-gray-900 dark:text-white">1-10</span>
                                 of
                                 <span className="font-semibold text-gray-900 dark:text-white">1000</span>
-                            </span> */}
-                            {/* <ul className="inline-flex items-stretch -space-x-px">
+                            </span>
+                            <ul className="inline-flex items-stretch -space-x-px">
                                 <li>
                                     <a
                                         href="#"
@@ -193,8 +253,8 @@ export default function All({ auth, estates, success }) {
                                         </svg>
                                     </a>
                                 </li>
-                            </ul> */}
-                        </nav>
+                            </ul>
+                        </nav> */}
                     </div>
                 </div>
             </section>
