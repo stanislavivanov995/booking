@@ -11,11 +11,15 @@ export default function SearchBar({ newSearchValues, className }) {
     );
 
     const [startDate, setStartDate] = useState(
-        newSearchValues?.checkInDate ? new Date(newSearchValues.checkInDate) : new Date()
+        newSearchValues?.checkInDate
+            ? new Date(newSearchValues.checkInDate)
+            : new Date()
     );
 
     const [endDate, setEndDate] = useState(
-        newSearchValues?.checkOutDate ? new Date(newSearchValues.checkOutDate) : new Date()
+        newSearchValues?.checkOutDate
+            ? new Date(newSearchValues.checkOutDate)
+            : new Date()
     );
 
     const { data, setData, post, processing, errors } = useForm({
@@ -23,7 +27,6 @@ export default function SearchBar({ newSearchValues, className }) {
         check_in: startDate,
         check_out: endDate,
     });
-
 
     const handleCheckInDate = (selectedItem) => {
         setData("check_in", selectedItem);
@@ -50,7 +53,7 @@ export default function SearchBar({ newSearchValues, className }) {
     return (
         <>
             <div
-                className={`xl:w-[1200px] w-[75%] lg:p-1 pt-2 bg-white shadow-2xl absolute lg:bottom-[-10px] bottom-[-15px] rounded-lg ${className}`}
+                className={`xl:w-[1020px] w-[75%] lg:p-1 pt-2 bg-white shadow-2xl absolute lg:bottom-[-10px] bottom-[-15px] rounded-lg ${className}`}
             >
                 <form
                     onSubmit={(e) => handleSubmit(e)}
@@ -72,9 +75,9 @@ export default function SearchBar({ newSearchValues, className }) {
                                 apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
                                 selectProps={{
                                     placeId,
-                                    onChange: (e) =>{
-                                        setData("place_id", e.value.place_id)
-                                    }
+                                    onChange: (e) => {
+                                        setData("place_id", e.value.place_id);
+                                    },
                                 }}
                             />
                         </div>

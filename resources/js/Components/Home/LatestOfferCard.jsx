@@ -1,7 +1,7 @@
 export default function LatestOfferCard() {
     return (
         <>
-            <div className="hover:shadow-2xl w-[400px] transition-[0.3s] hover:cursor-pointer">
+            <div className="hover:shadow-xl w-[400px] transition-[0.3s] hover:cursor-pointer">
                 <img
                     className="block w-[400px] h-auto rounded-t-lg"
                     src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/ed/ee/d8/outdoor-pool.jpg?w=1200&h=-1&s=1"
