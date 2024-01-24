@@ -50,9 +50,10 @@ class EstatesController extends Controller
 
         $estate = Estate::create([
             'user_id' => Auth::id(),
-            'name' => $request->name,
+            'name' => $request->estateName,
             'description' => $request->description,
             'location' => $locationName,
+            'place_id' => $placeId,
             'price' => $request->price,
             'currency' => $request->currency,
             'latitude' => $latitude,

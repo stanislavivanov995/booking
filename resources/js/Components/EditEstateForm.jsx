@@ -368,9 +368,21 @@ export default function EditEstateForm({ estate, categories }) {
                     />
 
                     <div className="flex justify-between space-x-7">
-                        <Checkbox label="Wi-fi" FacilityCheck={estate.facilities.wifi}/>
+                        <Checkbox 
+                            label="Wi-fi" 
+                            FacilityCheck={estate.facilities.wifi} 
+                            onChange={(e) =>
+                                setData("wifi", e.target.checked ? 1 : 0)
+                            }
+                        />
 
-                        <Checkbox label="Parking" FacilityCheck={estate.facilities.parking}/>
+                        <Checkbox
+                            label="Parking" 
+                            FacilityCheck={estate.facilities.parking}
+                            onChange={(e) =>
+                                setData("parking", e.target.checked ? 1 : 0)
+                            }
+                        />
 
                         <Checkbox label="Breakfast" FacilityCheck={estate.facilities.breakfast}/>
 

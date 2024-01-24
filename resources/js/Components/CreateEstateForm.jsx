@@ -6,7 +6,6 @@ import { useForm } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import InputError from "./InputError";
 import TextArea from "./TextArea";
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import OptionsMenu from "./OptionsMenu";
 import CreateFormSubmitButton from "./CreateFormSubmitButton";
 import TimePicker from "react-time-picker";
@@ -141,12 +140,15 @@ export default function CreateEstateForm(categories) {
 
                     <TextInput
                         id="name"
-                        className="mt-1 block w-full"
                         name="name"
-                        onChange={(e) => setData("name", e.target.value)}
+                        className="mt-1 block w-full"
+                            onChange={(e) =>{
+                                setData("name", e.target.value)
+                            }
+                        }
                     />
 
-                    <InputError className="mt-2" message={errors.name} />
+                    <InputError className="mt-2" message={errors.estateName} />
                     {/* Name */}
 
                     {/* Location */}

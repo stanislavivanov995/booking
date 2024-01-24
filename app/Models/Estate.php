@@ -16,6 +16,7 @@ class Estate extends Model
         'user_id',
         'name',
         'description',
+        'place_id',
         'location',
         'price',
         'currency',
