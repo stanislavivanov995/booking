@@ -9,7 +9,6 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-use function Pest\Laravel\put;
 
 class EstatesExport implements FromCollection, ShouldAutoSize, WithMapping, WithHeadings
 {
