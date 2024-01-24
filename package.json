@@ -23,9 +23,11 @@
     "dependencies": {
         "react-datepicker": "^4.25.0",
         "react-dropzone": "^14.2.3",
+        "react-google-autocomplete": "^2.7.3",
         "react-google-places-autocomplete": "^4.0.1",
         "react-slick": "^0.29.0",
         "react-time-picker": "^6.6.0",
+        "react-toastify": "^10.0.4",
         "slick-carousel": "^1.8.1"
     }
 }

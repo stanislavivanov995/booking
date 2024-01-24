@@ -2,6 +2,8 @@ import { router, useForm } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import AutoComplete from 'react-google-autocomplete'
 import { geocodeByPlaceId } from "react-google-places-autocomplete";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -11,6 +13,9 @@ export default function SearchBar({ newSearchValues, className }) {
     const [placeId, setPlaceId] = useState(
         newSearchValues?.place_id ? newSearchValues.place_id : ""
     );
+
+    const notify = () => toast.error("Location is required!")
+
 
     const [location, setLocation] = useState("");
 
@@ -57,9 +62,13 @@ export default function SearchBar({ newSearchValues, className }) {
         const checkOutDate = endDate.toLocaleDateString();
 
         try {
-            if (!data.place_id) { throw new Error("Should be selected location!") }
+            if (!data.place_id) {
+                notify();
+                throw new Error("Should be selected location!");
+            }
+            
+            // Извикване на рутера
             router.get("/results", data);
-
         } catch (error) {
             console.log(error);
         }
@@ -136,6 +145,7 @@ export default function SearchBar({ newSearchValues, className }) {
                             <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
                         </svg>
                     </button>
+                    <ToastContainer className={"mt-[5em]"} />
                 </form>
             </div>
         </>
