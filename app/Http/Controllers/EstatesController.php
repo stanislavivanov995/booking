@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEstateRequest;
 use GuzzleHttp\Client;
+use Illuminate\Foundation\Http\FormRequest;
 use Maatwebsite\Excel\Facades\Excel;
 
 class EstatesController extends Controller
@@ -142,8 +143,10 @@ class EstatesController extends Controller
         ]);
     }
 
-    public function export()
+        // TODO:
+    public function export(FormRequest $request)
     {
-        return Excel::download(new EstatesExport, 'estates.xlsx');
+        $fileFormat = $request->query('format', 'XLSX');
+        return Excel::download(new EstatesExport, 'estates.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }
 }
