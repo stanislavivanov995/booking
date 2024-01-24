@@ -1,11 +1,13 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Show({ auth, estate, facilities, images }) {
-    const defaultImage =
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
+const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
 
+
+export default function Show({ auth, estate, facilities, images }) {
     const [selectedImage, setSelectedImage] = useState(defaultImage);
+    const estateId = window.location.pathname.split("/")[3];
 
     if (images.length > 0 && selectedImage === defaultImage) {
         setSelectedImage(images[0].url);
@@ -17,6 +19,18 @@ export default function Show({ auth, estate, facilities, images }) {
 
     return (
         <AuthenticatedLayout user={auth.user}>
+            <div className="w-[90%] m-auto p-5 flex justify-between">
+                <Link href={route("estates.index")} className="inline-block">
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="hover:opacity-15 duration-[0.3s] bg-black w-[150px] fill-white p-2 rounded-xl cursor-pointer" height="35" width="35" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" /></svg>
+                    </button>
+                </Link>
+                <Link href={route("estate.edit", estateId)} className="inline-block">
+                    <button className="hover:opacity-15 duration-[0.3s] bg-black w-[150px] text-white p-2 rounded-xl cursor-pointer">
+                        EDIT
+                    </button>
+                </Link>
+            </div>
             <div className="flex justify-center gap-24 max-xl:gap-14 max-lg:flex-col max-lg:items-center mt-20 mx-5">
                 <div>
                     {images.length > 0 ? (
