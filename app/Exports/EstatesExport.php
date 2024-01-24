@@ -2,7 +2,6 @@
 
 namespace App\Exports;
 
-use App\Invoice;
 use App\Models\Category;
 use App\Models\Estate;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -10,6 +9,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
+use function Pest\Laravel\put;
 
 class EstatesExport implements FromCollection, ShouldAutoSize, WithMapping, WithHeadings
 {
@@ -22,7 +22,6 @@ class EstatesExport implements FromCollection, ShouldAutoSize, WithMapping, With
             $estate['category'] = $category;
         }
 
-        // dd($estates->toArray());
         return $estates;
     }
 
@@ -39,7 +38,7 @@ class EstatesExport implements FromCollection, ShouldAutoSize, WithMapping, With
             $estate->beds,
             $estate->arrive_hour,
             $estate->leave_hour,
-            
+
             $estate->facilities->wifi,
             $estate->facilities->spa,
         ];
