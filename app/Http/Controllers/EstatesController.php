@@ -7,6 +7,7 @@ use App\Models\{Estate, Image, Category, Facility};
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEstateRequest;
+use App\Http\Requests\UpdateEstateRequest;
 use GuzzleHttp\Client;
 
 class EstatesController extends Controller
@@ -49,9 +50,10 @@ class EstatesController extends Controller
 
         $estate = Estate::create([
             'user_id' => Auth::id(),
-            'name' => $request->name,
+            'name' => $request->estateName,
             'description' => $request->description,
             'location' => $locationName,
+            'place_id' => $placeId,
             'price' => $request->price,
             'currency' => $request->currency,
             'latitude' => $latitude,
@@ -112,6 +114,11 @@ class EstatesController extends Controller
             'estate' => $estate,
             'categories' => Category::all(),
         ]);
+    }
+
+    public function update(UpdateEstateRequest $request)
+    {
+        dd($request->all());
     }
 
     public function show(Estate $estate) 
