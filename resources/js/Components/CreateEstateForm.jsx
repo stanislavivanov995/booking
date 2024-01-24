@@ -15,7 +15,7 @@ import Checkbox from "./Checkbox";
 import AutoComplete from "react-google-autocomplete"
 
 export default function CreateEstateForm(categories) {
-    const { setData, post, errors, processing, recentlySuccessful } = useForm({
+    const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
         name: "",
         description: "",
         images: [],
@@ -118,7 +118,8 @@ export default function CreateEstateForm(categories) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("estates.store"));
+        console.log(data);
+        // post(route("estates.store"));
     };
 
     return (
@@ -135,22 +136,6 @@ export default function CreateEstateForm(categories) {
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-
-                    {/* Name */}
-                    <InputLabel htmlFor="name" value="Name*" />
-
-                    <TextInput
-                        id="name"
-                        name="name"
-                        className="mt-1 block w-full"
-                        onChange={(e) => {
-                            setData("name", e.target.value)
-                        }
-                        }
-                    />
-
-                    <InputError className="mt-2" message={errors.estateName} />
-                    {/* Name */}
 
                     {/* Location */}
                     <div className="mt-3">
