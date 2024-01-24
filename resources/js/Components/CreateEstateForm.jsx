@@ -136,18 +136,6 @@ export default function CreateEstateForm(categories) {
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    {/* Name */}
-                    <InputLabel htmlFor="name" value="Name*" />
-
-                    <TextInput
-                        id="name"
-                        className="mt-1 block w-full"
-                        name="name"
-                        onChange={(e) => setData("name", e.target.value)}
-                    />
-
-                    <InputError className="mt-2" message={errors.name} />
-                    {/* Name */}
 
                     {/* Location */}
                     <div className="mt-3">
@@ -167,6 +155,19 @@ export default function CreateEstateForm(categories) {
                         />
                     </div>
                     {/* Location */}
+
+                    {/* Name */}
+                    <InputLabel htmlFor="name" value="Name*" />
+
+                    <TextInput
+                        id="name"
+                        className="mt-1 block w-full"
+                        name="name"
+                        onChange={(e) => setData("name", e.target.value)}
+                    />
+
+                    <InputError className="mt-2" message={errors.name} />
+                    {/* Name */}
 
                     {/* Check in / Check out */}
                     <div
