@@ -30,7 +30,7 @@ use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/details/{estate}', [HomeController::class, 'details']);
+Route::get('/details/{estate}', [HomeController::class, 'details'])->name('estate.details');
 
 Route::get('/results', [HomeController::class, 'results'])->name('results');
 
