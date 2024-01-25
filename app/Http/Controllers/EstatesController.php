@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEstateRequest;
 use App\Http\Requests\UpdateEstateRequest;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
 
 class EstatesController extends Controller
 {
@@ -92,7 +93,6 @@ class EstatesController extends Controller
             }
         }
 
-
         return Redirect::route('estates.index')->with('success', 'Estate was created successfully!');
     }
 
@@ -145,5 +145,16 @@ class EstatesController extends Controller
             'facilities' => $facilities,
             'images'=> $images
         ]);
+    }
+
+    public function delete(Estate $estate)
+    {
+        $estate->facilities->delete();
+        foreach ($estate->images as $image) {
+            Storage::delete($image->path); 
+            $image->forceDelete();
+        }
+        $estate->delete();
+        return back();
     }
 }

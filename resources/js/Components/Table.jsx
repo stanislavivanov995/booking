@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Table({ items: records, query }) {
 
@@ -30,7 +32,6 @@ export default function Table({ items: records, query }) {
         }
     };
 
-    console.log(records);
     const defaultImage =
         "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
     return (
@@ -203,9 +204,13 @@ export default function Table({ items: records, query }) {
                                                 {/* Edit */}
 
                                                 {/* Delete */}
-                                                <svg className="w-[18px] h-[18px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.1" d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z" />
-                                                </svg>
+                                                <a href={route("estate.delete", record.id)}>
+                                                    <div className="tooltip" title="Delete Estate">
+                                                        <svg className="w-[18px] h-[18px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.1" d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z" />
+                                                        </svg>
+                                                    </div>
+                                                </a>
                                                 {/* Delete */}
 
                                             </div>
