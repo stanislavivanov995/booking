@@ -39,6 +39,11 @@ class EstatesExport implements FromCollection, ShouldAutoSize, WithMapping, With
             $estate->leave_hour,
 
             $estate->facilities->wifi,
+            $estate->facilities->parking,
+            $estate->facilities->breakfast,
+            $estate->facilities->lunch,
+            $estate->facilities->dinner,
+            $estate->facilities->swimming_pool,
             $estate->facilities->spa,
         ];
     }
@@ -58,6 +63,11 @@ class EstatesExport implements FromCollection, ShouldAutoSize, WithMapping, With
             'Leave hour',
 
             'WiFi',
+            'Parking',
+            'Breakfast',
+            'Lunch',
+            'Dinner',
+            'Swimming pool',
             'Spa',
         ];
     }
