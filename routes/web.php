@@ -30,6 +30,8 @@ use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'index']);
 
+Route::get('/details', [HomeController::class, 'details']);
+
 Route::get('/results', [HomeController::class, 'results'])->name('results');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');

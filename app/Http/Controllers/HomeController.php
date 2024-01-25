@@ -16,6 +16,11 @@ class HomeController extends Controller
         ]);
     }
 
+        public function details()
+    {
+        return Inertia::render('Home/Details');
+    }
+
 
     public function results(Request $request)
     {
