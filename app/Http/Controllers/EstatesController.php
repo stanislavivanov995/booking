@@ -167,7 +167,7 @@ class EstatesController extends Controller
 
         $estate->save();
 
-        $images = $request->file('images');
+        $images = Image::whereEstateId($estate->id);
         
         if ($images) {
             foreach ($images as $file) {
