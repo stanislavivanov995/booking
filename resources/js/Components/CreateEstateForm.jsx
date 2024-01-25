@@ -13,7 +13,7 @@ import TimePicker from "react-time-picker";
 import "react-clock/dist/Clock.css";
 import "react-time-picker/dist/TimePicker.css";
 import Checkbox from "./Checkbox";
-import AutoComplete from "react-google-autocomplete"
+// import AutoComplete from "react-google-autocomplete"
 
 export default function CreateEstateForm(categories) {
     const { setData, post, errors, processing, recentlySuccessful } = useForm({
@@ -148,7 +148,7 @@ export default function CreateEstateForm(categories) {
 
                     <InputError className="mt-2" message={errors.name} />
                     {/* Name */}
-
+                    
                     {/* Location */}
                     <div className="mt-3">
                         <InputLabel htmlFor="location" value="Location*" />

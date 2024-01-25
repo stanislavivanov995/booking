@@ -8,6 +8,7 @@ use App\Models\{Estate, Image, Category, Facility};
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEstateRequest;
+use App\Http\Requests\UpdateEstateRequest;
 use GuzzleHttp\Client;
 use Illuminate\Foundation\Http\FormRequest;
 use Maatwebsite\Excel\Facades\Excel;
@@ -52,9 +53,10 @@ class EstatesController extends Controller
 
         $estate = Estate::create([
             'user_id' => Auth::id(),
-            'name' => $request->name,
+            'name' => $request->estateName,
             'description' => $request->description,
             'location' => $locationName,
+            'place_id' => $placeId,
             'price' => $request->price,
             'currency' => $request->currency,
             'latitude' => $latitude,
@@ -107,8 +109,8 @@ class EstatesController extends Controller
         $estate->facilities->breakfast = $estate->facilities->breakfast === "1";
         $estate->facilities->lunch = $estate->facilities->lunch === "1";
         $estate->facilities->dinner = $estate->facilities->dinner === "1";
-        $estate->facilities->swimming_pool = $estate->facilities->swimming_pool === "1";
-        $estate->facilities->spa = $estate->facilities->spa === "1";
+        $estate->facilities->swimming_pool = $estate->facilities->swimming_pool === "1";    
+        $estate->facilities->spa = $estate->facilities->spa === "1";    
 
 
         return Inertia::render('Admin/Estates/Edit', [
@@ -117,7 +119,12 @@ class EstatesController extends Controller
         ]);
     }
 
-    public function show(Estate $estate)
+    public function update(UpdateEstateRequest $request)
+    {
+        dd($request->all());
+    }
+
+    public function show(Estate $estate) 
     {
         $estate->load('category');
 

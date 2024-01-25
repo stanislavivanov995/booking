@@ -1,14 +1,36 @@
 import { router, useForm } from "@inertiajs/react";
-import { useState } from "react";
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { useEffect, useState } from "react";
+import AutoComplete from 'react-google-autocomplete'
+import { geocodeByPlaceId } from "react-google-places-autocomplete";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
 
 export default function SearchBar({ newSearchValues, className }) {
     const [placeId, setPlaceId] = useState(
         newSearchValues?.place_id ? newSearchValues.place_id : ""
     );
+
+    const notify = () => toast.error("Location is required!")
+
+
+    const [location, setLocation] = useState("");
+
+
+    try {
+        if (newSearchValues.place_id) {
+            geocodeByPlaceId(placeId)
+                .then((results) => setLocation(results[0].formatted_address))
+                .catch((error) => console.error(error));
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+
 
     const [startDate, setStartDate] = useState(
         newSearchValues?.checkInDate ? new Date(newSearchValues.checkInDate) : new Date()
@@ -17,6 +39,7 @@ export default function SearchBar({ newSearchValues, className }) {
     const [endDate, setEndDate] = useState(
         newSearchValues?.checkOutDate ? new Date(newSearchValues.checkOutDate) : new Date()
     );
+
 
     const { data, setData, post, processing, errors } = useForm({
         place_id: placeId,
@@ -39,9 +62,13 @@ export default function SearchBar({ newSearchValues, className }) {
         const checkOutDate = endDate.toLocaleDateString();
 
         try {
-            const results = router.get("/results", data);
-
-            console.log(results);
+            if (!data.place_id) {
+                notify();
+                throw new Error("Should be selected location!");
+            }
+            
+            // Извикване на рутера
+            router.get("/results", data);
         } catch (error) {
             console.log(error);
         }
@@ -67,14 +94,12 @@ export default function SearchBar({ newSearchValues, className }) {
                         </svg>
                         {/* Search Input */}
                         <div className="lg:w-[350px] w-[210px] mt-1">
-                            <GooglePlacesAutocomplete
-                                value={placeId}
+                            <AutoComplete
                                 apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
-                                selectProps={{
-                                    placeId,
-                                    onChange: (e) =>{
-                                        setData("place_id", e.value.place_id)
-                                    }
+                                className="mt-1 block w-full border border-gray-300 rounded-lg"
+                                defaultValue={location}
+                                onPlaceSelected={(place) => {
+                                    setData("place_id", place.place_id)
                                 }}
                             />
                         </div>
@@ -120,6 +145,7 @@ export default function SearchBar({ newSearchValues, className }) {
                             <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
                         </svg>
                     </button>
+                    <ToastContainer className={"mt-[5em]"} />
                 </form>
             </div>
         </>
