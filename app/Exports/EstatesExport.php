@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\Estate;
 use App\Models\Category;
+use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Sheet;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -12,47 +13,58 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
+use function Pest\Laravel\put;
 
 class EstatesExport implements
-    FromCollection,
+    FromArray,
     ShouldAutoSize,
     WithMapping,
     WithHeadings,
     WithEvents
 {
-    public function collection()
+    public function array(): array
     {
-        $estates = Estate::with('facilities')->get();
+        $estates = Estate::with('facilities')->get()->toArray();
+
+        $result = [];
 
         foreach ($estates as $estate) {
-            $category = Category::find($estate->category_id)->name;
+            $category = Category::find($estate['category_id'])->name;
             $estate['category'] = $category;
-        }
 
-        return $estates;
+            $estate['facilities'] = collect($estate['facilities'])->map(function ($value) {
+                return $value == '1' ? 'Yes' : 'No';
+            })->toArray();
+
+            array_push($result, $estate);
+        }
+        // dd($result);
+
+        return $result;
     }
+
 
     public function map($estate): array
     {
         return [
-            $estate->name,
-            $estate->description,
-            $estate->location,
-            $estate->price,
-            $estate->currency,
-            $estate->category,
-            $estate->rooms,
-            $estate->beds,
-            $estate->arrive_hour,
-            $estate->leave_hour,
+            $estate['name'],
+            $estate['description'],
+            $estate['location'],
+            $estate['price'],
+            $estate['currency'],
+            $estate['category'],
+            $estate['rooms'],
+            $estate['beds'],
+            $estate['arrive_hour'],
+            $estate['leave_hour'],
 
-            $estate->facilities->wifi,
-            $estate->facilities->parking,
-            $estate->facilities->breakfast,
-            $estate->facilities->lunch,
-            $estate->facilities->dinner,
-            $estate->facilities->swimming_pool,
-            $estate->facilities->spa,
+            $estate['facilities']['wifi'],
+            $estate['facilities']['parking'],
+            $estate['facilities']['breakfast'],
+            $estate['facilities']['lunch'],
+            $estate['facilities']['dinner'],
+            $estate['facilities']['swimming_pool'],
+            $estate['facilities']['spa'],
         ];
     }
 
