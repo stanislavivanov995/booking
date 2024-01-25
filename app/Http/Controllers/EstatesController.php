@@ -116,9 +116,21 @@ class EstatesController extends Controller
         ]);
     }
 
-    public function update(UpdateEstateRequest $request)
+    public function update(UpdateEstateRequest $request, string $id)
     {
-        dd($request->all());
+        // dd($request);
+        $estate = Estate::find($id);
+        // dd($estate);
+
+        $updateRequest = $request->toArray();
+        
+        foreach ($updateRequest as $field => $value) {
+            $value && $estate->field = $value;
+        }
+
+        dd($estate);
+
+        $estate->save();
     }
 
     public function show(Estate $estate) 
