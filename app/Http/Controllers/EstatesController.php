@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEstateRequest;
 use App\Http\Requests\UpdateEstateRequest;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
+
 
 class EstatesController extends Controller
 {
@@ -23,7 +26,7 @@ class EstatesController extends Controller
 
     public function create()
     {
-        return Inertia::render('Admin/Estates/Create' ,[
+        return Inertia::render('Admin/Estates/Create', [
             'categories' => Category::all()
         ]);
     }
@@ -35,7 +38,7 @@ class EstatesController extends Controller
         $client = new Client();
         $response = $client->get(
             "https://maps.googleapis.com/maps/api/place/details/json?placeid=$placeId&key="
-            . self::GOOGLE_LOCATION_API_KEY
+                . self::GOOGLE_LOCATION_API_KEY
         );
 
         $locationData = json_decode($response->getBody(), true);
@@ -79,24 +82,39 @@ class EstatesController extends Controller
         $images = $request->file('images');
 
         if ($images) {
-            foreach ($images as $image) {
-                $path = $image->store('public/images');
-                
-                $url = asset('storage/' . str_replace('public/', '', $path));
+            // foreach ($images as $image) {
+            //     $path = $image->store('public/images');
 
-                Image::create([
-                    'path' => $path,
-                    'url' => $url,
-                    'estate_id' => $estate->id,
-                ]);
-            }
+            //     $url = asset('storage/' . str_replace('public/', '', $path));
+
+            //     Image::create([
+            //         'path' => $path,
+            //         'url' => $url,
+            //         'estate_id' => $estate->id,
+            //     ]);
+            // }
+            $this->uploadImages($images, $estate);
         }
-
 
         return Redirect::route('estates.index')->with('success', 'Estate was created successfully!');
     }
 
-    public function edit(Estate $estate) 
+    public function uploadImages($images, $estate)
+    {
+        foreach ($images as $image) {
+            $path = $image->store('public/images');
+
+            $url = asset('storage/' . str_replace('public/', '', $path));
+
+            Image::create([
+                'path' => $path,
+                'url' => $url,
+                'estate_id' => $estate->id,
+            ]);
+        }
+    }
+
+    public function edit(Estate $estate)
     {
         $estate->load('facilities');
         $estate->load('images');
@@ -106,8 +124,8 @@ class EstatesController extends Controller
         $estate->facilities->breakfast = $estate->facilities->breakfast === "1";
         $estate->facilities->lunch = $estate->facilities->lunch === "1";
         $estate->facilities->dinner = $estate->facilities->dinner === "1";
-        $estate->facilities->swimming_pool = $estate->facilities->swimming_pool === "1";    
-        $estate->facilities->spa = $estate->facilities->spa === "1";    
+        $estate->facilities->swimming_pool = $estate->facilities->swimming_pool === "1";
+        $estate->facilities->spa = $estate->facilities->spa === "1";
 
 
         return Inertia::render('Admin/Estates/Edit', [
@@ -116,33 +134,67 @@ class EstatesController extends Controller
         ]);
     }
 
-    public function update(UpdateEstateRequest $request, string $id)
+    public function update(UpdateEstateRequest $request, string $id): void
     {
-        // dd($request);
         $estate = Estate::find($id);
-        // dd($estate);
 
-        $updateRequest = $request->toArray();
+        $estateRequest = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'arrive_hour' => $request->arrive_hour,
+            'leave_hour' => $request->leave_hour,
+            'price' => $request->price,
+            'currency' => $request->currency,
+            'rooms' => $request->rooms,
+            'beds' => $request->beds,
+        ];
+
+        $facilitiesRequest = [
+            'wifi' => $request->wifi,
+            'parking' => $request->parking,
+            'breakfast' => $request->breakfast,
+            'lunch' => $request->lunch,
+            'dinner' => $request->dinner,
+            'swimming_pool' => $request->swimming_pool,
+            'spa' => $request->spa,
+        ];
+        // dd($facilitiesRequest);
         
-        foreach ($updateRequest as $field => $value) {
-            $value && $estate->field = $value;
+        foreach ($estateRequest as $field => $value) {
+            $value && $estate->$field = $value;
         }
 
-        dd($estate);
-
         $estate->save();
+
+        $images = $request->file('images');
+        
+        if ($images) {
+            foreach ($images as $file) {
+
+                File::delete($file->path);
+            }
+
+            $this->uploadImages($images, $estate);
+        }
+
+        $facilities = Facility::whereEstateId($id)->first();
+
+        $facilities->delete();
+        
+        Facility::create($facilitiesRequest);
     }
 
-    public function show(Estate $estate) 
+    public function show(Estate $estate)
     {
         $estate->load('category');
- 
+
         $facilitiesArray = $estate->facilities->toArray();
 
-        $availableFacilities = array_filter($facilitiesArray, function($value) {
+        $availableFacilities = array_filter($facilitiesArray, function ($value) {
             return $value == 1;
         });
-        
+
         $facilities = array_combine(
             array_map(function ($key) {
                 return str_replace('_', ' ', ucfirst($key));
@@ -155,7 +207,12 @@ class EstatesController extends Controller
         return Inertia::render('Admin/Estates/Show', [
             'estate' => $estate,
             'facilities' => $facilities,
-            'images'=> $images
+            'images' => $images
         ]);
+    }
+
+    public function emptyTrash()
+    {
+        Artisan::call('model:prune');
     }
 }

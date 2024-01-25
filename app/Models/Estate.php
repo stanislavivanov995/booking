@@ -4,13 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class Estate extends Model
 {
+    use HasFactory, Prunable;
 
     protected $fillable = [
         'user_id',
@@ -27,8 +30,6 @@ class Estate extends Model
         'leave_hour'
     ];
 
-    use HasFactory;
-
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
@@ -42,5 +43,10 @@ class Estate extends Model
     public function facilities(): HasOne
     {
         return $this->hasOne(Facility::class);
+    }
+
+    public function prunable(): Builder
+    {
+        return static::where('deleted_at', '!=', null);
     }
 }
