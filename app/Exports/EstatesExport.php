@@ -2,15 +2,23 @@
 
 namespace App\Exports;
 
-use App\Models\Category;
 use App\Models\Estate;
+use App\Models\Category;
+use Maatwebsite\Excel\Sheet;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithMapping;
 
 
-class EstatesExport implements FromCollection, ShouldAutoSize, WithMapping, WithHeadings
+class EstatesExport implements
+    FromCollection,
+    ShouldAutoSize,
+    WithMapping,
+    WithHeadings,
+    WithEvents
 {
     public function collection()
     {
@@ -69,6 +77,39 @@ class EstatesExport implements FromCollection, ShouldAutoSize, WithMapping, With
             'Dinner',
             'Swimming pool',
             'Spa',
+        ];
+    }
+
+    public function registerEvents(): array
+    {
+        Sheet::macro('setOrientation', function (Sheet $sheet, $orientation) {
+            $sheet->getDelegate()->getPageSetup()->setOrientation($orientation);
+        });
+
+        Sheet::macro('styleCells', function (Sheet $sheet, string $cellRange, array $style) {
+            $sheet->getDelegate()->getStyle($cellRange)->applyFromArray($style);
+        });
+
+        return [
+            AfterSheet::class    => function (AfterSheet $event) {
+                $event->sheet->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+
+                $event->sheet->styleCells(
+                    'A1:Q1',
+                    [
+                        'font' => [
+                            'bold' => true
+                        ],
+                        'fill' => [
+                            'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                            'rotation' => 90,
+                            'color' => [
+                                'argb' => '90CAF9',
+                            ],
+                        ],
+                    ],
+                );
+            },
         ];
     }
 }
