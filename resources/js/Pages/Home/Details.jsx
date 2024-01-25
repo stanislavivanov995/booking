@@ -2,7 +2,12 @@ import { useState } from "react";
 
 const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
 
-export default function Details() {
+export default function Details({auth, estate, facilities, images, owner}) {
+
+console.log('Potrebitel: ', auth); // Veroqtno kum momenta nqma da ti trqbva, no neka ostane, shte e nujno za bookvaneto
+console.log('Imot: ', estate); // Imotut zaduljitelno 
+console.log('Ekstri: ', facilities); // Vinagi ima ekstri kato model, moje navsqkude da e 0, no vrushta masiv
+console.log('Snimkite: ', images); // Ppc moje i da nqma snimki, zatova neka ima defaut. Ako images.length > 0 samo togava da se pokazvat
 
 
     // const [selectedImage, setSelectedImage] = useState(defaultImage);

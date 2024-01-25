@@ -16,9 +16,34 @@ class HomeController extends Controller
         ]);
     }
 
-        public function details()
+    public function details(Estate $estate)
     {
-        return Inertia::render('Home/Details');
+        $estate->load('category');
+
+        $facilities = [];
+ 
+        if($estate->facilities){
+            $facilitiesArray = $estate->facilities->toArray();
+            
+            $availableFacilities = array_filter($facilitiesArray, function($value) {
+                return $value == 1;
+            });
+            
+            $facilities = array_combine(
+                array_map(function ($key) {
+                    return str_replace('_', ' ', ucfirst($key));
+                }, array_keys($availableFacilities)),
+                $availableFacilities
+            );
+        }
+
+        $images = $estate->images->toArray();
+
+        return Inertia::render('Home/Details', [
+            'estate' => $estate,
+            'facilities' => $facilities,
+            'images'=> $images
+        ]);
     }
 
 

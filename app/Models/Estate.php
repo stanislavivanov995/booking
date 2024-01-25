@@ -43,4 +43,9 @@ class Estate extends Model
     {
         return $this->hasOne(Facility::class);
     }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
