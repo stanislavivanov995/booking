@@ -10,6 +10,7 @@ use App\Http\Requests\StoreEstateRequest;
 use App\Http\Requests\UpdateEstateRequest;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class EstatesController extends Controller
 {
@@ -156,5 +157,14 @@ class EstatesController extends Controller
         }
         $estate->delete();
         return back();
+    }
+
+    public function export()
+    {
+        $estates = Auth::user()->estates()->with('category')->get();
+
+        $pdf = PDF::loadView('estates.pdf', compact('estates'));
+
+        return $pdf->download('estates.pdf');
     }
 }

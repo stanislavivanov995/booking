@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/estates/edit/{estate}', [EstatesController::class, 'edit'])->name('estate.edit');
     Route::get('/estates/show/{estate}', [EstatesController::class, 'show'])->name('estate.show');
     Route::get('/estates/delete/{estate}', [EstatesController::class, 'delete'])->name('estate.delete');
+    Route::get('/estates/export', [EstatesController::class, 'export'])->name('estates.export');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
