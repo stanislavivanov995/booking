@@ -384,15 +384,45 @@ export default function EditEstateForm({ estate, categories }) {
                             }
                         />
 
-                        <Checkbox label="Breakfast" FacilityCheck={estate.facilities.breakfast}/>
+                        <Checkbox
+                        label="Breakfast"
+                        FacilityCheck={estate.facilities.breakfast}
+                        onChange={(e) =>
+                            setData("breakfast", e.target.checked ? 1 : 0)
+                        }
+                        />
 
-                        <Checkbox label="Lunch" FacilityCheck={estate.facilities.lunch}/>
+                        <Checkbox
+                        label="Lunch"
+                        FacilityCheck={estate.facilities.lunch}
+                        onChange={(e) =>
+                            setData("lunch", e.target.checked ? 1 : 0)
+                        }
+                        />
 
-                        <Checkbox label="Dinner" FacilityCheck={estate.facilities.dinner}/>
+                        <Checkbox
+                        label="Dinner"
+                        FacilityCheck={estate.facilities.dinner}
+                        onChange={(e) =>
+                            setData("dinner", e.target.checked ? 1 : 0)
+                        }
+                        />
 
-                        <Checkbox label="Swimming Pool" FacilityCheck={estate.facilities.swimming_pool}/>
+                        <Checkbox
+                        label="Swimming Pool"
+                        FacilityCheck={estate.facilities.swimming_pool}
+                        onChange={(e) =>
+                            setData("swimming_pool", e.target.checked ? 1 : 0)
+                        }
+                        />
 
-                        <Checkbox label="Spa" FacilityCheck={estate.facilities.spa}/>
+                        <Checkbox
+                        label="Spa"
+                        FacilityCheck={estate.facilities.spa}
+                        onChange={(e) =>
+                            setData("spa", e.target.checked ? 1 : 0)
+                        }
+                        />
                     </div>
                     {/* Facilities */}
 

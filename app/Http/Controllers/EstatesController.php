@@ -127,6 +127,14 @@ class EstatesController extends Controller
         $estate->facilities->swimming_pool = $estate->facilities->swimming_pool === "1";
         $estate->facilities->spa = $estate->facilities->spa === "1";
 
+        // $estate->facilities->wifi === "1" ? $estate->facilities->wifi =true : $estate->facilities->wifi =false;
+        // $estate->facilities->parking === "1" ? $estate->facilities->parking =true : $estate->facilities->parking =false;
+        // $estate->facilities->breakfast === "1" ? $estate->facilities->breakfast =true : $estate->facilities->breakfast =false;
+        // $estate->facilities->lunch === "1" ? $estate->facilities->lunch =true : $estate->facilities->lunch =false;
+        // $estate->facilities->dinner === "1" ? $estate->facilities->dinner =true : $estate->facilities->dinner =false;
+        // $estate->facilities->swimming_pool === "1" ? $estate->facilities->swimming_pool =true : $estate->facilities->swimming_pool =false;
+        // $estate->facilities->spa === "1" ? $estate->facilities->spa =true : $estate->facilities->spa =false;
+
         return Inertia::render('Admin/Estates/Edit', [
             'estate' => $estate,
             'categories' => Category::all(),
