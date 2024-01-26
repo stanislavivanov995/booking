@@ -38,7 +38,7 @@ export default function Show({ auth, estate, facilities, images }) {
                             <img
                                 src={selectedImage}
                                 alt="selected image"
-                                className="object-cover w-35em"
+                                className="object-cover w-35rem h-28rem"
                             />
                             <div className="flex justify-center gap-4 max-w-[27em] flex-wrap mt-8">
                                 {images.map((img) => (
