@@ -138,7 +138,7 @@ class EstatesController extends Controller
     {
         $estate = Estate::find($id);
 
-        $estateRequest = [
+        $estateData = [
             'name' => $request->name,
             'description' => $request->description,
             'category_id' => $request->category_id,
@@ -150,7 +150,8 @@ class EstatesController extends Controller
             'beds' => $request->beds,
         ];
 
-        $facilitiesRequest = [
+        $facilitiesData = [
+            'estate_id' => $id,
             'wifi' => $request->wifi,
             'parking' => $request->parking,
             'breakfast' => $request->breakfast,
@@ -159,11 +160,17 @@ class EstatesController extends Controller
             'swimming_pool' => $request->swimming_pool,
             'spa' => $request->spa,
         ];
-        // dd($facilitiesRequest);
+        // dd($facilitiesData);
         
-        foreach ($estateRequest as $field => $value) {
+        foreach ($estateData as $field => $value) {
             $value && $estate->$field = $value;
         }
+
+        $facilities = Facility::whereEstateId($id)->first();
+
+        $facilities->delete();
+        
+        Facility::create($facilitiesData);
 
         $estate->save();
 
@@ -177,12 +184,6 @@ class EstatesController extends Controller
 
             $this->uploadImages($images, $estate);
         }
-
-        $facilities = Facility::whereEstateId($id)->first();
-
-        $facilities->delete();
-        
-        Facility::create($facilitiesRequest);
     }
 
     public function show(Estate $estate)
