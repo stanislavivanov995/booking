@@ -127,7 +127,6 @@ class EstatesController extends Controller
         $estate->facilities->swimming_pool = $estate->facilities->swimming_pool === "1";
         $estate->facilities->spa = $estate->facilities->spa === "1";
 
-
         return Inertia::render('Admin/Estates/Edit', [
             'estate' => $estate,
             'categories' => Category::all(),
@@ -137,7 +136,7 @@ class EstatesController extends Controller
     public function update(UpdateEstateRequest $request, string $id): void
     {
         $estate = Estate::find($id);
-        
+
         $locationData = $this->getLocationData($request->place_id);
 
         $estateData = [
@@ -174,19 +173,17 @@ class EstatesController extends Controller
         $facilities = Facility::whereEstateId($id)->first();
         $facilities->delete();
         Facility::create($facilitiesData);
-        
+
         $estate->save();
 
         $images = Image::whereEstateId($estate->id);
+        // dd($images->first());
 
-        if ($images) {
-            foreach ($images as $file) {
-
-                File::delete($file->path);
-            }
-
-            $this->uploadImages($images, $estate);
+        foreach ($images as $file) {
+            File::delete($file->path);
         }
+
+        $this->uploadImages($images, $estate);
     }
 
     public function show(Estate $estate)

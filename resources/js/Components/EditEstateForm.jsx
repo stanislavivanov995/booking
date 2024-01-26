@@ -18,7 +18,7 @@ export default function EditEstateForm({ estate, categories }) {
         name: estate.name,
         description: estate.description,
         images: estate.images,
-        place_id: "",
+        place_id: estate.place_id,
         category_id: estate.category_id,
         arrive_hour: estate.arrive_hour,
         leave_hour: estate.leave_hour,
@@ -157,7 +157,6 @@ export default function EditEstateForm({ estate, categories }) {
                             defaultValue={estate.location}
                             apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
                             className="mt-1 block w-full border border-gray-300 rounded-lg"
-                            // disabled={true}
                             onPlaceSelected={(place) => {
                                 setData("place_id", place.place_id)
                             }}
