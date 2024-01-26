@@ -22,6 +22,7 @@ class Estate extends Model
         'location',
         'price',
         'currency',
+        'place_id',
         'latitude',
         'longitude',
         'category_id',
