@@ -157,16 +157,16 @@ export default function EditEstateForm({ estate, categories }) {
                             defaultValue={estate.location}
                             apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
                             className="mt-1 block w-full border border-gray-300 rounded-lg"
-                            disabled={true}
-                            // onPlaceSelected={(place) => {
-                            //     setData("place_id", place.place_id)
-                            // }}
+                            // disabled={true}
+                            onPlaceSelected={(place) => {
+                                setData("place_id", place.place_id)
+                            }}
                         />
 
-                        {/* <InputError
+                        <InputError
                             className="mt-2"
                             message={errors.place_id}
-                        /> */}
+                        />
                     </div>
                     {/* Location */}
 
@@ -516,7 +516,7 @@ export default function EditEstateForm({ estate, categories }) {
                                 role="alert"
                             >
                                 <p className="font-bold">
-                                    Esatte Created Successfully!
+                                    Estate Created Successfully!
                                 </p>
                             </div>
                         </Transition>

@@ -31,13 +31,11 @@ class EstatesController extends Controller
         ]);
     }
 
-    public function store(StoreEstateRequest $request)
+    public function getLocationData($place_id): array
     {
-        $placeId = $request->place_id;
-
         $client = new Client();
         $response = $client->get(
-            "https://maps.googleapis.com/maps/api/place/details/json?placeid=$placeId&key="
+            "https://maps.googleapis.com/maps/api/place/details/json?placeid=$place_id&key="
                 . self::GOOGLE_LOCATION_API_KEY
         );
 
@@ -51,16 +49,29 @@ class EstatesController extends Controller
             $longitude = $locationDetails['geometry']['location']['lng'];
         }
 
+        return [
+            'locationName' => $locationName,
+            'latitude' => $latitude,
+            'longitude' => $longitude
+        ];
+    }
+
+    public function store(StoreEstateRequest $request)
+    {
+        $placeId = $request->place_id;
+
+        $locationData = $this->getLocationData($placeId);
+
         $estate = Estate::create([
             'user_id' => Auth::id(),
             'name' => $request->name,
             'description' => $request->description,
-            'location' => $locationName,
+            'location' => $locationData['locationName'],
             'place_id' => $placeId,
             'price' => $request->price,
             'currency' => $request->currency,
-            'latitude' => $latitude,
-            'longitude' => $longitude,
+            'latitude' => $locationData['latitude'],
+            'longitude' => $locationData['longitude'],
             'category_id' => $request->category_id,
             'rooms' => $request->rooms,
             'beds' => $request->beds,
@@ -82,17 +93,6 @@ class EstatesController extends Controller
         $images = $request->file('images');
 
         if ($images) {
-            // foreach ($images as $image) {
-            //     $path = $image->store('public/images');
-
-            //     $url = asset('storage/' . str_replace('public/', '', $path));
-
-            //     Image::create([
-            //         'path' => $path,
-            //         'url' => $url,
-            //         'estate_id' => $estate->id,
-            //     ]);
-            // }
             $this->uploadImages($images, $estate);
         }
 
@@ -137,15 +137,21 @@ class EstatesController extends Controller
     public function update(UpdateEstateRequest $request, string $id): void
     {
         $estate = Estate::find($id);
+        
+        $locationData = $this->getLocationData($request->place_id);
 
         $estateData = [
             'name' => $request->name,
             'description' => $request->description,
+            'location' => $locationData['locationName'],
+            'latitude' => $locationData['latitude'],
+            'longitude' => $locationData['longitude'],
             'category_id' => $request->category_id,
             'arrive_hour' => $request->arrive_hour,
             'leave_hour' => $request->leave_hour,
             'price' => $request->price,
             'currency' => $request->currency,
+            'place_id' => $request->place_id,
             'rooms' => $request->rooms,
             'beds' => $request->beds,
         ];
@@ -160,22 +166,19 @@ class EstatesController extends Controller
             'swimming_pool' => $request->swimming_pool,
             'spa' => $request->spa,
         ];
-        // dd($facilitiesData);
-        
+
         foreach ($estateData as $field => $value) {
             $value && $estate->$field = $value;
         }
 
         $facilities = Facility::whereEstateId($id)->first();
-
         $facilities->delete();
-        
         Facility::create($facilitiesData);
-
+        
         $estate->save();
 
         $images = Image::whereEstateId($estate->id);
-        
+
         if ($images) {
             foreach ($images as $file) {
 
