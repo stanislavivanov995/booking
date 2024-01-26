@@ -11,7 +11,7 @@ use App\Http\Requests\UpdateEstateRequest;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Support\Facades\Storage;
 
 class EstatesController extends Controller
 {
@@ -104,7 +104,7 @@ class EstatesController extends Controller
         foreach ($images as $image) {
             $path = $image->store('public/images');
 
-            $url = asset('storage/' . str_replace('public/', '', $path));
+            $url = asset(str_replace('public', 'storage', $path));
 
             Image::create([
                 'path' => $path,
@@ -141,7 +141,7 @@ class EstatesController extends Controller
         ]);
     }
 
-    public function update(UpdateEstateRequest $request, string $id): void
+    public function update(UpdateEstateRequest $request, string $id)
     {
         $estate = Estate::find($id);
 
@@ -182,16 +182,20 @@ class EstatesController extends Controller
         $facilities->delete();
         Facility::create($facilitiesData);
 
-        $estate->save();
-
-        $images = Image::whereEstateId($estate->id);
-        // dd($images->first());
+        $images = Image::whereEstateId($id)->get();
 
         foreach ($images as $file) {
-            File::delete($file->path);
+            Storage::delete($file->path);
+            $file->delete();
         }
 
-        $this->uploadImages($images, $estate);
+        $newImages = $request->file('images');
+
+        $newImages && $this->uploadImages($newImages, $estate);
+
+        $estate->save();
+
+        return Redirect::route('estates.index')->with('success', 'Estate was updated successfully!');
     }
 
     public function show(Estate $estate)
