@@ -75,10 +75,18 @@ export default function Results({ auth, estates, categories }) {
             let filteredEstates = [];
 
             filteredCategoriesList.map((cat) => {
-                filteredEstates.push(
-                    estates.filter((record) => record.category_id === cat.id)[0]
+                const filtered = estates.filter(
+                    (record) => record.category_id === cat.id
                 );
+                if (filtered.length > 1) {
+                    filtered.map((filter) => filteredEstates.push(filter));
+                } else {
+                    filteredEstates.push(filtered[0]);
+                }
             });
+
+            console.log(filteredEstates);
+
             filteredEstates = filteredEstates.filter(
                 (record) => record !== undefined
             );
