@@ -94,9 +94,12 @@ export default function Results({ auth, estates, categories }) {
             let filteredEstates = [];
 
             filteredFacilities.map((facility) => {
-                filteredEstates.push(
-                    estates.filter((record) => record[facility.name])[0]
-                );
+                console.log(records.map((record) => console.log(record)));
+                // filteredEstates.push(
+                //     estates.filter(
+                //         (record) => record[facility.name.toLowerCase()]
+                //     )[0]
+                // );
             });
 
             filteredEstates = filteredEstates.filter(
