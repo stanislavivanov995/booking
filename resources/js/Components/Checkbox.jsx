@@ -1,10 +1,17 @@
 import { useState } from "react";
-const Checkbox = ({ label, FacilityCheck, setFunc }) => {
+const Checkbox = ({ label, FacilityCheck, setFunc, sortEstates }) => {
     const [isChecked, setIsChecked] = useState(FacilityCheck);
 
     const setChecked = () => {
         setIsChecked((prev) => !prev);
+
         if (!setFunc) return;
+
+        if (sortEstates) {
+            sortEstates(label);
+            return;
+        }
+
         setFunc(label);
     };
 

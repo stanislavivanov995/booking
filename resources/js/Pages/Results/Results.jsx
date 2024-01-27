@@ -30,6 +30,15 @@ export default function Results({ auth, estates, categories }) {
         { name: "Spa", FacilityCheck: false },
     ]);
 
+    const sortEstates = (typeOfSort) => {
+        console.log(typeOfSort);
+        if (typeOfSort === "ascending") {
+            setRecords(records.sort((a, b) => a.price - b.price));
+        } else {
+            setRecords(records.sort((a, b) => b.price - a.price));
+        }
+    };
+
     const setFunc = (name) => {
         if (categoriesList.find((cat) => cat.name === name)) {
             const catIndex = categoriesList.findIndex(
@@ -38,9 +47,9 @@ export default function Results({ auth, estates, categories }) {
 
             categoriesList[catIndex].FacilityCheck =
                 !categoriesList[catIndex].FacilityCheck;
-            setCategoriesList(categoriesList);
 
             setRecords(estates);
+            setCategoriesList(categoriesList);
             filterResults("category");
         } else if (facilities.find((facility) => facility.name === name)) {
             const facilityIndex = facilities.findIndex(
@@ -48,6 +57,8 @@ export default function Results({ auth, estates, categories }) {
             );
             facilities[facilityIndex].FacilityCheck =
                 !facilities[facilityIndex].FacilityCheck;
+
+            setRecords(estates);
             setFacilities(facilities);
             filterResults("facility");
         }
@@ -55,15 +66,44 @@ export default function Results({ auth, estates, categories }) {
 
     const filterResults = (typeOfFilter) => {
         if (typeOfFilter === "category") {
-            categoriesList.map((cat) => {
-                if (cat.FacilityCheck === true) {
-                    setRecords(
-                        records.filter(
-                            (record) => record.category_id === cat.id
-                        )
-                    );
-                }
+            const filteredCategoriesList = categoriesList.filter(
+                (cat) => cat.FacilityCheck === true
+            );
+
+            if (filteredCategoriesList.length === 0) return;
+
+            let filteredEstates = [];
+
+            filteredCategoriesList.map((cat) => {
+                filteredEstates.push(
+                    estates.filter((record) => record.category_id === cat.id)[0]
+                );
             });
+            filteredEstates = filteredEstates.filter(
+                (record) => record !== undefined
+            );
+
+            setRecords(filteredEstates);
+        } else if (typeOfFilter === "facility") {
+            const filteredFacilities = facilities.filter(
+                (facility) => facility.FacilityCheck === true
+            );
+
+            if (filteredFacilities.length === 0) return;
+
+            let filteredEstates = [];
+
+            filteredFacilities.map((facility) => {
+                filteredEstates.push(
+                    estates.filter((record) => record[facility.name])[0]
+                );
+            });
+
+            filteredEstates = filteredEstates.filter(
+                (record) => record !== undefined
+            );
+
+            setRecords(filteredEstates);
         }
     };
 
@@ -128,6 +168,23 @@ export default function Results({ auth, estates, categories }) {
                         <div className="flex flex-col gap-3">
                             <div className="space-y-2">
                                 <h2 className="font-medium text-xl pb-1">
+                                    Sort them by order
+                                </h2>
+                                <Checkbox
+                                    key={"Ascending"}
+                                    label={"Ascending"}
+                                    FacilityCheck={false}
+                                    sortEstates={sortEstates}
+                                />
+                                <Checkbox
+                                    key={"Descending"}
+                                    label={"Descending"}
+                                    FacilityCheck={false}
+                                    sortEstates={sortEstates}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <h2 className="font-medium text-xl pb-1">
                                     Category
                                 </h2>
                                 {categoriesList.map((category) => (
@@ -155,65 +212,73 @@ export default function Results({ auth, estates, categories }) {
                             </div>
                         </div>
                         <div className="flex flex-col gap-[2.5em]">
-                            {records.map((estate, index) => (
-                                <Link
-                                    key={index}
-                                    href="#"
-                                    className="inline-block"
-                                >
-                                    <div className="flex shadow-xl hover:shadow-2xl m-2 rounded-xl">
-                                        {estate.images.length > 0 ? (
-                                            <img
-                                                src={estate.images[0].url}
-                                                alt=""
-                                                className="w-[230px] h-[230px] rounded-s-xl"
-                                            />
-                                        ) : (
-                                            <img
-                                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019"
-                                                alt="selected image"
-                                                className="w-[230px] h-[230px] rounded-s-xl"
-                                            />
-                                        )}
-                                        <div className="py-3 px-5">
-                                            <h1 className="font-bold text-[1.5em]">
-                                                {estate.name}
-                                            </h1>
-                                            <div className="flex gap-[6em] mt-3">
-                                                <div className="flex gap-2 items-center">
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        height="20"
-                                                        width="20"
-                                                        viewBox="0 0 384 512"
-                                                    >
-                                                        <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
-                                                    </svg>
-                                                    <h3>{estate.location}</h3>
+                            {records.length > 0 ? (
+                                records.map((estate, index) => (
+                                    <Link
+                                        key={index}
+                                        href="#"
+                                        className="inline-block"
+                                    >
+                                        <div className="flex shadow-xl hover:shadow-2xl m-2 rounded-xl">
+                                            {estate.images.length > 0 ? (
+                                                <img
+                                                    src={estate.images[0].url}
+                                                    alt=""
+                                                    className="w-[230px] h-[230px] rounded-s-xl"
+                                                />
+                                            ) : (
+                                                <img
+                                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019"
+                                                    alt="selected image"
+                                                    className="w-[230px] h-[230px] rounded-s-xl"
+                                                />
+                                            )}
+                                            <div className="py-3 px-5">
+                                                <h1 className="font-bold text-[1.5em]">
+                                                    {estate.name}
+                                                </h1>
+                                                <div className="flex gap-[6em] mt-3">
+                                                    <div className="flex gap-2 items-center">
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            height="20"
+                                                            width="20"
+                                                            viewBox="0 0 384 512"
+                                                        >
+                                                            <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
+                                                        </svg>
+                                                        <h3>
+                                                            {estate.location}
+                                                        </h3>
+                                                    </div>
+                                                    <div className="flex gap-2 items-center">
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            height="16"
+                                                            width="20"
+                                                            viewBox="0 0 640 512"
+                                                        >
+                                                            <path d="M32 32c17.7 0 32 14.3 32 32V320H288V160c0-17.7 14.3-32 32-32H544c53 0 96 43 96 96V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32zm144 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160z" />
+                                                        </svg>
+                                                        <h3>
+                                                            {estate.beds
+                                                                ? estate.beds
+                                                                : "N/A"}
+                                                        </h3>
+                                                    </div>
                                                 </div>
-                                                <div className="flex gap-2 items-center">
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        height="16"
-                                                        width="20"
-                                                        viewBox="0 0 640 512"
-                                                    >
-                                                        <path d="M32 32c17.7 0 32 14.3 32 32V320H288V160c0-17.7 14.3-32 32-32H544c53 0 96 43 96 96V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32zm144 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160z" />
-                                                    </svg>
-                                                    <h3>
-                                                        {estate.beds
-                                                            ? estate.beds
-                                                            : "N/A"}
-                                                    </h3>
-                                                </div>
+                                                <p className="text-[20px] mt-5 line-clamp-4 max-w-[50em]">
+                                                    {estate.description}
+                                                </p>
                                             </div>
-                                            <p className="text-[20px] mt-5 line-clamp-4 max-w-[50em]">
-                                                {estate.description}
-                                            </p>
                                         </div>
-                                    </div>
-                                </Link>
-                            ))}
+                                    </Link>
+                                ))
+                            ) : (
+                                <p className="font-bold text-2xl text-gray-900">
+                                    No matching results
+                                </p>
+                            )}
                         </div>
                     </div>
                 ) : (
