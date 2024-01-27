@@ -12,29 +12,30 @@ import TimePicker from "react-time-picker";
 import "react-clock/dist/Clock.css";
 import "react-time-picker/dist/TimePicker.css";
 import Checkbox from "./Checkbox";
-import AutoComplete from "react-google-autocomplete"
+import AutoComplete from "react-google-autocomplete";
 
 export default function CreateEstateForm(categories) {
-    const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
-        name: "",
-        description: "",
-        images: [],
-        place_id: "",
-        category_id: 1,
-        arrive_hour: "10:00",
-        leave_hour: "12:00",
-        price: "",
-        currency: "BGN",
-        rooms: "",
-        beds: "",
-        wifi: 0,
-        parking: 0,
-        breakfast: 0,
-        lunch: 0,
-        dinner: 0,
-        swimming_pool: 0,
-        spa: 0,
-    });
+    const { data, setData, post, errors, processing, recentlySuccessful } =
+        useForm({
+            name: "",
+            description: "",
+            images: [],
+            place_id: "",
+            category_id: 1,
+            arrive_hour: "10:00",
+            leave_hour: "12:00",
+            price: "",
+            currency: "BGN",
+            rooms: "",
+            beds: "",
+            wifi: 0,
+            parking: 0,
+            breakfast: 0,
+            lunch: 0,
+            dinner: 0,
+            swimming_pool: 0,
+            spa: 0,
+        });
 
     const [showTooltip, setShowTooltip] = useState(false);
     const [selectedFiles, setSelectedFiles] = useState([]);
@@ -136,7 +137,6 @@ export default function CreateEstateForm(categories) {
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-
                     {/* Location */}
                     <div className="mt-3">
                         <InputLabel htmlFor="location" value="Location*" />
@@ -145,7 +145,7 @@ export default function CreateEstateForm(categories) {
                             apiKey="AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo"
                             className="mt-1 block w-full border border-gray-300 rounded-lg"
                             onPlaceSelected={(place) => {
-                                setData("place_id", place.place_id)
+                                setData("place_id", place.place_id);
                             }}
                         />
 
