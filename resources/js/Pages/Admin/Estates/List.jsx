@@ -1,13 +1,28 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 import Table from "@/Components/Table";
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import {toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const columns = ["name", "location", "price"];
 
 export default function All({ auth, estates, success }) {
     // Search query
     const [query, setQuery] = useState("");
+
+    // TODO: Use useEffect to show a notification when successfully created
+    useEffect(() => {
+        toast.success('Test Notification!',{
+            position: "top-right",
+            autoClose: 5000});
+        if (success) {
+            toast.success(success,{
+                position: "top-right",
+                autoClose: 5000});
+        }
+    }, [success]);
 
     // Pagination
     // const [currentPage, setCurrentPage] = useState(1);
@@ -35,6 +50,7 @@ export default function All({ auth, estates, success }) {
     //         setCurrentPage(currentPage + 1);
     //     }
     // };
+
 
     return (
         <AuthenticatedLayout
@@ -145,7 +161,7 @@ export default function All({ auth, estates, success }) {
                                 </form>
                             </div>
                             <div className="flex gap-5 px-5">
-                                
+
                                     <Link
                                     id="actionsDropdownButton"
                                     data-dropdown-toggle="actionsDropdown"
@@ -156,7 +172,7 @@ export default function All({ auth, estates, success }) {
                                     >
                                         Create Estate
                                     </Link>
-                                
+
                                 <button
                                     id="actionsDropdownButton"
                                     data-dropdown-toggle="actionsDropdown"
