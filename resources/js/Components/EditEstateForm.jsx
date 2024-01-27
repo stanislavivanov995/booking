@@ -1,5 +1,5 @@
-import {useForm} from "@inertiajs/react";
-import React, {useEffect, useState} from "react";
+import { useForm } from "@inertiajs/react";
+import React, { useEffect, useState } from "react";
 import InputLabel from "@/Components/InputLabel.jsx";
 import TextInput from "@/Components/TextInput.jsx";
 import InputError from "@/Components/InputError.jsx";
@@ -11,14 +11,14 @@ import OptionsMenu from "@/Components/OptionsMenu.jsx";
 import TextArea from "@/Components/TextArea.jsx";
 import Checkbox from "@/Components/Checkbox.jsx";
 import CreateFormSubmitButton from "@/Components/CreateFormSubmitButton.jsx";
-import {Transition} from "@headlessui/react";
+import { Transition } from "@headlessui/react";
 
 export default function EditEstateForm({ estate, categories }) {
-    const {setData, post, errors, processing, recentlySuccessful} = useForm({
+    const { setData, post, errors, processing, recentlySuccessful } = useForm({
         name: estate.name,
         description: estate.description,
         images: estate.images,
-        place_id: "",
+        place_id: estate.place_id,
         category_id: estate.category_id,
         arrive_hour: estate.arrive_hour,
         leave_hour: estate.leave_hour,
@@ -41,14 +41,33 @@ export default function EditEstateForm({ estate, categories }) {
         "Click to upload or drag and drop"
     );
 
-    // const [placeId, setPlaceId] = useState("");
-    const [placeId, setPlaceId] = useState(estate.location);
+    // const [placeId, setPlaceId] = useState(estate.location);
 
     const [selectedCategory, setSelectedCategory] = useState(estate.category_id);
 
     const [checkInTime, setCheckInTime] = useState(estate.arrive_hour);
     const [checkOutTime, setCheckOutTime] = useState(estate.leave_hour);
     const [selectedCurrency, setSelectedCurrency] = useState(estate.currency);
+
+    const [facilityData, setFacilityData] = useState({
+        wifi: estate.facilities.wifi,
+        parking: estate.facilities.parking,
+        breakfast: estate.facilities.breakfast,
+        lunch: estate.facilities.lunch,
+        dinner: estate.facilities.dinner,
+        swimming_pool: estate.facilities.swimming_pool,
+        spa: estate.facilities.spa
+    });
+
+    // useEffect(() => {
+    //     facilityData.wifi ? setData('wifi', '1') : setData('wifi', '0');
+    //     facilityData.parking ? setData('parking', '1') : setData('parking', '0');
+    //     facilityData.breakfast ? setData('breakfast', '1') : setData('breakfast', '0');
+    //     facilityData.lunch ? setData('lunch', '1') : setData('lunch', '0');
+    //     facilityData.dinner ? setData('dinner', '1') : setData('dinner', '0');
+    //     facilityData.swimming_pool ? setData('swimming_pool', '1') : setData('swimming_pool', '0');
+    //     facilityData.spa ? setData('spa', '1') : setData('spa', '0');
+    // }, [facilityData]);
 
     useEffect(() => {
         if (selectedCategory) {
@@ -136,7 +155,7 @@ export default function EditEstateForm({ estate, categories }) {
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
                     {/* Name */}
-                    <InputLabel htmlFor="name" value="Name*"/>
+                    <InputLabel htmlFor="name" value="Name*" />
 
                     <TextInput
                         id="name"
@@ -146,12 +165,12 @@ export default function EditEstateForm({ estate, categories }) {
                         onChange={(e) => setData("name", e.target.value)}
                     />
 
-                    <InputError className="mt-2" message={errors.name}/>
+                    <InputError className="mt-2" message={errors.name} />
                     {/* Name */}
 
                     {/* Location */}
                     <div className="mt-3">
-                        <InputLabel htmlFor="location" value="Location*"/>
+                        <InputLabel htmlFor="location" value="Location*" />
 
                         <AutoComplete
                             defaultValue={estate.location}
@@ -178,10 +197,10 @@ export default function EditEstateForm({ estate, categories }) {
                     >
                         {/* Check In */}
                         <div
-                            style={{flex: 1, marginRight: "10px"}}
+                            style={{ flex: 1, marginRight: "10px" }}
                             className="mt-3"
                         >
-                            <InputLabel htmlFor="checkIn" value="Check In"/>
+                            <InputLabel htmlFor="checkIn" value="Check In" />
                             <TimePicker
                                 id="checkIn"
                                 value={checkInTime}
@@ -197,10 +216,10 @@ export default function EditEstateForm({ estate, categories }) {
 
                         {/* Check Out */}
                         <div
-                            style={{flex: 1, marginLeft: "10px"}}
+                            style={{ flex: 1, marginLeft: "10px" }}
                             className="mt-3"
                         >
-                            <InputLabel htmlFor="checkOut" value="Check Out"/>
+                            <InputLabel htmlFor="checkOut" value="Check Out" />
                             <TimePicker
                                 id="checkOut"
                                 value={checkOutTime}
@@ -218,7 +237,7 @@ export default function EditEstateForm({ estate, categories }) {
 
                     {/*Price*/}
                     <div className="sm:col-span-2">
-                        <InputLabel htmlFor="price" value="Price*"/>
+                        <InputLabel htmlFor="price" value="Price*" />
                         <div
                             className="flex items-center bg-gray-50 border border-gray-300 rounded-lg focus:bg-red-500">
                             <div className="relative w-full p-2">
@@ -283,13 +302,13 @@ export default function EditEstateForm({ estate, categories }) {
                                 </select>
                             </div>
                         </div>
-                        <InputError className="mt-2" message={errors.price}/>
+                        <InputError className="mt-2" message={errors.price} />
                     </div>
                     {/*Price*/}
 
                     {/* Category */}
                     <div className="mt-3">
-                        <InputLabel htmlFor="category" value="Category"/>
+                        <InputLabel htmlFor="category" value="Category" />
 
                         <OptionsMenu
                             selected={estate.category_id}
@@ -308,10 +327,10 @@ export default function EditEstateForm({ estate, categories }) {
                         }}
                     >
                         <div
-                            style={{flex: 1, marginRight: "10px"}}
+                            style={{ flex: 1, marginRight: "10px" }}
                             className="mt-3"
                         >
-                            <InputLabel htmlFor="rooms" value="Rooms"/>
+                            <InputLabel htmlFor="rooms" value="Rooms" />
 
                             <TextInput
                                 id="rooms"
@@ -325,10 +344,10 @@ export default function EditEstateForm({ estate, categories }) {
                         </div>
 
                         <div
-                            style={{flex: 1, marginRight: "10px"}}
+                            style={{ flex: 1, marginRight: "10px" }}
                             className="mt-3"
                         >
-                            <InputLabel htmlFor="beds" value="Beds"/>
+                            <InputLabel htmlFor="beds" value="Beds" />
 
                             <TextInput
                                 id="beds"
@@ -368,36 +387,87 @@ export default function EditEstateForm({ estate, categories }) {
                     />
 
                     <div className="flex justify-between space-x-7">
-                        <Checkbox 
-                            label="Wi-fi" 
-                            FacilityCheck={estate.facilities.wifi} 
-                            onChange={(e) =>
-                                setData("wifi", e.target.checked ? 1 : 0)
+                        <Checkbox
+                            label="Wi-fi"
+                            checked={facilityData.wifi}
+                            onChange={(e) => {
+                                let value = e.target.checked ? 1 : 0;
+                                setFacilityData(state => ({ ...state, wifi: value }));
+                                setData('wifi', value);
+                            }
                             }
                         />
 
                         <Checkbox
-                            label="Parking" 
-                            FacilityCheck={estate.facilities.parking}
-                            onChange={(e) =>
-                                setData("parking", e.target.checked ? 1 : 0)
+                            label="Parking"
+                            checked={facilityData.parking}
+                            onChange={(e) => {
+                                let value = e.target.checked ? 1 : 0;
+                                setFacilityData(state => ({ ...state, parking: value }));
+                                setData('parking', value);
+                            }
                             }
                         />
 
-                        <Checkbox label="Breakfast" FacilityCheck={estate.facilities.breakfast}/>
+                        <Checkbox
+                            label="Breakfast"
+                            checked={facilityData.breakfast}
+                            onChange={(e) => {
+                                let value = e.target.checked ? 1 : 0;
+                                setFacilityData(state => ({ ...state, breakfast: value }));
+                                setData('breakfast', value);
+                            }
+                            }
+                        />
 
-                        <Checkbox label="Lunch" FacilityCheck={estate.facilities.lunch}/>
+                        <Checkbox
+                            label="Lunch"
+                            checked={facilityData.lunch}
+                            onChange={(e) => {
+                                let value = e.target.checked ? 1 : 0;
+                                setFacilityData(state => ({ ...state, lunch: value }));
+                                setData('lunch', value);
+                            }
+                            }
+                        />
 
-                        <Checkbox label="Dinner" FacilityCheck={estate.facilities.dinner}/>
+                        <Checkbox
+                            label="Dinner"
+                            checked={facilityData.dinner}
+                            onChange={(e) => {
+                                let value = e.target.checked ? 1 : 0;
+                                setFacilityData(state => ({ ...state, dinner: value }));
+                                setData('dinner', value);
+                            }
+                            }
+                        />
 
-                        <Checkbox label="Swimming Pool" FacilityCheck={estate.facilities.swimming_pool}/>
+                        <Checkbox
+                            label="Swimming Pool"
+                            checked={facilityData.swimming_pool}
+                            onChange={(e) => {
+                                let value = e.target.checked ? 1 : 0;
+                                setFacilityData(state => ({ ...state, swimming_pool: value }));
+                                setData('swimming_pool', value);
+                            }
+                            }
+                        />
 
-                        <Checkbox label="Spa" FacilityCheck={estate.facilities.spa}/>
+                        <Checkbox
+                            label="Spa"
+                            checked={facilityData.spa}
+                            onChange={(e) => {
+                                let value = e.target.checked ? 1 : 0;
+                                setFacilityData(state => ({ ...state, spa: value }));
+                                setData('spa', value);
+                            }
+                            }
+                        />
                     </div>
                     {/* Facilities */}
 
                     {/* Images */}
-                   {showTooltip && (
+                    {showTooltip && (
                         <div
                             id="tooltip-click"
                             role="tooltip"
@@ -427,18 +497,18 @@ export default function EditEstateForm({ estate, categories }) {
                                                 className="relative"
                                             >
                                                 {file instanceof File ? (
-                                                <img
-                                                src={URL.createObjectURL(file)}
-                                                alt={`Image ${index}`}
-                                                className="w-20 h-20 object-cover rounded-lg"
-                                                />
-                                            ) : (
-                                                <img
-                                                src={file.url}
-                                                alt={`Image ${index}`}
-                                                className="w-20 h-20 object-cover rounded-lg"
-                                                />
-                                            )}
+                                                    <img
+                                                        src={URL.createObjectURL(file)}
+                                                        alt={`Image ${index}`}
+                                                        className="w-20 h-20 object-cover rounded-lg"
+                                                    />
+                                                ) : (
+                                                    <img
+                                                        src={file.url}
+                                                        alt={`Image ${index}`}
+                                                        className="w-20 h-20 object-cover rounded-lg"
+                                                    />
+                                                )}
                                                 <button
                                                     onClick={(e) => {
                                                         e.preventDefault();
@@ -515,7 +585,7 @@ export default function EditEstateForm({ estate, categories }) {
                                 role="alert"
                             >
                                 <p className="font-bold">
-                                    Esatte Created Successfully!
+                                    Estate Created Successfully!
                                 </p>
                             </div>
                         </Transition>

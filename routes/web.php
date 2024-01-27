@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/estates/edit/{estate}', [EstatesController::class, 'edit'])->name('estate.edit');
     Route::post('/estates/update/{estate}', [EstatesController::class, 'update'])->name('estate.update');
     Route::get('/estates/show/{estate}', [EstatesController::class, 'show'])->name('estate.show');
+    Route::get('/estates/delete/{estate}', [EstatesController::class, 'delete'])->name('estate.delete');
     Route::post('/estates/empty-trash', [EstatesController::class, 'emptyTrash'])->name('estate.emptyTrash');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

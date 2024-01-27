@@ -97,7 +97,7 @@ export default function Table({ items: records, query }) {
                                                         : defaultImage
                                                 }
                                                 alt="iMac Front Image"
-                                                className="w-16 h-16 mr-3 rounded-full"
+                                                className="object-cover w-16 h-16 mr-3 rounded-full"
                                             />
                                             <p>{record.name}</p>
                                         </th>
