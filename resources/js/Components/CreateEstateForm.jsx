@@ -516,14 +516,14 @@ export default function CreateEstateForm(categories) {
                     {/* Images */}
 
                     <div className="flex items-center mt-6 gap-4">
-                        {/* <CreateFormSubmitButton disabled={processing}>
+                        <CreateFormSubmitButton disabled={processing}>
                             Create
-                        </CreateFormSubmitButton> */}
-                        <button                        
+                        </CreateFormSubmitButton>
+                        {/* <button                        
                         onClick={() => submit()}
                         >
                         Create 
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </form>
