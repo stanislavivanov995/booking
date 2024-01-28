@@ -4,13 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class Estate extends Model
 {
+    use HasFactory, Prunable;
 
     protected $fillable = [
         'user_id',
@@ -19,6 +22,7 @@ class Estate extends Model
         'location',
         'price',
         'currency',
+        'place_id',
         'latitude',
         'longitude',
         'category_id',
@@ -26,8 +30,6 @@ class Estate extends Model
         'arrive_hour',
         'leave_hour'
     ];
-
-    use HasFactory;
 
     public function category(): BelongsTo
     {

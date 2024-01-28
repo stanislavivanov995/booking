@@ -39,7 +39,6 @@ export default function Results({ auth, estates, categories }) {
         checkInDate,
         checkOutDate
     }
-    console.log(newSearchValues);
 
     return (
         <>
@@ -127,7 +126,7 @@ export default function Results({ auth, estates, categories }) {
                         ))}
                     </div>
                 ) : (
-                    <div className="flex flex-col mt-[2em] gap-[2.5em] items-center justify-middle">
+                    <div className="flex flex-col mt-[4em] gap-[2.5em] items-center justify-middle">
                         No records found
                     </div>
                 )}
@@ -142,6 +141,7 @@ export default function Results({ auth, estates, categories }) {
                                 of
                                 <span className="font-semibold text-gray-900 dark:text-white">1000</span>
                             </span> */}
+                    {estates.length > 0 &&         
                     <ul className="inline-flex items-stretch -space-x-px">
                         <li>
                             <a
@@ -200,7 +200,7 @@ export default function Results({ auth, estates, categories }) {
                                 </svg>
                             </a>
                         </li>
-                    </ul>
+                    </ul>}
                 </div>
             </div>
         </>

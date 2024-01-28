@@ -145,19 +145,18 @@ export default function All({ auth, estates, success }) {
                                 </form>
                             </div>
                             <div className="flex gap-5 px-5">
-                                <button
+                                
+                                    <Link
                                     id="actionsDropdownButton"
                                     data-dropdown-toggle="actionsDropdown"
                                     className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700  dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
                                     type="button"
-                                >
-                                    <Link
-                                        href={route("estates.create")}
-                                        active={route("estates.index")}
+                                    href={route("estates.create")}
+                                    active={route("estates.index")}
                                     >
                                         Create Estate
                                     </Link>
-                                </button>
+                                
                                 <button
                                     id="actionsDropdownButton"
                                     data-dropdown-toggle="actionsDropdown"

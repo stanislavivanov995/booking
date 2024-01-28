@@ -13,6 +13,8 @@ import TimePicker from "react-time-picker";
 import "react-clock/dist/Clock.css";
 import "react-time-picker/dist/TimePicker.css";
 import Checkbox from "./Checkbox";
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 // import AutoComplete from "react-google-autocomplete"
 
 export default function CreateEstateForm(categories) {
@@ -117,10 +119,19 @@ export default function CreateEstateForm(categories) {
         setFileStatus("File removed");
     };
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
         post(route("estates.store"));
+        Swal.fire('Created!', 'The estate has been created.', 'success');
+            
     };
+    
+    
+    
+    // const submit = (e) => {
+    //     e.preventDefault();
+    //     post(route("estates.store"));
+    // };
 
     return (
         <section>
@@ -505,26 +516,14 @@ export default function CreateEstateForm(categories) {
                     {/* Images */}
 
                     <div className="flex items-center mt-6 gap-4">
-                        <CreateFormSubmitButton disabled={processing}>
+                        {/* <CreateFormSubmitButton disabled={processing}>
                             Create
-                        </CreateFormSubmitButton>
-
-                        <Transition
-                            show={recentlySuccessful}
-                            enter="transition ease-in-out"
-                            enterFrom="opacity-0"
-                            leave="transition ease-in-out"
-                            leaveTo="opacity-0"
+                        </CreateFormSubmitButton> */}
+                        <button                        
+                        onClick={() => submit()}
                         >
-                            <div
-                                className="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3"
-                                role="alert"
-                            >
-                                <p className="font-bold">
-                                    Esatte Created Successfully!
-                                </p>
-                            </div>
-                        </Transition>
+                        Create 
+                        </button>
                     </div>
                 </div>
             </form>
