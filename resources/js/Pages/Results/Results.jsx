@@ -180,6 +180,28 @@ export default function Results({ auth, estates, categories }) {
                 {estates.length > 0 ? (
                     <div className="flex mx-auto justify-center gap-24 mt-24">
                         <div className="flex flex-col gap-3">
+                            
+                            <div className="space-y-2">
+                                <h2 className="font-medium text-xl pb-1">
+                                    Sort by Price
+                                </h2>
+                                <select
+                                    className="rounded-xl"
+                                    value={selectedOption}
+                                    onChange={(event) =>
+                                        sortEstates(event.target.value)
+                                    }
+                                >
+                                    <option value="">
+                                        Choose a way of sorting
+                                    </option>
+                                    <option value="ascending">Lower to Higher</option>
+                                    <option value="descending">
+                                        Higher to Lower
+                                    </option>
+                                </select>
+                            </div>
+
                             <div className="space-y-2">
                                 <h2 className="font-medium text-xl pb-1">
                                     Category
@@ -192,27 +214,6 @@ export default function Results({ auth, estates, categories }) {
                                         setFunc={setFunc}
                                     />
                                 ))}
-                            </div>
-
-                            <div className="space-y-2">
-                                <h2 className="font-medium text-xl pb-1">
-                                    Sort
-                                </h2>
-                                <select
-                                    className="rounded-xl"
-                                    value={selectedOption}
-                                    onChange={(event) =>
-                                        sortEstates(event.target.value)
-                                    }
-                                >
-                                    <option value="">
-                                        Choose a way of sorting
-                                    </option>
-                                    <option value="ascending">Ascending</option>
-                                    <option value="descending">
-                                        Descending
-                                    </option>
-                                </select>
                             </div>
 
                             {/* <div className="space-y-2">
