@@ -30,8 +30,11 @@ export default function Results({ auth, estates, categories }) {
         { name: "Spa", FacilityCheck: false },
     ]);
 
+    const [selectedOption, setSelectedOption] = useState("");
+
     const sortEstates = (typeOfSort) => {
-        console.log(typeOfSort);
+        setSelectedOption(typeOfSort);
+
         if (typeOfSort === "ascending") {
             setRecords(records.sort((a, b) => a.price - b.price));
         } else {
@@ -85,8 +88,6 @@ export default function Results({ auth, estates, categories }) {
                 }
             });
 
-            console.log(filteredEstates);
-
             filteredEstates = filteredEstates.filter(
                 (record) => record !== undefined
             );
@@ -96,6 +97,8 @@ export default function Results({ auth, estates, categories }) {
             const filteredFacilities = facilities.filter(
                 (facility) => facility.FacilityCheck === true
             );
+
+            console.log(filteredFacilities);
 
             if (filteredFacilities.length === 0) return;
 
@@ -179,23 +182,6 @@ export default function Results({ auth, estates, categories }) {
                         <div className="flex flex-col gap-3">
                             <div className="space-y-2">
                                 <h2 className="font-medium text-xl pb-1">
-                                    Sort them by order
-                                </h2>
-                                <Checkbox
-                                    key={"Ascending"}
-                                    label={"Ascending"}
-                                    FacilityCheck={false}
-                                    sortEstates={sortEstates}
-                                />
-                                <Checkbox
-                                    key={"Descending"}
-                                    label={"Descending"}
-                                    FacilityCheck={false}
-                                    sortEstates={sortEstates}
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <h2 className="font-medium text-xl pb-1">
                                     Category
                                 </h2>
                                 {categoriesList.map((category) => (
@@ -210,6 +196,27 @@ export default function Results({ auth, estates, categories }) {
 
                             <div className="space-y-2">
                                 <h2 className="font-medium text-xl pb-1">
+                                    Sort
+                                </h2>
+                                <select
+                                    className="rounded-xl"
+                                    value={selectedOption}
+                                    onChange={(event) =>
+                                        sortEstates(event.target.value)
+                                    }
+                                >
+                                    <option value="">
+                                        Choose a way of sorting
+                                    </option>
+                                    <option value="ascending">Ascending</option>
+                                    <option value="descending">
+                                        Descending
+                                    </option>
+                                </select>
+                            </div>
+
+                            {/* <div className="space-y-2">
+                                <h2 className="font-medium text-xl pb-1">
                                     Included facilities
                                 </h2>
                                 {facilities.map((facility) => (
@@ -220,7 +227,7 @@ export default function Results({ auth, estates, categories }) {
                                         setFunc={setFunc}
                                     />
                                 ))}
-                            </div>
+                            </div> */}
                         </div>
                         <div className="flex flex-col gap-[2.5em]">
                             {records.length > 0 ? (
