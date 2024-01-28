@@ -46,8 +46,8 @@ class Estate extends Model
         return $this->hasOne(Facility::class);
     }
 
-    public function prunable(): Builder
+    public function user(): BelongsTo
     {
-        return static::where('deleted_at', '!=', null);
+        return $this->belongsTo(User::class);
     }
 }

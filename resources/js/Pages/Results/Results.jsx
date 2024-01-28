@@ -1,5 +1,6 @@
 import Heading from "@/Components/Home/Heading";
 import NavBar from "@/Components/Home/Navbar";
+import Footer from "@/Components/Home/Footer";
 import SearchBar from "@/Components/Home/SearchBar";
 import { Head, Link } from "@inertiajs/react";
 import { useState } from "react";
@@ -70,7 +71,7 @@ export default function Results({ auth, estates, categories }) {
                 {estates.length > 0 ? (
                     <div className="flex flex-col mt-[4em] gap-[2.5em] items-center justify-middle">
                         {records.map((estate, index) => (
-                            <Link key={index} href="#" className="inline-block">
+                            <Link key={index} href={route('estate.details', estate.id)} className="inline-block">
                                 <div className="flex shadow-xl hover:shadow-2xl m-2 rounded-xl">
                                     {estate.images.length > 0 ? (
                                         <img
@@ -203,6 +204,7 @@ export default function Results({ auth, estates, categories }) {
                     </ul>}
                 </div>
             </div>
+            <Footer />
         </>
     );
 }

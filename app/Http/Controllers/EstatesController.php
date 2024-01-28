@@ -221,6 +221,8 @@ class EstatesController extends Controller
         return Inertia::render('Admin/Estates/Show', [
             'estate' => $estate,
             'facilities' => $facilities,
+            'images'=> $images,
+            'owner' => $estate->user,
             'images' => $images
         ]);
     }
