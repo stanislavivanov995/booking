@@ -1,10 +1,13 @@
 import { useState } from "react";
 import DetailsFacitlities from "./DetailsFacilities";
 import moment from 'moment';
+import Heading from "@/Components/Home/Heading";
+import NavBar from "@/Components/Home/Navbar";
+import Footer from "@/Components/Home/Footer";
 
 const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
 
-export default function Details({ auth, estate, facilities, images, owner }) {
+export default function Details({ auth, estate, facilities, images }) {
 
     const [selectedImage, setSelectedImage] = useState(defaultImage);
 
@@ -18,6 +21,9 @@ export default function Details({ auth, estate, facilities, images, owner }) {
 
     return (
         <>
+        <Heading auth={auth} />
+            <NavBar />
+
             <section className=" bg-gray-200">
                 <div>
                     {images.length > 0 ? (
@@ -104,10 +110,10 @@ export default function Details({ auth, estate, facilities, images, owner }) {
                         </div>
                         <div className='flex flex-col h-[80%] items-center  text-[20px] justify-evenly gap-2 mt-5'>
                             <h2>OWNER</h2>
-                            <p className='text-[25px] font-bold'>Andrew Petrov</p>
+                            <p className='text-[25px] font-bold'>{estate.user.name}</p>
                             <div className='flex items-center gap-5'>
                                 <i className="fa-solid fa-phone"></i>
-                                <h3>089538124385</h3>
+                                <h3>{estate.user.email}</h3>
                             </div>
                             <span className='border border-t-gray-500'></span>
                             <div className="flex items-center gap-2">
@@ -120,7 +126,7 @@ export default function Details({ auth, estate, facilities, images, owner }) {
                     {/* Right section */}
                 </div >
             </section >
-
+            <Footer />
 
         </>
     )

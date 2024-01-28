@@ -1,5 +1,6 @@
 import Heading from "@/Components/Home/Heading";
 import NavBar from "@/Components/Home/Navbar";
+import Footer from "@/Components/Home/Footer";
 import SearchBar from "@/Components/Home/SearchBar";
 import { Head, Link } from "@inertiajs/react";
 import { useState } from "react";
@@ -203,6 +204,7 @@ export default function Results({ auth, estates, categories }) {
                     </ul>}
                 </div>
             </div>
+            <Footer />
         </>
     );
 }

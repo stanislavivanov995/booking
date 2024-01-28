@@ -23,6 +23,8 @@ class HomeController extends Controller
     {
         $estate->load('category');
 
+        $estate->load('user');
+
         $facilities = [];
  
         if($estate->facilities){
