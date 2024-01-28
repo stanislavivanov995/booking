@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+import { router } from '@inertiajs/react'
 
 export default function Table({ items: records, query }) {
     // Pagination
@@ -11,6 +12,8 @@ export default function Table({ items: records, query }) {
     const estates = records.slice(firstIndex, lastIndex);
     const nPage = Math.ceil(records.length / recordsPerPage);
     const numbers = [...Array(nPage + 1).keys()].slice(1);
+
+    const [allEstates, setAllEstates] = useState(estates);
 
     const prevPage = () => {
         if (currentPage <= 1) {
@@ -29,6 +32,34 @@ export default function Table({ items: records, query }) {
             setCurrentPage(currentPage + 1);
         }
     };
+
+    const confirmDelete = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to recover this estate!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await handleDelete(id);
+                Swal.fire('Deleted!', 'The estate has been deleted.', 'success');
+            }
+        });
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            await axios.get(route('estate.delete', id));
+            const updatedRecords = records.filter(record => record.id !== id);
+            setAllEstates(updatedRecords);
+        } catch (error) {
+            console.error('Error deleting record:', error);
+        }
+    };
+    
 
     const defaultImage =
         "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
@@ -78,7 +109,7 @@ export default function Table({ items: records, query }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {estates
+                                {allEstates
                                     .filter((estate) =>
                                         estate.name
                                             .toLowerCase()
@@ -258,11 +289,9 @@ export default function Table({ items: records, query }) {
                                                     {/* Edit */}
 
                                                     {/* Delete */}
-                                                    <a
-                                                        href={route(
-                                                            "estate.delete",
-                                                            record.id
-                                                        )}
+                                                    <button
+                                                        
+                                                        onClick={() => confirmDelete(record.id)}
                                                     >
                                                         <div
                                                             className="tooltip"
@@ -284,7 +313,7 @@ export default function Table({ items: records, query }) {
                                                                 />
                                                             </svg>
                                                         </div>
-                                                    </a>
+                                                    </button>
                                                     {/* Delete */}
                                                 </div>
                                             </td>
