@@ -21,11 +21,12 @@ export default function Details({ auth, estate, facilities, images, owner }) {
             <section className=" bg-gray-200">
                 <div>
                     {images.length > 0 ? (
-                        <div className="flex flex-col items-center w-full bg-gray-200 justify-center p-2">
+                        <div className="flex flex-col items-center w-[90%] md:w-[80%] m-auto bg-gray-200 justify-center p-2
+                        2xl:w-full xl:w-[95%] xl:items-center lg:m-auto sm:ml-0 md:ml-[6em]">
                             <img
                                 src={selectedImage}
                                 alt="selected image"
-                                className=" block sm:w-[60%] w-full h-auto sm:h-[700px]"
+                                className=" block rounded-xl sm:w-[60%] w-full h-auto sm:h-[700px] md:w-[90%] lg:w-[80%] 2xl:w-[60%] "
                             />
                             <div className="flex justify-center gap-4 max-w-[27em] flex-wrap mt-8">
                                 {images.map((img) => (
@@ -45,9 +46,10 @@ export default function Details({ auth, estate, facilities, images, owner }) {
                     )}
                 </div>
 
-                <div id='wrapper' className='pb-5 flex flex-col w-[500px] sm:w-full 2xl:flex-row px-2 pr-[2em] justify-between align-middle'>
+                <div id='wrapper' className='pb-5 flex flex-col  items-center m-auto px-2 2xl:pr-[2em] justify-between align-middle 
+                2xl:w-full xl:w-[90%] w-full xl:items-center 2xl:flex-row 2xl:items-start'>
                     {/* top-section-container */}
-                    <div className='bg-white m-5 w-[80%] rounded-xl'>
+                    <div className='bg-white m-5 ml-5 w-[90%] xl:w-[90%] rounded-xl'>
                         <div>
                             <div className="flex items-center w-full ml-auto gap-2 pt-6 pl-10">
                                 <svg xmlns="http://www.w3.org/2000/svg" width={"25px"} height={"25px"} viewBox="0 0 448 512"><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192H400V448c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192z" /></svg>
@@ -95,7 +97,7 @@ export default function Details({ auth, estate, facilities, images, owner }) {
                         {/* bottom-section */}
                     </div >
                     {/* Right section */}
-                    <div className='bg-white mx-5 my-5 h-[350px] sm:w-[25%] w-[80%] rounded-xl'>
+                    <div className='bg-white mx-5 my-5 h-[350px] lg:w-[60%] md:w-[80%] sm:w-[30%] xl:w-[60%] 2xl:w-[35%] w-[80%] rounded-xl'>
                         <div className='bg-zinc-800 h-[50px] flex gap-2 items-center rounded-t-xl justify-center px-2 text-[18px] text-white'>
                             <h2>{estate.price} {estate.currency} /</h2>
                             <svg xmlns="http://www.w3.org/2000/svg" className="fill-yellow-400" width="20px" height="20px" viewBox="0 0 384 512"><path d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z" /></svg>
