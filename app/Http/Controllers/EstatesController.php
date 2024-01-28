@@ -96,7 +96,8 @@ class EstatesController extends Controller
             $this->uploadImages($images, $estate);
         }
 
-        return Redirect::route('estates.index')->with('success', 'Estate was created successfully!');
+        // return back();
+        return Redirect::route('estates.index');
     }
 
     public function uploadImages($images, $estate)
