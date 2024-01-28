@@ -53,13 +53,12 @@ export default function Table({ items: records, query }) {
     const handleDelete = async (id) => {
         try {
             await axios.get(route('estate.delete', id));
-            const updatedRecords = records.filter(record => record.id !== id);
+            const updatedRecords = allEstates.filter(record => record.id !== id);
             setAllEstates(updatedRecords);
         } catch (error) {
             console.error('Error deleting record:', error);
         }
     };
-    
 
     const defaultImage =
         "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
@@ -74,7 +73,7 @@ export default function Table({ items: records, query }) {
                                     All Estates:{" "}
                                     <i className="fa-solid fa-pen-to-square"></i>
                                 </span>
-                                <span> {records.length}</span>
+                                <span> {allEstates.length}</span>
                             </h5>
                         </div>
                         <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">

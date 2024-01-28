@@ -96,7 +96,6 @@ class EstatesController extends Controller
             $this->uploadImages($images, $estate);
         }
 
-        // return back();
         return Redirect::route('estates.index');
     }
 
@@ -234,6 +233,6 @@ class EstatesController extends Controller
             $image->forceDelete();
         }
         $estate->delete();
-        return back();
+        return Redirect::route('estates.index');
     }
 }
