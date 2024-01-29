@@ -64,6 +64,9 @@ export default function Show({ auth, estate, facilities, images }) {
                     <p className="text-gray-500 font-medium mb-5">
                         {estate.location}
                     </p>
+                    <p className="text-gray-500 font-medium mb-5">
+                        Views: {estate.clicks}
+                    </p>
                     <div className="flex flex-col gap-5 p-4 sm:p-8 bg-white shadow sm:rounded-lg ">
                         <p className="font-medium text-gray-500">
                             {estate.description
