@@ -6,6 +6,9 @@ import CurrencyContextProvider, {
 import moment from "moment";
 import { useContext, useState } from "react";
 import DetailsFacitlities from "./DetailsFacilities";
+import { Button, Modal, Select } from 'flowbite-react';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const defaultImage =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
@@ -13,6 +16,21 @@ const defaultImage =
 export default function Details({ auth, estate, facilities, images }) {
     const { formatPrice, currency } = useContext(CurrencyContext);
     const [selectedImage, setSelectedImage] = useState(defaultImage);
+    const [openModal, setOpenModal] = useState(false);
+    const [modalPlacement, setModalPlacement] = useState('center')
+
+    const [startDate, setStartDate] = useState(new Date());
+
+    const [endDate, setEndDate] = useState(new Date());
+
+    const handleCheckInDate = (selectedItem) => {
+        setData("check_in", selectedItem);
+    };
+
+    const handleCheckOutDate = (selectedItem) => {
+        setData("check_out", selectedItem);
+    };
+
 
     if (images.length > 0 && selectedImage === defaultImage) {
         setSelectedImage(images[0].url);
@@ -24,6 +42,54 @@ export default function Details({ auth, estate, facilities, images }) {
 
     return (
         <ClientLayout auth={auth}>
+
+        <Modal
+        show={openModal}
+        position={modalPlacement}
+        onClose={() => setOpenModal(false)}
+        >
+            <Modal.Header>Book: {estate.name}</Modal.Header>
+            <Modal.Body>
+            <div className="space-y-6 p-6">
+            <div className="flex gap-2 mt-1">
+                        <DatePicker
+                            selected={startDate}
+                            onChange={(date) => {
+                                handleCheckInDate(date);
+                                setStartDate(date);
+                            }}
+                            selectsStart
+                            startDate={startDate}
+                            minDate={new Date()}
+                            endDate={endDate}
+                            className="block lg:w-[250px] w-[210px] lg:m-0 ml-8 border border-[#d1d5db] rounded-lg"
+                        />
+                        <DatePicker
+                            selected={endDate}
+                            onChange={(date) => {
+                                handleCheckOutDate(date);
+                                setEndDate(date);
+                            }}
+                            selectsEnd
+                            startDate={startDate}
+                            endDate={endDate}
+                            minDate={startDate}
+                            className="block lg:w-[250px] w-[210px] lg:m-0 ml-8 border border-[#d1d5db] rounded-lg"
+                        />
+                    </div>
+            </div>
+            </Modal.Body>
+            <Modal.Footer>
+            <Button onClick={() => setOpenModal(false)}>I accept</Button>
+            <Button color="gray" onClick={() => setOpenModal(false)}>
+                Decline
+            </Button>
+            <Button color="gray" onClick={() => console.log('book')}>
+                Book
+            </Button>
+            </Modal.Footer>
+        </Modal>
+
             <section className=" bg-gray-200">
                 <div>
                     {images.length > 0 ? (
@@ -221,7 +287,10 @@ export default function Details({ auth, estate, facilities, images }) {
                                     {estate.arrive_hour}-{estate.leave_hour}
                                 </p>
                             </div>
-                            <button className="w-[80%] bg-zinc-800 py-2 rounded-xl text-white px-2 my-5 m-auto self-end hover:opacity-45 duration-100">
+                            <button 
+                            className="w-[80%] bg-zinc-800 py-2 rounded-xl text-white px-2 my-5 m-auto self-end hover:opacity-45 duration-100"
+                            onClick={() => setOpenModal(true)}
+                            >
                                 Book now
                             </button>
                         </div>

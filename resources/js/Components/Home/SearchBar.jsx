@@ -66,8 +66,7 @@ export default function SearchBar({ newSearchValues, className }) {
                 notify();
                 throw new Error("Should be selected location!");
             }
-            
-            // Извикване на рутера
+ 
             router.get("/results", data);
         } catch (error) {
             console.log(error);
