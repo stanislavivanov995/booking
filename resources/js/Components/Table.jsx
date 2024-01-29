@@ -64,7 +64,7 @@ export default function Table({ items: records, query }) {
     const confirmEnable = (id) => {
         Swal.fire({
             title: 'You are about to enable the estate',
-            text: 'This estate will back in the game!',
+            text: 'This estate will be listed in the site!',
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#228822',
@@ -93,7 +93,7 @@ export default function Table({ items: records, query }) {
     const confirmDisable = (id) => {
         Swal.fire({
             title: 'You are about to disable the estate',
-            text: 'This estate will not be shown in the site! You are able to enable it again.',
+            text: 'This estate will no longer be listed in the site! You can enable it later.',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
