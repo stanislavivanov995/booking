@@ -247,8 +247,6 @@ class EstatesController extends Controller
         return Redirect::route('estates.index');
     }
 
-
-
     public function enable(string $id)
     {
         $estate = Estate::findOrFail($id);

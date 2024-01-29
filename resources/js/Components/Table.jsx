@@ -103,6 +103,9 @@ export default function Table({ items: records, query }) {
                                         Price
                                     </th>
                                     <th scope="col" className="px-4 py-3">
+                                        Enabled
+                                    </th>
+                                    <th scope="col" className="px-4 py-3">
                                         Actions
                                     </th>
                                 </tr>
@@ -127,7 +130,7 @@ export default function Table({ items: records, query }) {
                                                     src={
                                                         record.images.length > 0
                                                             ? record.images[0]
-                                                                  .url
+                                                                .url
                                                             : defaultImage
                                                     }
                                                     alt="iMac Front Image"
@@ -140,12 +143,6 @@ export default function Table({ items: records, query }) {
                                                     {record.category.name}
                                                 </span>
                                             </td>
-                                            {/* <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                                            <div className="flex items-center">
-                                                <div className="inline-block w-4 h-4 mr-2 bg-red-700 rounded-full"></div>
-                                                95
-                                            </div>
-                                        </td> */}
                                             <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                                                 <div className="flex items-center">
                                                     <svg
@@ -224,6 +221,40 @@ export default function Table({ items: records, query }) {
                                                 {record.price} {record.currency}
                                             </td>
                                             <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
+                                                <div className="flex items-center">
+                                                    {/* Enabled */}
+                                                    <svg
+                                                        class="w-6 h-6 text-green-700 dark:text-white"
+                                                        aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="currentColor"
+                                                        viewBox="0 0 24 24"
+                                                    >
+                                                        <path
+                                                            fill-rule="evenodd"
+                                                            d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z"
+                                                            clip-rule="evenodd"
+                                                        />
+                                                    </svg>
+                                                    {/* Enabled */}
+                                                    {/* Disabled */}
+                                                    <svg
+                                                        class="w-6 h-6 text-red-700 dark:text-white"
+                                                        aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="currentColor"
+                                                        viewBox="0 0 24 24"
+                                                    >
+                                                        <path
+                                                            fill-rule="evenodd"
+                                                            d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z"
+                                                            clip-rule="evenodd"
+                                                        />
+                                                    </svg>
+                                                    {/* Disabled */}
+                                                </div>
+                                            </td>
+                                            <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                                                 <div className="flex items-center space-x-4">
                                                     {/* Show */}
                                                     <a
@@ -289,7 +320,7 @@ export default function Table({ items: records, query }) {
 
                                                     {/* Delete */}
                                                     <button
-                                                        
+
                                                         onClick={() => confirmDelete(record.id)}
                                                     >
                                                         <div
@@ -314,6 +345,49 @@ export default function Table({ items: records, query }) {
                                                         </div>
                                                     </button>
                                                     {/* Delete */}
+                                                    {/* Enable */}
+                                                    <button
+                                                        className="tooltip"
+                                                        title="Enable Estate"
+                                                    >
+                                                        <svg
+                                                            class="w-6 h-6 text-gray-800 dark:text-white"
+                                                            aria-hidden="true"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                        >
+                                                            <path
+                                                                stroke="currentColor"
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="m5 12 4.7 4.5 9.3-9"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                    {/* Enable */}
+                                                    {/* Disable */}
+                                                    <button
+                                                        className="tooltip"
+                                                        title="Enable Estate"
+                                                    >
+                                                        <svg
+                                                            class="w-6 h-6 text-gray-800 dark:text-white"
+                                                            aria-hidden="true"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                        >
+                                                            <path
+                                                                stroke="currentColor"
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                    {/* Disable */}
                                                 </div>
                                             </td>
                                         </tr>
