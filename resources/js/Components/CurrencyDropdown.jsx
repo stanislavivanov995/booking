@@ -9,6 +9,7 @@ export default function CurrencyDropdown() {
             className="border-none text-lg font-medium rounded-lg"
             onChange={(e) => setCurrency(e.target.value)}
             defaultValue={currency}
+            style={{ cursor: "pointer" }}
         >
             <option value="BGN">BGN</option>
             <option value="USD">USD</option>
