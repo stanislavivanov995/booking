@@ -1,5 +1,6 @@
 import { Link } from "@inertiajs/react";
 import AvatarDropDown from "./AvatarDropDown";
+import CurrencyDropdown from "../CurrencyDropdown";
 
 export default function Heading({ auth }) {
     return (
@@ -40,7 +41,10 @@ export default function Heading({ auth }) {
                         //         Dashboard
                         //     </Link>
                         // </button>
-                        <AvatarDropDown user={auth.user} />
+                        <>
+                            <CurrencyDropdown />
+                            <AvatarDropDown user={auth.user} />
+                        </>
                     ) : (
                         <>
                             <button className="cursor-pointer rounded-md py-[0.8em] px-[1em] bg-black text-white font-bold outline-none border-none text-[16px]">
