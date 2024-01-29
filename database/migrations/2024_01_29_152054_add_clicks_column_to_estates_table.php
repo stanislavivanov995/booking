@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('estates', function (Blueprint $table) {
-            $table->integer('clicks')->default(0);
+        Schema::table('estates', function (Blueprint $table) {
+            $table->integer('clicks')->default(0)->after('beds');
         });
     }
 
