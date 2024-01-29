@@ -12,6 +12,7 @@ import TextArea from "@/Components/TextArea.jsx";
 import Checkbox from "@/Components/Checkbox.jsx";
 import CreateFormSubmitButton from "@/Components/CreateFormSubmitButton.jsx";
 import { Transition } from "@headlessui/react";
+import Swal from "sweetalert2";
 
 export default function EditEstateForm({ estate, categories }) {
     const { setData, post, errors, processing, recentlySuccessful } = useForm({
@@ -138,6 +139,7 @@ export default function EditEstateForm({ estate, categories }) {
     const submit = (e) => {
         e.preventDefault();
         post(route("estate.update", estate.id));
+        Swal.fire('Updated!', 'The estate has been updated.', 'success');
     };
 
     return (
