@@ -14,7 +14,6 @@ export default function Table({ items: records, query }) {
     const numbers = [...Array(nPage + 1).keys()].slice(1);
 
     const [allEstates, setAllEstates] = useState(estates);
-    console.log(allEstates);
 
     const prevPage = () => {
         if (currentPage <= 1) {

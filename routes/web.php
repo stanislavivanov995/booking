@@ -32,6 +32,8 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/details/{estate}', [HomeController::class, 'details'])->name('estate.details');
 
+Route::post('/click/{estate}', [EstatesController::class, 'clicks'])->name('estate.click');
+
 Route::get('/results', [HomeController::class, 'results'])->name('results');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');

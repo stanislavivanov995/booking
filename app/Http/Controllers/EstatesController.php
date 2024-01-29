@@ -259,7 +259,7 @@ class EstatesController extends Controller
     public function clicks(string $estateId): void
     {
         $estate = Estate::find($estateId);
-        $estate->clikcks = $estate->clicks + 1;
+        $estate->clicks = $estate->clicks + 1;
         $estate->save();
     }
 }

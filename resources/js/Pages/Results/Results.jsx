@@ -122,6 +122,14 @@ export default function Results({ auth, estates, categories }) {
         }
     };
 
+    const handleClick = async (id) => {
+        try {
+            await axios.post(route('estate.click', id));
+        } catch (error) {
+            console.error('Error incrementing estate click:', error);
+        }
+    };
+
     const prevPage = () => {
         if (currentPage !== 1) {
             setCurrentPage(currentPage - 1);
@@ -237,6 +245,7 @@ export default function Results({ auth, estates, categories }) {
                                     records.map((estate, index) => (
                                         <Link
                                             key={index}
+                                            onClick={() => handleClick(estate.id)}
                                             href={route(
                                                 "estate.details",
                                                 estate.id
