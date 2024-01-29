@@ -238,6 +238,24 @@ class EstatesController extends Controller
         return Redirect::route('estates.index');
     }
 
+    public function disable(string $id)
+    {
+        $estate = Estate::findOrFail($id);
+        $estate->is_disabled = 1;
+        $estate->save();
+
+        return Redirect::route('estates.index');
+    }
+
+    public function enable(string $id)
+    {
+        $estate = Estate::findOrFail($id);
+        $estate->is_disabled = 0;
+        $estate->save();
+
+        return Redirect::route('estates.index');
+    }
+
     public function clicks(string $estateId): void
     {
         $estate = Estate::find($estateId);
