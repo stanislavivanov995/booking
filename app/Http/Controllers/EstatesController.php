@@ -237,4 +237,11 @@ class EstatesController extends Controller
         $estate->delete();
         return Redirect::route('estates.index');
     }
+
+    public function clicks(string $estateId): void
+    {
+        $estate = Estate::find($estateId);
+        $estate->clikcks = $estate->clicks + 1;
+        $estate->save();
+    }
 }
