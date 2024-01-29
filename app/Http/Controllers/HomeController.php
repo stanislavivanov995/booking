@@ -8,6 +8,7 @@ use App\Models\{Estate, Category};
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
 
+
 class HomeController extends Controller
 {
     const GOOGLE_LOCATION_API_KEY = 'AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo';
@@ -21,6 +22,12 @@ class HomeController extends Controller
 
     public function details(Estate $estate)
     {
+        if ($estate->is_disabled != 0) {
+            return Inertia::render('Home/Home', [
+                'categories' => Category::all()
+            ]);
+        }
+
         $estate->load('category');
 
         $estate->load('user');
