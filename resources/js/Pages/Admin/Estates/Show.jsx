@@ -8,7 +8,7 @@ const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/
 export default function Show({ auth, estate, facilities, images }) {
     const [selectedImage, setSelectedImage] = useState(defaultImage);
     const estateId = window.location.pathname.split("/")[3];
-
+    console.log(facilities);
     if (images.length > 0 && selectedImage === defaultImage) {
         setSelectedImage(images[0].url);
     }
@@ -121,6 +121,7 @@ export default function Show({ auth, estate, facilities, images }) {
                             <div className="flex flex-wrap gap-2">
                                 {Object.entries(facilities).map(
                                     ([key, value], index) => (
+                                        key != 'Id' && key != 'Estate id' &&
                                         <div
                                             key={index}
                                             className="bg-gray-200 font-bold cursor-pointer p-2 rounded-lg hover:bg-gray-100"
