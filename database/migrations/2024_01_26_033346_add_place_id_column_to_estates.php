@@ -6,21 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    
     public function up(): void
     {
         Schema::table('estates', function (Blueprint $table) {
-            $table->string('is_disabled')->default('0')->after('updated_at');
+            $table->string('place_id')->after('currency');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::table('estates', function (Blueprint $table) {
-            $table->dropColumn('is_disabled');
+            $table->dropColumn('place_id');
         });
     }
 };
-
