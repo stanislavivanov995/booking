@@ -1,12 +1,12 @@
 import FilterCheckbox from "@/Components/FilterCheckbox";
-import Heading from "@/Components/Home/Heading";
-import NavBar from "@/Components/Home/Navbar";
 import SearchBar from "@/Components/Home/SearchBar";
 import ClientLayout from "@/Layouts/ClientLayout";
+import { CurrencyContext } from "@/context/currencyContext";
 import { Head, Link } from "@inertiajs/react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 export default function Results({ auth, estates, categories }) {
+    const { formatPrice, currency } = useContext(CurrencyContext);
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 10;
     const lastIndex = currentPage * recordsPerPage;
@@ -222,20 +222,6 @@ export default function Results({ auth, estates, categories }) {
                                 ))}
                             </div>
 
-
-                            {/* <div className="space-y-2">
-    <h2 className="font-medium text-xl pb-1">
-        Included facilities
-    </h2>
-    {facilities.map((facility) => (
-        <Checkbox
-            key={facility.name}
-            label={facility.name}
-            FacilityCheck={facility.FacilityCheck}
-            setFunc={setFunc}
-        />
-    ))}
-</div> */}
                         </div>
                         {estates.length > 0 ? (
                             <div className="flex justify-center mt-[5em] mr-auto">
@@ -304,7 +290,11 @@ export default function Results({ auth, estates, categories }) {
                                                             {estate.description}
                                                         </p>
                                                         <div className="w-full mt-auto ml-auto flex justify-end">
-                                                            <h2 className="text-[18px] sm:mt-0 mt-4">{estate.price} <span className="font-bold">{estate.currency}</span></h2>
+                                                            <h2 className="text-[18px] sm:mt-0 mt-4">{formatPrice(
+                                                            estate.price,
+                                                            estate.currency,
+                                                            currency)} 
+                                <span className="font-bold">{currency}</span></h2>
                                                         </div>
                                                     </div>
                                                 </div>
