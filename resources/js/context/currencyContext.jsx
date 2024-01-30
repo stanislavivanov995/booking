@@ -20,7 +20,7 @@ export default function CurrencyContextProvider({ children }) {
         }
 
         const convertedPrice =
-            (estatePrice / exchangeRates[estateCurrency]) *
+            (estatePrice * exchangeRates[estateCurrency]) /
             exchangeRates[selectedCurrency];
 
         return parseFloat(convertedPrice.toFixed(2));
