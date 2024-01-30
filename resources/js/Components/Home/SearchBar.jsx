@@ -66,7 +66,7 @@ export default function SearchBar({ newSearchValues, className }) {
                 notify();
                 throw new Error("Should be selected location!");
             }
- 
+
             router.get("/results", data);
         } catch (error) {
             console.log(error);
@@ -76,11 +76,11 @@ export default function SearchBar({ newSearchValues, className }) {
     return (
         <>
             <div
-                className={`xl:w-[1200px] w-[75%] lg:p-1 pt-2 bg-white shadow-2xl absolute lg:bottom-[-10px] bottom-[-15px] rounded-lg ${className}`}
+                className={`xl:w-[1000px] sm:pb-[2em] pb-[5em] sm:w-[75%] 2xl:w-[1200px] w-[300px] xl:h-[60px] h-[230px] lg:p-1 pt-2 bg-white shadow-2xl absolute lg:bottom-[-10px] bottom-[-15px] rounded-lg ${className}`}
             >
                 <form
                     onSubmit={(e) => handleSubmit(e)}
-                    className="flex xl:flex-row lg:gap-0 gap-1 flex-col justify-evenly items-center lg:p-2"
+                    className="flex xl:flex-row lg:gap-0 gap-1 xl:h-[45px] h-[250px] flex-col xl:justify-between justify-evenly items-center lg:p-2"
                 >
                     <div className="flex items-center lg:gap-5 gap-3">
                         <svg
@@ -104,7 +104,7 @@ export default function SearchBar({ newSearchValues, className }) {
                         </div>
                     </div>
 
-                    <div className="flex gap-2 mt-1">
+                    <div className="flex gap-2 mt-1 sm:flex-row flex-col">
                         <DatePicker
                             selected={startDate}
                             onChange={(date) => {
