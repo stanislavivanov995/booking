@@ -203,8 +203,10 @@ class EstatesController extends Controller
     {
         $estate->load('category');
 
-        $facilitiesArray = $estate->facilities->toArray();
+        $facilities = collect($estate->facilities)
+        ->except(['id', 'estate_id']);
 
+        $facilitiesArray = $facilities->toArray();
         $availableFacilities = array_filter($facilitiesArray, function ($value) {
             return $value == 1;
         });
