@@ -165,7 +165,7 @@ export default function Results({ auth, estates, categories }) {
 
             <ClientLayout auth={auth}>
                 <div className="w-[90%] sm:m-auto mt-8">
-                    <Link href="/" className="sm:inline-block hidden">
+                    <Link href="/" className="sm:inline-block hidden mt-4">
                         <button>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

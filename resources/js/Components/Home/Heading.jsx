@@ -5,10 +5,12 @@ import CurrencyDropdown from "../CurrencyDropdown";
 export default function Heading({ auth }) {
     return (
         <>
-            <header className="flex justify-between items-center py-4 px-6 shadow-xl">
-                <h1 className=" font-normal text-[20px] max-w-[5em]">
-                    MI-CASA SU-CASA
-                </h1>
+            <header className="flex justify-between items-center py-[2.5px] px-6 shadow-xl">
+                <Link href="/">
+                    <h1 className=" font-normal text-[20px] max-w-[5em] cursor-pointer">
+                        <img src="http://localhost:8000/storage/logos/Logo1.png" alt="Logo" />
+                    </h1>
+                </Link>
                 <div className="flex justify-center items-center gap-4">
                     <a href="#faq">
                         <svg

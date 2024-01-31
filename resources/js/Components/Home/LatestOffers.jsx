@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { Link } from "@inertiajs/react";
 
-export default function LatestEstates() {
+export default function LatestEstates({ lastEstatesRef }) {
 
     const settings = {
         centerMode: true,
@@ -37,7 +37,7 @@ export default function LatestEstates() {
 
     return (
         <>
-            <div className="bg-gray-300 min-h-[70vh] flex flex-col items-center overflow-hidden">
+            <div ref={lastEstatesRef} className="bg-gray-300 min-h-[70vh] flex flex-col items-center overflow-hidden">
                 <div className="flex items-center justify-between xl:w-[1260px] lg:w-[1000px] sm:w-[700px] w-[440px] py-[2em]">
                     <h1 className="text-left text-[1.2em] xl:text-[2.5em] pl-5">Latest Uploaded Estates</h1>
                     <Link className="hover:underline transition mr-8">

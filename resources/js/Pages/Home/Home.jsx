@@ -7,19 +7,25 @@ import LatestEstates from "@/Components/Home/LatestOffers";
 import NavBar from "@/Components/Home/Navbar";
 
 import { Head } from "@inertiajs/react";
+import { useRef } from "react";
 
 export default function Home({ auth, categories }) {
+
+    const lastEstatesRef = useRef(null);
+    const faqRef = useRef(null);
+    const contactUsRef = useRef(null);
+
     return (
         <>
             <Head title="Home" />
             <div className="overflow-hidden">
                 <Heading auth={auth} />
-                <NavBar />
+                <NavBar lastEstatesRef={lastEstatesRef} faqRef={faqRef} contactUsRef={contactUsRef} />
                 <HeadContainer categories={categories} />
                 <Description />
-                <LatestEstates />
-                <FAQ />
-                <Footer />
+                <LatestEstates lastEstatesRef={lastEstatesRef} />
+                <FAQ faqRef={faqRef} />
+                <Footer contactUsRef={contactUsRef} />
             </div>
         </>
     );
