@@ -1,14 +1,13 @@
 import Footer from "@/Components/Home/Footer";
 import ClientLayout from "@/Layouts/ClientLayout";
-import CurrencyContextProvider, {
-    CurrencyContext,
-} from "@/context/currencyContext";
+import { CurrencyContext } from "@/context/currencyContext";
+import { Button, Modal } from "flowbite-react";
 import moment from "moment";
 import { useContext, useState } from "react";
-import DetailsFacitlities from "./DetailsFacilities";
-import { Button, Modal, Select } from 'flowbite-react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import DetailsFacitlities from "./DetailsFacilities";
+import { loadStripe } from "@stripe/stripe-js";
 
 const defaultImage =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
@@ -17,7 +16,7 @@ export default function Details({ auth, estate, facilities, images }) {
     const { formatPrice, currency } = useContext(CurrencyContext);
     const [selectedImage, setSelectedImage] = useState(defaultImage);
     const [openModal, setOpenModal] = useState(false);
-    const [modalPlacement, setModalPlacement] = useState('center')
+    const [modalPlacement, setModalPlacement] = useState("center");
 
     const [startDate, setStartDate] = useState(new Date());
 
@@ -31,7 +30,6 @@ export default function Details({ auth, estate, facilities, images }) {
         setData("check_out", selectedItem);
     };
 
-
     if (images.length > 0 && selectedImage === defaultImage) {
         setSelectedImage(images[0].url);
     }
@@ -40,55 +38,195 @@ export default function Details({ auth, estate, facilities, images }) {
         setSelectedImage(event.target.src);
     };
 
+    const makePayment = async () => {
+        const stripe = await loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
+
+        const body = {
+            products: estate,
+        };
+
+        const headers = {
+            "Content-Type": "application/json",
+        };
+
+        const response = await fetch("/create-checkout-session", {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(body),
+        });
+    };
+
     return (
         <ClientLayout auth={auth}>
+            <Modal
+                show={openModal}
+                position={modalPlacement}
+                onClose={() => setOpenModal(false)}
+                className="absolute mt-24 mx-auto w-1/3 min-w-[23em] text-indigo-600"
+            >
+                <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-10"></div>
 
-        <Modal
-        show={openModal}
-        position={modalPlacement}
-        onClose={() => setOpenModal(false)}
-        >
-            <Modal.Header>Book: {estate.name}</Modal.Header>
-            <Modal.Body>
-            <div className="space-y-6 p-6">
-            <div className="flex gap-2 mt-1">
-                        <DatePicker
-                            selected={startDate}
-                            onChange={(date) => {
-                                handleCheckInDate(date);
-                                setStartDate(date);
-                            }}
-                            selectsStart
-                            startDate={startDate}
-                            minDate={new Date()}
-                            endDate={endDate}
-                            className="block lg:w-[250px] w-[210px] lg:m-0 ml-8 border border-[#d1d5db] rounded-lg"
-                        />
-                        <DatePicker
-                            selected={endDate}
-                            onChange={(date) => {
-                                handleCheckOutDate(date);
-                                setEndDate(date);
-                            }}
-                            selectsEnd
-                            startDate={startDate}
-                            endDate={endDate}
-                            minDate={startDate}
-                            className="block lg:w-[250px] w-[210px] lg:m-0 ml-8 border border-[#d1d5db] rounded-lg"
-                        />
-                    </div>
-            </div>
-            </Modal.Body>
-            <Modal.Footer>
-            <Button onClick={() => setOpenModal(false)}>I accept</Button>
-            <Button color="gray" onClick={() => setOpenModal(false)}>
-                Decline
-            </Button>
-            <Button color="gray" onClick={() => route('book')}>
-                Book
-            </Button>
-            </Modal.Footer>
-        </Modal>
+                <div className="relative z-20 bg-white rounded-2xl">
+                    <Modal.Header className="border-none">
+                        <span className="text-gray-900 font-bold text-2xl">
+                            {estate.name}
+                        </span>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="flex flex-col justify-center items-center gap-5">
+                            <div className="flex gap-5 justify-center items-center flex-wrap">
+                                <div>
+                                    <label
+                                        for="first_name"
+                                        className="block mb-2 text-sm font-medium text-gray-900"
+                                    >
+                                        First name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="first_name"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[210px] p-2.5"
+                                        placeholder="John"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        for="last_name"
+                                        className="block mb-2 text-sm font-medium text-gray-900"
+                                    >
+                                        Last name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="last_name"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[210px] p-2.5"
+                                        placeholder="Doe"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex gap-5 justify-center items-center flex-wrap">
+                                <div>
+                                    <label
+                                        for="input-group-1"
+                                        className="block mb-2 text-sm font-medium text-gray-900 "
+                                    >
+                                        Your Email
+                                    </label>
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                            <svg
+                                                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                                aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="currentColor"
+                                                viewBox="0 0 20 16"
+                                            >
+                                                <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+                                                <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
+                                            </svg>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            id="input-group-1"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[210px] ps-10 p-2.5"
+                                            placeholder="name@flowbite.com"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label
+                                        for="phone-input"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                    >
+                                        Phone number
+                                    </label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
+                                            <svg
+                                                class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                                aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="currentColor"
+                                                viewBox="0 0 19 18"
+                                            >
+                                                <path d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z" />
+                                            </svg>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            id="phone-input"
+                                            aria-describedby="helper-text-explanation"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[210px] ps-10 p-2.5"
+                                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                            placeholder="123-456-7890"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex gap-5 flex-wrap justify-center items-center">
+                                <div>
+                                    <label
+                                        for="phone-input"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                    >
+                                        Start date
+                                    </label>
+                                    <DatePicker
+                                        selected={startDate}
+                                        onChange={(date) => {
+                                            handleCheckInDate(date);
+                                            setStartDate(date);
+                                        }}
+                                        selectsStart
+                                        startDate={startDate}
+                                        minDate={new Date()}
+                                        endDate={endDate}
+                                        className="block w-[210px] lg:m-0 border border-[#d1d5db] rounded-lg"
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        for="phone-input"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                    >
+                                        End date
+                                    </label>
+                                    <DatePicker
+                                        selected={endDate}
+                                        onChange={(date) => {
+                                            handleCheckOutDate(date);
+                                            setEndDate(date);
+                                        }}
+                                        selectsEnd
+                                        startDate={startDate}
+                                        endDate={endDate}
+                                        minDate={startDate}
+                                        className="block w-[210px] lg:m-0 border border-[#d1d5db] rounded-lg"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer className="flex gap-3 border-none">
+                        <Button
+                            className="bg-red-400 hover:bg-red-300"
+                            onClick={() => setOpenModal(false)}
+                        >
+                            Decline
+                        </Button>
+                        <Button
+                            className="bg-indigo-400 hover:bg-indigo-300"
+                            onClick={() => console.log("book")}
+                        >
+                            Book
+                        </Button>
+                    </Modal.Footer>
+                </div>
+            </Modal>
 
             <section className=" bg-gray-200">
                 <div>
@@ -105,6 +243,7 @@ export default function Details({ auth, estate, facilities, images }) {
                             <div className="flex justify-center gap-4 max-w-[27em] flex-wrap mt-8">
                                 {images.map((img) => (
                                     <img
+                                        key={img.url}
                                         className="w-24 h-[6em] max-sm:w-20 cursor-pointer opacity-65 hover:opacity-100"
                                         src={img.url}
                                         alt="estate image"
@@ -287,9 +426,9 @@ export default function Details({ auth, estate, facilities, images }) {
                                     {estate.arrive_hour}-{estate.leave_hour}
                                 </p>
                             </div>
-                            <button 
-                            className="w-[80%] bg-zinc-800 py-2 rounded-xl text-white px-2 my-5 m-auto self-end hover:opacity-45 duration-100"
-                            onClick={() => setOpenModal(true)}
+                            <button
+                                className="w-[80%] bg-zinc-800 py-2 rounded-xl text-white px-2 my-5 m-auto self-end hover:opacity-45 duration-100"
+                                onClick={() => setOpenModal(true)}
                             >
                                 Book now
                             </button>
