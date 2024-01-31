@@ -36,6 +36,8 @@ Route::post('/click/{estate}', [EstatesController::class, 'clicks'])->name('esta
 
 Route::get('/results', [HomeController::class, 'results'])->name('results');
 
+Route::post('/book', [BookingController::class, 'book'])->name('book');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

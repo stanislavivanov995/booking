@@ -84,7 +84,7 @@ export default function Details({ auth, estate, facilities, images }) {
             <Button color="gray" onClick={() => setOpenModal(false)}>
                 Decline
             </Button>
-            <Button color="gray" onClick={() => console.log('book')}>
+            <Button color="gray" onClick={() => route('book')}>
                 Book
             </Button>
             </Modal.Footer>
