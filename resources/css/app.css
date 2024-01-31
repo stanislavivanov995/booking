@@ -5,7 +5,7 @@
 @layer utilities {
 
     .nav-links {
-        @apply relative ml-10 text-black font-bold tracking-[1px] cursor-pointer
+        @apply relative sm:ml-10 text-black font-bold tracking-[1px] cursor-pointer sm:text-[18px] text-[13px]
     }
 
     .nav-links::after {

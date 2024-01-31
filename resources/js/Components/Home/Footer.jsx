@@ -1,7 +1,7 @@
 export default function Footer({ contactUsRef }) {
     return (
         <>
-            <footer ref={contactUsRef} className=" bg-zinc-800 h-auto flex lg:flex-row pl-2 flex-col justify-evenly items-start py-[3em] gap-[3em] w-full xl:mt-0 lg:mt-[4em] mt-[43em]">
+            <footer ref={contactUsRef} className=" bg-zinc-800 h-auto flex lg:flex-row pl-2 flex-col justify-evenly items-start py-[3em] gap-[3em] w-full xl:mt-0 lg:mt-[4em]">
                 <div>
                     <h1 className="text-white text-[20px] font-bold mb-[1.7em]">
                         More About Company
