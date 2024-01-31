@@ -229,6 +229,7 @@ export default function Results({ auth, estates, categories }) {
                                     {records.length > 0 ? (
                                         records.map((estate, index) => (
                                             <Link
+                                                onClick={handleClick(estate.id)}
                                                 key={index}
                                                 href={route('estate.details', estate.id)}
                                                 className="inline-block"

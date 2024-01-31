@@ -8,7 +8,7 @@ import NavBar from "@/Components/Home/Navbar";
 
 import { Head } from "@inertiajs/react";
 
-export default function Home({ auth, categories }) {
+export default function Home({ auth, categories, latests, mostViewed }) {
     return (
         <>
             <Head title="Home" />

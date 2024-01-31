@@ -16,7 +16,9 @@ class HomeController extends Controller
     public function index()
     {
         return Inertia::render('Home/Home', [
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'latests' => Estate::orderBy('created_at', 'desc')->take(6)->get(),
+            'mostViewed' => Estate::orderBy('clicks', 'desc')->take(6)->get()
         ]);
     }
 

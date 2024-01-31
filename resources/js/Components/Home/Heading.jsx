@@ -47,6 +47,7 @@ export default function Heading({ auth }) {
                         </>
                     ) : (
                         <>
+                        <CurrencyDropdown />
                             <button className="cursor-pointer rounded-md py-[0.8em] px-[1em] bg-black text-white font-bold outline-none border-none text-[16px]">
                                 <Link href={route("login")}>Log in</Link>
                             </button>
