@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
-import { router } from '@inertiajs/react'
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+import { router } from "@inertiajs/react";
 
 export default function Table({ items: records, query }) {
     // Pagination
@@ -35,86 +35,104 @@ export default function Table({ items: records, query }) {
 
     const confirmDelete = (id) => {
         Swal.fire({
-            title: 'Are you sure?',
-            text: 'You will not be able to recover this estate!',
-            icon: 'warning',
+            title: "Are you sure?",
+            text: "You will not be able to recover this estate!",
+            icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!',
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!",
         }).then(async (result) => {
             if (result.isConfirmed) {
                 await handleDelete(id);
-                Swal.fire('Deleted!', 'The estate has been deleted.', 'success');
+                Swal.fire(
+                    "Deleted!",
+                    "The estate has been deleted.",
+                    "success"
+                );
             }
         });
     };
 
     const handleDelete = async (id) => {
         try {
-            await axios.get(route('estate.delete', id));
-            const updatedRecords = allEstates.filter(record => record.id !== id);
+            await axios.get(route("estate.delete", id));
+            const updatedRecords = allEstates.filter(
+                (record) => record.id !== id
+            );
             setAllEstates(updatedRecords);
         } catch (error) {
-            console.error('Error deleting record:', error);
+            console.error("Error deleting record:", error);
         }
     };
 
     const confirmEnable = (id) => {
         Swal.fire({
-            title: 'You are about to enable the estate',
-            text: 'This estate will be listed in the site!',
-            icon: 'question',
+            title: "You are about to enable the estate",
+            text: "This estate will be listed in the site!",
+            icon: "question",
             showCancelButton: true,
-            confirmButtonColor: '#228822',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, enable it!',
+            confirmButtonColor: "#228822",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, enable it!",
         }).then(async (result) => {
             if (result.isConfirmed) {
                 await handleEnable(id);
-                Swal.fire('Enabled!', 'The estate has been enabled.', 'success');
+                Swal.fire(
+                    "Enabled!",
+                    "The estate has been enabled.",
+                    "success"
+                );
             }
         });
     };
 
     const handleEnable = async (id) => {
         try {
-            await axios.post(route('estate.enable', id));
-            const idx = allEstates.findIndex(obj => obj.id === id);
+            await axios.post(route("estate.enable", id));
+            const idx = allEstates.findIndex((obj) => obj.id === id);
             let updated = allEstates;
-            updated[idx].is_disabled = '0';
-            setAllEstates(state => state.map(item => (item.id === updated.id ? updated : item)));
+            updated[idx].is_disabled = "0";
+            setAllEstates((state) =>
+                state.map((item) => (item.id === updated.id ? updated : item))
+            );
         } catch (error) {
-            console.error('Error:', error);
+            console.error("Error:", error);
         }
     };
 
     const confirmDisable = (id) => {
         Swal.fire({
-            title: 'You are about to disable the estate',
-            text: 'This estate will no longer be listed in the site! You can enable it later.',
-            icon: 'warning',
+            title: "You are about to disable the estate",
+            text: "This estate will no longer be listed in the site! You can enable it later.",
+            icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, disable it!',
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, disable it!",
         }).then(async (result) => {
             if (result.isConfirmed) {
                 await handleDisable(id);
-                Swal.fire('Disabled!', 'The estate has been disabled.', 'success');
+                Swal.fire(
+                    "Disabled!",
+                    "The estate has been disabled.",
+                    "success"
+                );
             }
         });
     };
 
     const handleDisable = async (id) => {
         try {
-            await axios.post(route('estate.disable', id));
-            const idx = allEstates.findIndex(obj => obj.id === id);
+            await axios.post(route("estate.disable", id));
+            const idx = allEstates.findIndex((obj) => obj.id === id);
             let updated = allEstates;
-            updated[idx].is_disabled = '1';
-            setAllEstates(state => state.map(item => (item.id === updated.id ? updated : item)));
+            updated[idx].is_disabled = "1";
+            setAllEstates((state) =>
+                state.map((item) => (item.id === updated.id ? updated : item))
+            );
         } catch (error) {
-            console.error('Error:', error);
+            console.error("Error:", error);
         }
     };
 
@@ -188,7 +206,7 @@ export default function Table({ items: records, query }) {
                                                     src={
                                                         record.images.length > 0
                                                             ? record.images[0]
-                                                                .url
+                                                                  .url
                                                             : defaultImage
                                                     }
                                                     alt="iMac Front Image"
@@ -281,9 +299,10 @@ export default function Table({ items: records, query }) {
                                             <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                                                 <div className="flex items-center">
                                                     {/* Enabled */}
-                                                    {record.is_disabled === '0' &&
+                                                    {record.is_disabled ===
+                                                        "0" && (
                                                         <svg
-                                                            class="w-6 h-6 text-green-700 dark:text-white"
+                                                            className="w-6 h-6 text-green-700 dark:text-white"
                                                             aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             fill="currentColor"
@@ -295,12 +314,13 @@ export default function Table({ items: records, query }) {
                                                                 clip-rule="evenodd"
                                                             />
                                                         </svg>
-                                                    }
+                                                    )}
                                                     {/* Enabled */}
                                                     {/* Disabled */}
-                                                    {record.is_disabled === '1' &&
+                                                    {record.is_disabled ===
+                                                        "1" && (
                                                         <svg
-                                                            class="w-6 h-6 text-red-700 dark:text-white"
+                                                            className="w-6 h-6 text-red-700 dark:text-white"
                                                             aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             fill="currentColor"
@@ -312,7 +332,7 @@ export default function Table({ items: records, query }) {
                                                                 clip-rule="evenodd"
                                                             />
                                                         </svg>
-                                                    }
+                                                    )}
                                                     {/* Disabled */}
                                                 </div>
                                             </td>
@@ -382,7 +402,11 @@ export default function Table({ items: records, query }) {
 
                                                     {/* Delete */}
                                                     <button
-                                                        onClick={() => confirmDelete(record.id)}
+                                                        onClick={() =>
+                                                            confirmDelete(
+                                                                record.id
+                                                            )
+                                                        }
                                                     >
                                                         <div
                                                             className="tooltip"
@@ -407,17 +431,23 @@ export default function Table({ items: records, query }) {
                                                     </button>
                                                     {/* Delete */}
                                                     {/* Enable */}
-                                                    {record.is_disabled === '1' &&
+                                                    {record.is_disabled ===
+                                                        "1" && (
                                                         <button
-                                                            onClick={() => confirmEnable(record.id)}
+                                                            onClick={() =>
+                                                                confirmEnable(
+                                                                    record.id
+                                                                )
+                                                            }
                                                             className="tooltip"
                                                             title="Enable Estate"
                                                         >
                                                             <svg
-                                                                class="w-6 h-6 text-gray-800 dark:text-white"
+                                                                className="w-6 h-6 text-gray-800 dark:text-white"
                                                                 aria-hidden="true"
                                                                 xmlns="http://www.w3.org/2000/svg"
-                                                                fill="none" viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                viewBox="0 0 24 24"
                                                             >
                                                                 <path
                                                                     stroke="currentColor"
@@ -428,17 +458,22 @@ export default function Table({ items: records, query }) {
                                                                 />
                                                             </svg>
                                                         </button>
-                                                    }
+                                                    )}
                                                     {/* Enable */}
                                                     {/* Disable */}
-                                                    {record.is_disabled === '0' &&
+                                                    {record.is_disabled ===
+                                                        "0" && (
                                                         <button
-                                                            onClick={() => confirmDisable(record.id)}
+                                                            onClick={() =>
+                                                                confirmDisable(
+                                                                    record.id
+                                                                )
+                                                            }
                                                             className="tooltip"
                                                             title="Disable Estate"
                                                         >
                                                             <svg
-                                                                class="w-6 h-6 text-gray-800 dark:text-white"
+                                                                className="w-6 h-6 text-gray-800 dark:text-white"
                                                                 aria-hidden="true"
                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                 fill="none"
@@ -453,7 +488,7 @@ export default function Table({ items: records, query }) {
                                                                 />
                                                             </svg>
                                                         </button>
-                                                    }
+                                                    )}
                                                     {/* Disable */}
                                                 </div>
                                             </td>
