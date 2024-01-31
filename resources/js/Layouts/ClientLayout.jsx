@@ -5,7 +5,7 @@ export default function ClientLayout({ auth, children }) {
     return (
         <>
             <Heading auth={auth} />
-            <NavBar />
+            {/* <NavBar /> */}
             {children}
         </>
     );

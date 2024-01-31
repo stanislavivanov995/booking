@@ -1,7 +1,7 @@
-export default function FAQ() {
+export default function FAQ({ faqRef }) {
     return (
         <>
-            <div className="bg-white h-[50vh] flex flex-col items-center">
+            <div ref={faqRef} className="bg-white h-[50vh] flex flex-col items-center">
                 <h1 className="text-[2em] mt-3">Need Help?</h1>
                 <div className="flex lg:flex-row flex-col gap-10 justify-evenly xl:px-0 px-3 items-center my-[5em] w-full text-black">
                     <div className="flex flex-col w-[450px] h-[300px] gap-[2em] justify-center items-center lg:shadow-2xl shadow-none p-2 white">

@@ -165,11 +165,11 @@ export default function Results({ auth, estates, categories }) {
 
             <ClientLayout auth={auth}>
                 <div className="w-[90%] sm:m-auto mt-8">
-                    <Link href="/" className="sm:inline-block hidden">
+                    <Link href="/" className="sm:inline-block hidden mt-4">
                         <button>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="hover:opacity-15 duration-[0.3s] bg-black w-[150px] fill-white p-2 rounded-xl cursor-pointer"
+                                className="hover:opacity-15 duration-[0.3s] bg-black w-[150px] fill-white p-2 rounded-xl cursor-pointer mt-[6em]"
                                 height="35"
                                 width="35"
                                 viewBox="0 0 448 512"
@@ -185,7 +185,7 @@ export default function Results({ auth, estates, categories }) {
                     />
 
                     <div className="flex flex-col sm:flex-row justify-between xl:mt-0 mt-[15em]">
-                        <div className="flex flex-col sm:w-[25%] w-[50%] sm:ml-0 ml-[5em] gap-3 mt-[5em]">
+                        <div className="flex flex-col sm:w-[25%] w-[50%] sm:ml-0 ml-[5em] gap-3 mt-[9em]">
 
                             <div className="space-y-2">
                                 <h2 className="font-medium text-xl pb-1 sm:w-[150px] w-[150px]">
@@ -224,7 +224,7 @@ export default function Results({ auth, estates, categories }) {
 
                         </div>
                         {estates.length > 0 ? (
-                            <div className="flex justify-center mt-[5em] mr-auto">
+                            <div className="flex justify-center mt-[10em] mr-auto">
                                 <div className="flex flex-col gap-[2.5em] sm:w-[900px] w-[420px] items-center sm:items-stretch">
                                     {records.length > 0 ? (
                                         records.map((estate, index) => (
