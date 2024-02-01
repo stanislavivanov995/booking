@@ -33,7 +33,16 @@ export default function Details({ auth, estate, facilities, images }) {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
 
-    const [reservationData, setReservationData] = useState({});
+    const [reservationData, setReservationData] = useState({
+        'reservation_name': "",
+        'reservation_last_name': "",
+        'reservation_email': auth.user.email ? auth.user.email : "",
+        'reservation_phone': auth.user.phone ? auth.user.phone : "",
+        'reservation_checkIn': new Date(),
+        'reservation_checkOut': new Date(),
+        'reservation_estateId': estate.id ? estate.id : "",
+        'reservation_userId': auth.user.id ? auth.user.id : "",
+    });
 
     const handleReservationChange = (e) => {
         console.log(e.target.value)
@@ -41,7 +50,6 @@ export default function Details({ auth, estate, facilities, images }) {
             ...state,
             [e.target.name]: e.target.value
         }));
-        setData([e.target.name], e.target.value);
     }
 
     console.log(reservationData);
@@ -59,7 +67,7 @@ export default function Details({ auth, estate, facilities, images }) {
     }
 
     const handleBook = () => {
-        setData()
+        setData(reservationData);
         post(route("estate.book"));
     };
 
@@ -120,8 +128,8 @@ export default function Details({ auth, estate, facilities, images }) {
                                         name='reservation_name'
                                         value={
                                             reservationData.reservation_name
-                                            ? reservationData.reservation_name
-                                            : ''
+                                                ? reservationData.reservation_name
+                                                : ''
                                         }
                                         onChange={handleReservationChange}
                                     />
@@ -142,8 +150,8 @@ export default function Details({ auth, estate, facilities, images }) {
                                         required
                                         value={
                                             reservationData.reservation_last_name
-                                            ? reservationData.reservation_last_name
-                                            : ''
+                                                ? reservationData.reservation_last_name
+                                                : ''
                                         }
                                         onChange={handleReservationChange}
                                     />
@@ -177,11 +185,11 @@ export default function Details({ auth, estate, facilities, images }) {
                                             // placeholder="name@flowbite.com"
                                             name="reservation_email"
                                             required
-                                        value={
-                                            reservationData.reservation_email
-                                            ? reservationData.reservation_email
-                                            : auth.user.email
-                                        }
+                                            value={
+                                                reservationData.reservation_email
+                                                    ? reservationData.reservation_email
+                                                    : auth.user.email
+                                            }
                                             onChange={handleReservationChange}
                                         />
                                     </div>
@@ -217,10 +225,10 @@ export default function Details({ auth, estate, facilities, images }) {
                                             name="reservation_phone"
                                             value={
                                                 reservationData.reservation_phone
-                                                ? reservationData.reservation_phone
-                                                : ''
+                                                    ? reservationData.reservation_phone
+                                                    : ''
                                             }
-                                                onChange={handleReservationChange}
+                                            onChange={handleReservationChange}
                                         />
                                     </div>
                                 </div>
