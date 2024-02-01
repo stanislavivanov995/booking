@@ -30,9 +30,21 @@ export default function Details({ auth, estate, facilities, images }) {
     const [openModal, setOpenModal] = useState(false);
     const [modalPlacement, setModalPlacement] = useState("center");
 
-    const [firstName, setFirstName] = useState();
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+
+    const [reservationData, setReservationData] = useState({});
+
+    const handleReservationChange = (e) => {
+        console.log(e.target.value)
+        setReservationData(state => ({
+            ...state,
+            [e.target.name]: e.target.value
+        }));
+        setData([e.target.name], e.target.value);
+    }
+
+    console.log(reservationData);
 
     const handleCheckInDate = (selectedItem) => {
         setData("check_in", selectedItem);
@@ -47,6 +59,7 @@ export default function Details({ auth, estate, facilities, images }) {
     }
 
     const handleBook = () => {
+        setData()
         post(route("estate.book"));
     };
 
@@ -104,6 +117,13 @@ export default function Details({ auth, estate, facilities, images }) {
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[210px] p-2.5"
                                         placeholder="John"
                                         required
+                                        name='reservation_name'
+                                        value={
+                                            reservationData.reservation_name
+                                            ? reservationData.reservation_name
+                                            : ''
+                                        }
+                                        onChange={handleReservationChange}
                                     />
                                 </div>
                                 <div>
@@ -116,9 +136,16 @@ export default function Details({ auth, estate, facilities, images }) {
                                     <input
                                         type="text"
                                         id="last_name"
+                                        name="reservation_last_name"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[210px] p-2.5"
                                         placeholder="Doe"
                                         required
+                                        value={
+                                            reservationData.reservation_last_name
+                                            ? reservationData.reservation_last_name
+                                            : ''
+                                        }
+                                        onChange={handleReservationChange}
                                     />
                                 </div>
                             </div>
@@ -147,7 +174,15 @@ export default function Details({ auth, estate, facilities, images }) {
                                             type="text"
                                             id="input-group-1"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[210px] ps-10 p-2.5"
-                                            placeholder="name@flowbite.com"
+                                            // placeholder="name@flowbite.com"
+                                            name="reservation_email"
+                                            required
+                                        value={
+                                            reservationData.reservation_email
+                                            ? reservationData.reservation_email
+                                            : auth.user.email
+                                        }
+                                            onChange={handleReservationChange}
                                         />
                                     </div>
                                 </div>
@@ -177,8 +212,15 @@ export default function Details({ auth, estate, facilities, images }) {
                                             aria-describedby="helper-text-explanation"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[210px] ps-10 p-2.5"
                                             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                                            placeholder="123-456-7890"
+                                            // placeholder="123-456-7890"
                                             required
+                                            name="reservation_phone"
+                                            value={
+                                                reservationData.reservation_phone
+                                                ? reservationData.reservation_phone
+                                                : ''
+                                            }
+                                                onChange={handleReservationChange}
                                         />
                                     </div>
                                 </div>
@@ -193,6 +235,7 @@ export default function Details({ auth, estate, facilities, images }) {
                                     </label>
                                     <DatePicker
                                         selected={startDate}
+                                        name="reservation_checkIn"
                                         onChange={(date) => {
                                             handleCheckInDate(date);
                                             setStartDate(date);
