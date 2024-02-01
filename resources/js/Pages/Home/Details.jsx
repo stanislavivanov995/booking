@@ -58,8 +58,6 @@ export default function Details({ auth, estate, facilities, images }) {
         }));
     }
 
-    console.log(reservationData);
-
     const handleCheckInDate = (selectedItem) => {
         setData("check_in", selectedItem);
     };
@@ -74,6 +72,7 @@ export default function Details({ auth, estate, facilities, images }) {
 
     const handleBook = () => {
         post(route("estate.book"));
+        setOpenModal(false);
     };
 
     const handleSelectedImage = (event) => {
@@ -129,7 +128,7 @@ export default function Details({ auth, estate, facilities, images }) {
                                         id="first_name"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[210px] p-2.5"
                                         placeholder="John"
-                                        required
+                                        required='true'
                                         name='reservation_name'
                                         value={
                                             reservationData.reservation_name
