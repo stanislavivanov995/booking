@@ -16,6 +16,7 @@ const defaultImage =
 export default function Details({ auth, estate, facilities, images }) {
     const { setData, post } = useForm({
         reservation_name: "",
+        reservation_last_name: "",
         reservation_email: "",
         reservation_phone: "",
         reservation_checkIn: "",
@@ -29,8 +30,8 @@ export default function Details({ auth, estate, facilities, images }) {
     const [openModal, setOpenModal] = useState(false);
     const [modalPlacement, setModalPlacement] = useState("center");
 
+    const [firstName, setFirstName] = useState();
     const [startDate, setStartDate] = useState(new Date());
-
     const [endDate, setEndDate] = useState(new Date());
 
     const handleCheckInDate = (selectedItem) => {
@@ -92,7 +93,7 @@ export default function Details({ auth, estate, facilities, images }) {
                             <div className="flex gap-5 justify-center items-center flex-wrap">
                                 <div>
                                     <label
-                                        for="first_name"
+                                        htmlFor="first_name"
                                         className="block mb-2 text-sm font-medium text-gray-900"
                                     >
                                         First name
@@ -107,7 +108,7 @@ export default function Details({ auth, estate, facilities, images }) {
                                 </div>
                                 <div>
                                     <label
-                                        for="last_name"
+                                        htmlFor="last_name"
                                         className="block mb-2 text-sm font-medium text-gray-900"
                                     >
                                         Last name
@@ -124,7 +125,7 @@ export default function Details({ auth, estate, facilities, images }) {
                             <div className="flex gap-5 justify-center items-center flex-wrap">
                                 <div>
                                     <label
-                                        for="input-group-1"
+                                        htmlFor="input-group-1"
                                         className="block mb-2 text-sm font-medium text-gray-900 "
                                     >
                                         Your Email
@@ -153,15 +154,15 @@ export default function Details({ auth, estate, facilities, images }) {
 
                                 <div>
                                     <label
-                                        for="phone-input"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        htmlFor="phone-input"
+                                        className="block mb-2 text-sm font-medium text-gray-900"
                                     >
                                         Phone number
                                     </label>
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
                                             <svg
-                                                class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                                className="w-4 h-4 text-gray-500 dark:text-gray-400"
                                                 aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 fill="currentColor"
@@ -174,7 +175,7 @@ export default function Details({ auth, estate, facilities, images }) {
                                             type="text"
                                             id="phone-input"
                                             aria-describedby="helper-text-explanation"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[210px] ps-10 p-2.5"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[210px] ps-10 p-2.5"
                                             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                                             placeholder="123-456-7890"
                                             required
@@ -185,8 +186,8 @@ export default function Details({ auth, estate, facilities, images }) {
                             <div className="flex gap-5 flex-wrap justify-center items-center">
                                 <div>
                                     <label
-                                        for="phone-input"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        htmlFor="phone-input"
+                                        className="block mb-2 text-sm font-medium text-gray-900"
                                     >
                                         Start date
                                     </label>
@@ -205,8 +206,8 @@ export default function Details({ auth, estate, facilities, images }) {
                                 </div>
                                 <div>
                                     <label
-                                        for="phone-input"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        htmlFor="phone-input"
+                                        className="block mb-2 text-sm font-medium text-gray-900"
                                     >
                                         End date
                                     </label>
