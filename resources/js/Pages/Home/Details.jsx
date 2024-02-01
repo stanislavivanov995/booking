@@ -8,11 +8,22 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DetailsFacitlities from "./DetailsFacilities";
 import { loadStripe } from "@stripe/stripe-js";
+import { useForm } from "@inertiajs/react";
 
 const defaultImage =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
 
 export default function Details({ auth, estate, facilities, images }) {
+    const { setData, post } = useForm({
+        reservation_name: "",
+        reservation_email: "",
+        reservation_phone: "",
+        reservation_checkIn: "",
+        reservation_checkOut: "",
+        reservation_estateId: "",
+        reservation_userId: "",
+    });
+
     const { formatPrice, currency } = useContext(CurrencyContext);
     const [selectedImage, setSelectedImage] = useState(defaultImage);
     const [openModal, setOpenModal] = useState(false);
@@ -33,6 +44,10 @@ export default function Details({ auth, estate, facilities, images }) {
     if (images.length > 0 && selectedImage === defaultImage) {
         setSelectedImage(images[0].url);
     }
+
+    const handleBook = () => {
+        post(route("estate.book"));
+    };
 
     const handleSelectedImage = (event) => {
         setSelectedImage(event.target.src);
@@ -220,7 +235,7 @@ export default function Details({ auth, estate, facilities, images }) {
                         </Button>
                         <Button
                             className="bg-indigo-400 hover:bg-indigo-300"
-                            onClick={() => console.log("book")}
+                            onClick={handleBook}
                         >
                             Book
                         </Button>

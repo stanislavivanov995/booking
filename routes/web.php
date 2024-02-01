@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EstatesController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BookingController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,7 +37,7 @@ Route::post('/click/{estate}', [EstatesController::class, 'clicks'])->name('esta
 
 Route::get('/results', [HomeController::class, 'results'])->name('results');
 
-Route::post('/book', [BookingController::class, 'book'])->name('book');
+Route::post('/book', [BookingController::class, 'book'])->name('estate.book');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
