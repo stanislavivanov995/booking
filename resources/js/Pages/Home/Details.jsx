@@ -76,7 +76,7 @@ export default function Details({ auth, estate, facilities, images }) {
         setOpenModal(false);
         Swal.fire(
             "Done!",
-            "You have just booked!",
+            `You have just booked "${estate.name}"!`,
             "success"
         );
     };
