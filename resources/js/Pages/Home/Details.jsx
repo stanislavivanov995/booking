@@ -3,7 +3,7 @@ import ClientLayout from "@/Layouts/ClientLayout";
 import { CurrencyContext } from "@/context/currencyContext";
 import { Button, Modal } from "flowbite-react";
 import moment from "moment";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DetailsFacitlities from "./DetailsFacilities";
@@ -44,8 +44,14 @@ export default function Details({ auth, estate, facilities, images }) {
         'reservation_userId': auth.user.id ? auth.user.id : "",
     });
 
+    useEffect(() => {
+        setData(state => ({
+            ...state,
+            ...reservationData
+        }));
+    }, [reservationData])
+
     const handleReservationChange = (e) => {
-        console.log(e.target.value)
         setReservationData(state => ({
             ...state,
             [e.target.name]: e.target.value
@@ -67,7 +73,6 @@ export default function Details({ auth, estate, facilities, images }) {
     }
 
     const handleBook = () => {
-        setData(reservationData);
         post(route("estate.book"));
     };
 
