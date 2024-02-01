@@ -9,6 +9,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import DetailsFacitlities from "./DetailsFacilities";
 import { loadStripe } from "@stripe/stripe-js";
 import { useForm } from "@inertiajs/react";
+import DetailsRating from "./DetailFeatures/DetailsRating";
+import CommentInput from "./DetailFeatures/CommentInput";
+import CommentSection from "./DetailFeatures/CommentSection";
 
 const defaultImage =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
@@ -398,7 +401,7 @@ export default function Details({ auth, estate, facilities, images }) {
                         {/* bottom-section */}
                     </div>
                     {/* Right section */}
-                    <div className="bg-white mx-5 my-5 h-[350px] lg:w-[60%] md:w-[80%] sm:w-[30%] xl:w-[60%] 2xl:w-[35%] w-[80%] rounded-xl">
+                    <div className="bg-white mx-5 my-5 h-[370px] lg:w-[60%] md:w-[80%] sm:w-[30%] xl:w-[60%] 2xl:w-[35%] w-[80%] rounded-xl">
                         <div className="bg-zinc-800 h-[50px] flex gap-2 items-center rounded-t-xl justify-center px-2 text-[18px] text-white">
                             <h2>
                                 {formatPrice(
@@ -419,6 +422,7 @@ export default function Details({ auth, estate, facilities, images }) {
                             </svg>
                         </div>
                         <div className="flex flex-col h-[80%] items-center  text-[20px] justify-evenly gap-2 mt-5">
+                            <DetailsRating />
                             <h2>OWNER</h2>
                             <p className="text-[25px] font-bold">
                                 {estate.user.name}
@@ -453,6 +457,10 @@ export default function Details({ auth, estate, facilities, images }) {
                 </div>
             </section>
 
+            {/* Comment section */}
+            <section className="bg-gray-200">
+                <CommentSection />
+            </section>
             <Footer />
         </ClientLayout>
     );

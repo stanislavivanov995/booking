@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 
+svg.star-svg {
+    display: inline;
+}
+
 .slick-slide>div {
     margin: 0 10px;
 }
