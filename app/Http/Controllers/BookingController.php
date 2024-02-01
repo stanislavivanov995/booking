@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookingRequest;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class BookingController extends Controller
 {
@@ -12,14 +12,16 @@ class BookingController extends Controller
     {
         // dd($request->all());
         Reservation::create([
-            'user_id' => $request->reservation_userId,
-            'estate_id' => $request->reservation_estateId,
-            'check_in' => $request->reservation_checkIn,
-            'check_out' => $request->reservation_checkOut,
-            'name' => $request->reservation_name,
-            'last_name' => $request->reservation_last_name,
-            'email' => $request->reservation_email,
-            'phone' => $request->reservation_phone,
+            'user_id' => $request->userId,
+            'estate_id' => $request->estateId,
+            'check_in' => $request->checkIn,
+            'check_out' => $request->checkOut,
+            'name' => $request->name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
         ]);
+
+        redirect()->route('dashboard');
     }
 }
