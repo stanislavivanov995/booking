@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import DetailsFacitlities from "./DetailsFacilities";
 import { loadStripe } from "@stripe/stripe-js";
 import { useForm } from "@inertiajs/react";
+import Swal from "sweetalert2";
 
 const defaultImage =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
@@ -73,6 +74,11 @@ export default function Details({ auth, estate, facilities, images }) {
     const handleBook = () => {
         post(route("estate.book"));
         setOpenModal(false);
+        Swal.fire(
+            "Done!",
+            "You have just booked!",
+            "success"
+        );
     };
 
     const handleSelectedImage = (event) => {
