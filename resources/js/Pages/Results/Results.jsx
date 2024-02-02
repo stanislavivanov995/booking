@@ -234,12 +234,12 @@ export default function Results({ auth, estates, categories }) {
                                                 href={route('estate.details', estate.id)}
                                                 className="inline-block"
                                             >
-                                                <div className="flex sm:flex-row flex-col w-[350px] sm:w-full shadow-xl hover:shadow-2xl m-2 rounded-xl">
+                                                <div className="flex sm:flex-row flex-col w-[350px] sm:w-full shadow-xl hover:shadow-2xl m-2 rounded-xl overflow-hidden">
                                                     {estate.images.length > 0 ? (
                                                         <img
                                                             src={estate.images[0].url}
                                                             alt=""
-                                                            className="sm:w-[250px] sm:h-[250px] h-[230px] sm:rounded-l-xl sm:rounded-tr-none rounded-t-xl"
+                                                            className="sm:w-[350px] sm:h-[250px] h-[230px] sm:rounded-l-xl sm:rounded-tr-none rounded-t-xl object-cover"
                                                         />
                                                     ) : (
                                                         <img

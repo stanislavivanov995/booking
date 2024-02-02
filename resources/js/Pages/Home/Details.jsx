@@ -372,13 +372,15 @@ return (
                         />
                         <div className="flex justify-center gap-4 max-w-[27em] flex-wrap mt-8">
                             {images.map((img) => (
+                                <div className="w-24 h-[6em] max-sm:w-20 cursor-pointer opacity-65 hover:opacity-100 overflow-hidden">
                                 <img
                                     key={img.url}
-                                    className="w-24 h-[6em] max-sm:w-20 cursor-pointer opacity-65 hover:opacity-100"
+                                    className="object-cover"
                                     src={img.url}
                                     alt="estate image"
                                     onClick={handleSelectedImage}
                                 />
+                                </div>
                             ))}
                         </div>
                     </div>
