@@ -7,7 +7,7 @@ export default function Heading({ auth }) {
         <>
             <header className="flex justify-between items-center py-4 px-6 shadow-xl">
                 <h1 className=" font-normal text-[20px] max-w-[5em]">
-                    MI-CASA SU-CASA
+                    <img src="http://localhost:8000/storage/logo_MICASASUCASA.png" alt="" />
                 </h1>
                 <div className="flex justify-center items-center gap-4">
                     <a href="#faq">
