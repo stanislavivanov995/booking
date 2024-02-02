@@ -6,9 +6,9 @@ export default function Heading({ auth }) {
     return (
         <>
             <header className="flex justify-between items-center py-4 px-6 shadow-xl">
-                <h1 className=" font-normal text-[20px] max-w-[5em]">
+                <Link className=" font-normal text-[20px] max-w-[5em]" href="/">
                     <img src="http://localhost:8000/storage/logo_MICASASUCASA.png" alt="" />
-                </h1>
+                </Link>
                 <div className="flex justify-center items-center gap-4">
                     <a href="#faq">
                         <svg
