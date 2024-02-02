@@ -21,7 +21,7 @@ export default function SearchBar({ newSearchValues, className }) {
 
 
     try {
-        if (newSearchValues.place_id) {
+        if (newSearchValues?.place_id) {
             geocodeByPlaceId(placeId)
                 .then((results) => setLocation(results[0].formatted_address))
                 .catch((error) => console.error(error));
