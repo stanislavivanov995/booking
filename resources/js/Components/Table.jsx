@@ -149,7 +149,7 @@ export default function Table({ items: records, query }) {
                                     All Estates:{" "}
                                     <i className="fa-solid fa-pen-to-square"></i>
                                 </span>
-                                <span> {allEstates.length}</span>
+                                <span>{allEstates.length}</span>
                             </h5>
                         </div>
                         <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
@@ -274,7 +274,7 @@ export default function Table({ items: records, query }) {
                                             <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                                                 <div className="flex items-center">
                                                     <svg
-                                                        className="w-[18px] h-[18px] text-gray-800 dark:text-white"
+                                                        className="w-[18px] h-[18px] text-gray-800"
                                                         aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         fill="none"
@@ -302,16 +302,16 @@ export default function Table({ items: records, query }) {
                                                     {record.is_disabled ===
                                                         "0" && (
                                                         <svg
-                                                            className="w-6 h-6 text-green-700 dark:text-white"
+                                                            className="w-6 h-6 text-green-700"
                                                             aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             fill="currentColor"
                                                             viewBox="0 0 24 24"
                                                         >
                                                             <path
-                                                                fill-rule="evenodd"
+                                                                fillRule="evenodd"
                                                                 d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z"
-                                                                clip-rule="evenodd"
+                                                                clipRule="evenodd"
                                                             />
                                                         </svg>
                                                     )}
@@ -320,16 +320,16 @@ export default function Table({ items: records, query }) {
                                                     {record.is_disabled ===
                                                         "1" && (
                                                         <svg
-                                                            className="w-6 h-6 text-red-700 dark:text-white"
+                                                            className="w-6 h-6 text-red-700"
                                                             aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             fill="currentColor"
                                                             viewBox="0 0 24 24"
                                                         >
                                                             <path
-                                                                fill-rule="evenodd"
+                                                                fillRule="evenodd"
                                                                 d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z"
-                                                                clip-rule="evenodd"
+                                                                clipRule="evenodd"
                                                             />
                                                         </svg>
                                                     )}
@@ -443,7 +443,7 @@ export default function Table({ items: records, query }) {
                                                             title="Enable Estate"
                                                         >
                                                             <svg
-                                                                className="w-6 h-6 text-gray-800 dark:text-white"
+                                                                className="w-6 h-6 text-gray-800"
                                                                 aria-hidden="true"
                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                 fill="none"
@@ -451,9 +451,9 @@ export default function Table({ items: records, query }) {
                                                             >
                                                                 <path
                                                                     stroke="currentColor"
-                                                                    stroke-linecap="round"
-                                                                    stroke-linejoin="round"
-                                                                    stroke-width="2"
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                    strokeWidth="2"
                                                                     d="m5 12 4.7 4.5 9.3-9"
                                                                 />
                                                             </svg>
@@ -473,7 +473,7 @@ export default function Table({ items: records, query }) {
                                                             title="Disable Estate"
                                                         >
                                                             <svg
-                                                                className="w-6 h-6 text-gray-800 dark:text-white"
+                                                                className="w-6 h-6 text-gray-800"
                                                                 aria-hidden="true"
                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                 fill="none"
@@ -481,9 +481,9 @@ export default function Table({ items: records, query }) {
                                                             >
                                                                 <path
                                                                     stroke="currentColor"
-                                                                    stroke-linecap="round"
-                                                                    stroke-linejoin="round"
-                                                                    stroke-width="2"
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                    strokeWidth="2"
                                                                     d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                                                                 />
                                                             </svg>
@@ -512,7 +512,7 @@ export default function Table({ items: records, query }) {
                                 <a
                                     href="#"
                                     onClick={prevPage}
-                                    className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700  dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                    className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
                                 >
                                     <span className="sr-only">Previous</span>
                                     <svg
@@ -535,7 +535,7 @@ export default function Table({ items: records, query }) {
                                     <a
                                         href="#"
                                         onClick={() => changeCurrentPage(n)}
-                                        className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                        className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
                                     >
                                         {n}
                                     </a>
@@ -546,7 +546,7 @@ export default function Table({ items: records, query }) {
                                 <a
                                     href="#"
                                     onClick={nextPage}
-                                    className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700  dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                    className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
                                 >
                                     <span className="sr-only">Next</span>
                                     <svg
