@@ -35,6 +35,14 @@ export default function LatestEstates({latests}) {
         ],
     };
 
+    const handleClick = async (id) => {
+        try {
+            await axios.post(route('estate.click', id));
+        } catch (error) {
+            console.error('Error incrementing estate click:', error);
+        }
+    };
+
     return (
         <>
             <div className="bg-gray-300 min-h-[70vh] flex flex-col items-center overflow-hidden">
@@ -44,10 +52,10 @@ export default function LatestEstates({latests}) {
                         See all
                     </Link>
                 </div>
-                <div className="xl:w-[1260px] lg:w-[1000px] sm:w-[700px] w-[440px] p-2">
+                <div className="xl:w-[1260px] lg:w-[1000px] sm:w-[700px] w-[440px] p-2 gap-x-4">
                     <Slider {...settings}>
                         {latests.map(estate => (
-                        <LatestOfferCard estate={estate}/>
+                        <LatestOfferCard key={estate.id} estate={estate} place_id={latests[0].place_id} />
                         ))}
                     </Slider>
                 </div>

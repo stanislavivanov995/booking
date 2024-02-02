@@ -19,7 +19,7 @@ class HomeController extends Controller
         return Inertia::render('Home/Home', [
             'categories' => Category::all(),
             'latests' => Estate::orderBy('created_at', 'desc')->with('images')->take(6)->get(),
-            'mostViewed' => Estate::orderBy('clicks', 'desc')->take(6)->get()
+            'mostViewed' => Estate::orderBy('clicks', 'desc')->with('images')->take(6)->get()
         ]);
     }
 
