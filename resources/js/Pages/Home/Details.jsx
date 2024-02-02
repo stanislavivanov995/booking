@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import InputError from '@/Components/InputError';
 import { Link } from "@inertiajs/inertia-react";
 import DetailsRating from "./DetailsFeatures/DetailsRating";
+import CommentSection from "./DetailsFeatures/CommentSection";
 
 const defaultImage =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
@@ -568,6 +569,10 @@ export default function Details({ auth, estate, facilities, images }) {
                     </div>
                     {/* Right section */}
                 </div>
+            </section>
+
+            <section className="bg-gray-200">
+                <CommentSection />
             </section>
 
             <Footer />
