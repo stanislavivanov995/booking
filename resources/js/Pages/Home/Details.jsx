@@ -10,13 +10,13 @@ import DetailsFacitlities from "./DetailsFacilities";
 import { loadStripe } from "@stripe/stripe-js";
 import { useForm } from "@inertiajs/react";
 import Swal from "sweetalert2";
-import InputError from '@/Components/InputError';
+import InputError from "@/Components/InputError";
 import { Link } from "@inertiajs/inertia-react";
 import DetailsRating from "./DetailsFeatures/DetailsRating";
 import CommentSection from "./DetailsFeatures/CommentSection";
 
 const defaultImage =
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
+    "https://cdn.iconscout.com/icon/free/png-256/free-no-image-1771002-1505134.png";
 
 export default function Details({ auth, estate, facilities, images }) {
     const { setData, post, errors } = useForm({
@@ -40,29 +40,29 @@ export default function Details({ auth, estate, facilities, images }) {
     const [endDate, setEndDate] = useState(new Date());
 
     const [reservationData, setReservationData] = useState({
-        'name': "",
-        'last_name': "",
-        'email': auth.user ? auth.user.email : "",
-        'phone': "",
-        'checkIn': new Date(),
-        'checkOut': new Date(),
-        'estateId': estate.id ? estate.id : "",
-        'userId': "",
+        name: "",
+        last_name: "",
+        email: auth.user ? auth.user.email : "",
+        phone: "",
+        checkIn: new Date(),
+        checkOut: new Date(),
+        estateId: estate.id ? estate.id : "",
+        userId: "",
     });
 
     useEffect(() => {
-        setData(state => ({
+        setData((state) => ({
             ...state,
-            ...reservationData
+            ...reservationData,
         }));
-    }, [reservationData])
+    }, [reservationData]);
 
     const handleReservationChange = (e) => {
-        setReservationData(state => ({
+        setReservationData((state) => ({
             ...state,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         }));
-    }
+    };
 
     const handleCheckInDate = (selectedItem) => {
         setData("check_in", selectedItem);
@@ -77,13 +77,9 @@ export default function Details({ auth, estate, facilities, images }) {
     }
 
     const handleBook = async () => {
-        post(route("estate.book"))
+        post(route("estate.book"));
         setOpenModal(false);
-        Swal.fire(
-            "Done!",
-            `You have just booked "${estate.name}"!`,
-            "success"
-        );
+        Swal.fire("Done!", `You have just booked "${estate.name}"!`, "success");
     };
 
     // const handleBook = async () => {
@@ -103,7 +99,6 @@ export default function Details({ auth, estate, facilities, images }) {
     //         // Зависи от това как искате да управлявате грешките в приложението си
     //     }
     // };
-
 
     const handleSelectedImage = (event) => {
         setSelectedImage(event.target.src);
@@ -129,7 +124,7 @@ export default function Details({ auth, estate, facilities, images }) {
 
     return (
         <ClientLayout auth={auth}>
-            {auth.user ?
+            {auth.user ? (
                 <Modal
                     show={openModal}
                     position={modalPlacement}
@@ -160,15 +155,18 @@ export default function Details({ auth, estate, facilities, images }) {
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[210px] p-2.5"
                                             placeholder="John"
                                             required
-                                            name='name'
+                                            name="name"
                                             value={
                                                 reservationData.name
                                                     ? reservationData.name
-                                                    : ''
+                                                    : ""
                                             }
                                             onChange={handleReservationChange}
                                         />
-                                        <InputError className="mt-2" message={errors.name} />
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.name}
+                                        />
                                     </div>
                                     <div>
                                         <label
@@ -187,7 +185,7 @@ export default function Details({ auth, estate, facilities, images }) {
                                             value={
                                                 reservationData.last_name
                                                     ? reservationData.last_name
-                                                    : ''
+                                                    : ""
                                             }
                                             onChange={handleReservationChange}
                                         />
@@ -224,11 +222,20 @@ export default function Details({ auth, estate, facilities, images }) {
                                                 // value={
                                                 //     auth.user ? auth.user.email : ""
                                                 // }
-                                                defaultValue={auth.user ? auth.user.email : ""}
-                                                onChange={handleReservationChange}
+                                                defaultValue={
+                                                    auth.user
+                                                        ? auth.user.email
+                                                        : ""
+                                                }
+                                                onChange={
+                                                    handleReservationChange
+                                                }
                                             />
                                         </div>
-                                        <InputError className="mt-2" message={errors.email} />
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.email}
+                                        />
                                     </div>
 
                                     <div>
@@ -262,11 +269,16 @@ export default function Details({ auth, estate, facilities, images }) {
                                                 value={
                                                     reservationData.phone
                                                         ? reservationData.phone
-                                                        : ''
+                                                        : ""
                                                 }
-                                                onChange={handleReservationChange}
+                                                onChange={
+                                                    handleReservationChange
+                                                }
                                             />
-                                            <InputError className="mt-2" message={errors.phone} />
+                                            <InputError
+                                                className="mt-2"
+                                                message={errors.phone}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -291,7 +303,7 @@ export default function Details({ auth, estate, facilities, images }) {
                                             endDate={endDate}
                                             className="block w-[210px] lg:m-0 border border-[#d1d5db] rounded-lg"
                                         />
-                                    </div>
+                             z       </div>
                                     <div>
                                         <label
                                             htmlFor="phone-input"
@@ -312,46 +324,6 @@ export default function Details({ auth, estate, facilities, images }) {
                                             className="block w-[210px] lg:m-0 border border-[#d1d5db] rounded-lg"
                                         />
                                     </div>
-                                    <div className="w-full m-auto">
-                                        <h2 className="mb-3 text-center">Payment method</h2>
-                                        <div className="flex justify-around">
-                                            <div className="flex gap-3 border items-center justify-between px-2 border-[#d1d5db] w-[200px] rounded-xl">
-                                                <label
-                                                    htmlFor="cashPayment"
-                                                    className="block text-sm font-medium text-gray-900"
-                                                >
-                                                    Cash
-                                                </label>
-                                                <input
-                                                    type="checkbox"
-                                                    id="cashPayment"
-                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-                                                    required
-                                                    name='cash'
-                                                    checked
-                                                />
-                                            </div>
-                                            <div className="flex gap-3 border items-center justify-between px-2 py-2 border-[#d1d5db] w-[200px] rounded-xl">
-                                                <label
-                                                    htmlFor="payment"
-                                                    className="block text-sm font-medium text-gray-900"
-                                                >
-                                                    With card
-                                                </label>
-                                                <input
-                                                    title="Comming soon"
-                                                    type="checkbox"
-                                                    id="cardPayment"
-                                                    className="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-                                                    required
-                                                    name='cashPayment'
-                                                    disabled
-                                                    onChange={handleReservationChange}
-                                                />
-                                                <InputError className="mt-2" message={errors.name} />
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </Modal.Body>
@@ -371,8 +343,7 @@ export default function Details({ auth, estate, facilities, images }) {
                         </Modal.Footer>
                     </div>
                 </Modal>
-
-                :
+            ) : (
                 <Modal
                     show={openModal}
                     position={modalPlacement}
@@ -383,7 +354,10 @@ export default function Details({ auth, estate, facilities, images }) {
 
                     <div className="relative z-20 bg-white rounded-2xl">
                         <Modal.Body>
-                            <h4>You have to be Logged in to make your reservation</h4>
+                            <h4>
+                                You have to be Logged in to make your
+                                reservation
+                            </h4>
                             <Link href={route("login")}>Log in</Link>
                         </Modal.Body>
                         <Modal.Footer className="flex gap-3 border-none">
@@ -396,9 +370,7 @@ export default function Details({ auth, estate, facilities, images }) {
                         </Modal.Footer>
                     </div>
                 </Modal>
-
-            }
-
+            )}
 
             <section className=" bg-gray-200">
                 <div>
@@ -414,13 +386,15 @@ export default function Details({ auth, estate, facilities, images }) {
                             />
                             <div className="flex justify-center gap-4 max-w-[27em] flex-wrap mt-8">
                                 {images.map((img) => (
-                                    <img
-                                        key={img.url}
-                                        className="w-24 h-[6em] max-sm:w-20 cursor-pointer opacity-65 hover:opacity-100"
-                                        src={img.url}
-                                        alt="estate image"
-                                        onClick={handleSelectedImage}
-                                    />
+                                    <div className="w-24 h-[6em] max-sm:w-20 cursor-pointer opacity-65 hover:opacity-100 overflow-hidden">
+                                        <img
+                                            key={img.url}
+                                            className="object-cover"
+                                            src={img.url}
+                                            alt="estate image"
+                                            onClick={handleSelectedImage}
+                                        />
+                                    </div>
                                 ))}
                             </div>
                         </div>
@@ -555,7 +529,7 @@ export default function Details({ auth, estate, facilities, images }) {
                         {/* bottom-section */}
                     </div>
                     {/* Right section */}
-                    <div className="bg-white mx-5 my-5 h-[370px] lg:w-[60%] md:w-[80%] sm:w-[30%] xl:w-[60%] 2xl:w-[35%] w-[80%] rounded-xl">
+                    <div className="bg-white mx-5 my-5 h-[350px] lg:w-[60%] md:w-[80%] sm:w-[30%] xl:w-[60%] 2xl:w-[35%] w-[80%] rounded-xl">
                         <div className="bg-zinc-800 h-[50px] flex gap-2 items-center rounded-t-xl justify-center px-2 text-[18px] text-white">
                             <h2>
                                 {formatPrice(
@@ -576,7 +550,6 @@ export default function Details({ auth, estate, facilities, images }) {
                             </svg>
                         </div>
                         <div className="flex flex-col h-[80%] items-center  text-[20px] justify-evenly gap-2 mt-5">
-                            <DetailsRating />
                             <h2>OWNER</h2>
                             <p className="text-[25px] font-bold">
                                 {estate.user.name}
@@ -609,10 +582,6 @@ export default function Details({ auth, estate, facilities, images }) {
                     </div>
                     {/* Right section */}
                 </div>
-            </section>
-
-            <section className="bg-gray-200">
-                <CommentSection />
             </section>
 
             <Footer />
