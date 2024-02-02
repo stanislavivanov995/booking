@@ -9,6 +9,7 @@ export default function LatestOfferCard({ estate }) {
     return (
         <>
             <Link href={route('estate.details', estate.id)}>
+                
                 <article className="hover:shadow-2xl w-[400px] transition-[0.3s] hover:cursor-pointer">
                     <div className="block w-[400px] h-auto rounded-t-lg overflow-hidden">
                         <img
