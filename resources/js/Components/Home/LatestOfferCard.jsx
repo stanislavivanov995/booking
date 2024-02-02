@@ -10,7 +10,7 @@ export default function LatestOfferCard({ estate }) {
             <div className="hover:shadow-2xl w-[400px] transition-[0.3s] hover:cursor-pointer">
                 <img
                     className="block w-[400px] h-auto rounded-t-lg"
-                    src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/ed/ee/d8/outdoor-pool.jpg?w=1200&h=-1&s=1"
+                    src={estate.images[0].url}
                     alt=""
                 />
                 <div className="bg-white w-[400px] rounded-b-lg p-3">
