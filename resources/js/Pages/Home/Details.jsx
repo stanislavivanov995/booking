@@ -12,6 +12,8 @@ import { useForm } from "@inertiajs/react";
 import Swal from "sweetalert2";
 import InputError from "@/Components/InputError";
 import { Link } from "@inertiajs/inertia-react";
+import DetailsRating from "./DetailsFeatures/DetailsRating";
+import CommentSection from "./DetailsFeatures/CommentSection";
 
 const defaultImage =
     "https://cdn.iconscout.com/icon/free/png-256/free-no-image-1771002-1505134.png";
@@ -301,7 +303,7 @@ export default function Details({ auth, estate, facilities, images }) {
                                             endDate={endDate}
                                             className="block w-[210px] lg:m-0 border border-[#d1d5db] rounded-lg"
                                         />
-                                    </div>
+                             z       </div>
                                     <div>
                                         <label
                                             htmlFor="phone-input"
