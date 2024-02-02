@@ -17,7 +17,7 @@ export default function Home({ auth, categories, latests, mostViewed }) {
                 <NavBar />
                 <HeadContainer categories={categories} />
                 <Description />
-                <LatestEstates />
+                <LatestEstates latests={latests} />
                 <FAQ />
                 <Footer />
             </div>

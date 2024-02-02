@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { Link } from "@inertiajs/react";
 
-export default function LatestEstates() {
+export default function LatestEstates({latests}) {
 
     const settings = {
         centerMode: true,
@@ -46,12 +46,9 @@ export default function LatestEstates() {
                 </div>
                 <div className="xl:w-[1260px] lg:w-[1000px] sm:w-[700px] w-[440px] p-2">
                     <Slider {...settings}>
-                        <LatestOfferCard />
-                        <LatestOfferCard />
-                        <LatestOfferCard />
-                        <LatestOfferCard />
-                        <LatestOfferCard />
-                        <LatestOfferCard />
+                        {latests.map(estate => (
+                        <LatestOfferCard estate={estate}/>
+                        ))}
                     </Slider>
                 </div>
                 <Awards />

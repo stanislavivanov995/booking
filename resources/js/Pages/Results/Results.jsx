@@ -292,10 +292,10 @@ export default function Results({ auth, estates, categories }) {
                                                         </p>
                                                         <div className="w-full mt-auto ml-auto flex justify-end">
                                                             <h2 className="text-[18px] sm:mt-0 mt-4">{formatPrice(
-                                                            estate.price,
-                                                            estate.currency,
-                                                            currency)}{" "} 
-                                <span className="font-bold">{currency}</span></h2>
+                                                                estate.price,
+                                                                estate.currency,
+                                                                currency)}{" "}
+                                                                <span className="font-bold">{currency}</span></h2>
                                                         </div>
                                                     </div>
                                                 </div>
