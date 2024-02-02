@@ -312,6 +312,46 @@ export default function Details({ auth, estate, facilities, images }) {
                                             className="block w-[210px] lg:m-0 border border-[#d1d5db] rounded-lg"
                                         />
                                     </div>
+                                    <div className="w-full m-auto">
+                                        <h2 className="mb-3 text-center">Payment method</h2>
+                                        <div className="flex justify-around">
+                                            <div className="flex gap-3 border items-center justify-between px-2 border-[#d1d5db] w-[200px] rounded-xl">
+                                                <label
+                                                    htmlFor="cashPayment"
+                                                    className="block text-sm font-medium text-gray-900"
+                                                >
+                                                    Cash
+                                                </label>
+                                                <input
+                                                    type="checkbox"
+                                                    id="cashPayment"
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                                                    required
+                                                    name='cash'
+                                                    checked
+                                                />
+                                            </div>
+                                            <div className="flex gap-3 border items-center justify-between px-2 py-2 border-[#d1d5db] w-[200px] rounded-xl">
+                                                <label
+                                                    htmlFor="payment"
+                                                    className="block text-sm font-medium text-gray-900"
+                                                >
+                                                    With card
+                                                </label>
+                                                <input
+                                                    title="Comming soon"
+                                                    type="checkbox"
+                                                    id="cardPayment"
+                                                    className="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                                                    required
+                                                    name='cashPayment'
+                                                    disabled
+                                                    onChange={handleReservationChange}
+                                                />
+                                                <InputError className="mt-2" message={errors.name} />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </Modal.Body>
