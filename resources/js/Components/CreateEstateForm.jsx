@@ -122,8 +122,9 @@ export default function CreateEstateForm(categories) {
     const submit = async (e) => {
         e.preventDefault();
         post(route("estates.store"));
+        if(!errors){
         Swal.fire('Created!', 'The estate has been created.', 'success');
-            
+        }
     };
     
     

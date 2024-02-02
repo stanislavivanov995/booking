@@ -23,8 +23,8 @@ export default function Details({ auth, estate, facilities, images }) {
         email: "",
         phone: "",
         checkIn: "",
-        checkOut: "",
-        estateId: "",
+        // checkOut: "",
+        // estateId: "",
         userId: "",
     });
     console.log(`Errors: ${errors}`);
@@ -40,12 +40,12 @@ export default function Details({ auth, estate, facilities, images }) {
     const [reservationData, setReservationData] = useState({
         'name': "",
         'last_name': "",
-        'email': auth.user.email ? auth.user.email : "",
-        'phone': auth.user.phone ? auth.user.phone : "",
+        'email': auth.user ? auth.user.email : "",
+        'phone': "",
         'checkIn': new Date(),
         'checkOut': new Date(),
         'estateId': estate.id ? estate.id : "",
-        'userId': auth.user.id ? auth.user.id : "",
+        'userId': "",
     });
 
     useEffect(() => {
@@ -74,7 +74,7 @@ export default function Details({ auth, estate, facilities, images }) {
         setSelectedImage(images[0].url);
     }
 
-    const handleBook = () => {
+    const handleBook = async () => {
         post(route("estate.book"))
         setOpenModal(false);
         Swal.fire(
@@ -82,7 +82,26 @@ export default function Details({ auth, estate, facilities, images }) {
             `You have just booked "${estate.name}"!`,
             "success"
         );
-};
+    };
+
+    // const handleBook = async () => {
+    //     try {
+    //         await post(route("estate.book"));
+    //         // Ако не възникнат грешки, значи операцията е успешна
+    //         setOpenModal(false);
+    //         Swal.fire(
+    //             "Done!",
+    //             `You have just booked "${estate.name}"!`,
+    //             "success"
+    //         );
+    //     } catch (error) {
+    //         // Ако възникне грешка при изпълнението на заявката
+    //         console.error("Error while handling book:", error);
+    //         // Тук можете да добавите логика за обработка на грешката или да не правите нищо
+    //         // Зависи от това как искате да управлявате грешките в приложението си
+    //     }
+    // };
+    
 
 const handleSelectedImage = (event) => {
     setSelectedImage(event.target.src);
@@ -108,6 +127,7 @@ const makePayment = async () => {
 
 return (
     <ClientLayout auth={auth}>
+        {auth.user ? 
         <Modal
             show={openModal}
             position={modalPlacement}
@@ -196,17 +216,17 @@ return (
                                         type="text"
                                         id="input-group-1"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[210px] ps-10 p-2.5"
-                                        // placeholder="name@flowbite.com"
+                                        placeholder="email@example.com"
                                         name="email"
                                         required
-                                        value={
-                                            reservationData.email
-                                                ? reservationData.email
-                                                : auth.user.email
-                                        }
+                                        // value={
+                                        //     auth.user ? auth.user.email : ""
+                                        // }
+                                        defaultValue={auth.user ? auth.user.email : ""}
                                         onChange={handleReservationChange}
                                     />
                                 </div>
+                                <InputError className="mt-2" message={errors.email} />
                             </div>
 
                             <div>
@@ -234,7 +254,7 @@ return (
                                         aria-describedby="helper-text-explanation"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[210px] ps-10 p-2.5"
                                         pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                                        // placeholder="123-456-7890"
+                                        placeholder="Phone number"
                                         required
                                         name="phone"
                                         value={
@@ -244,6 +264,7 @@ return (
                                         }
                                         onChange={handleReservationChange}
                                     />
+                                     <InputError className="mt-2" message={errors.phone} />
                                 </div>
                             </div>
                         </div>
@@ -308,6 +329,34 @@ return (
                 </Modal.Footer>
             </div>
         </Modal>
+        
+        : 
+        <Modal
+            show={openModal}
+            position={modalPlacement}
+            onClose={() => setOpenModal(false)}
+            className="absolute mt-24 mx-auto w-1/3 min-w-[23em] text-indigo-600"
+        >
+            <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-10"></div>
+
+            <div className="relative z-20 bg-white rounded-2xl">
+                <Modal.Body>
+                 <h4>You have to be Logged in to make your reservation</h4>
+                 <Link href={route("login")}>Log in</Link>
+                </Modal.Body>
+                <Modal.Footer className="flex gap-3 border-none">
+                    <Button
+                        className="bg-red-400 hover:bg-red-300"
+                        onClick={() => setOpenModal(false)}
+                    >
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </div>
+        </Modal>
+        
+        }
+        
 
         <section className=" bg-gray-200">
             <div>

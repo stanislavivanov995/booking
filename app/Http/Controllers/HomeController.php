@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\{Estate, Category};
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\DB;
 
 
 class HomeController extends Controller
@@ -83,16 +84,42 @@ class HomeController extends Controller
             $longitude = $locationDetails['geometry']['location']['lng'];
         }
 
+        // $estates = Estate::select('*')
+        // ->where('is_disabled', '0')
+        // ->selectRaw(
+        //     '(6371 * acos(cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude)))) AS distance',
+        //     [$latitude, $longitude, $latitude]
+        // )
+        // ->having('distance', '<', 20) // 20 km away distance
+        // ->orderBy('distance')
+        // ->with('images')
+        // ->get();
+
         $estates = Estate::select('*')
-        ->where('is_disabled', '0')
-        ->selectRaw(
-            '(6371 * acos(cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude)))) AS distance',
-            [$latitude, $longitude, $latitude]
-        )
-        ->having('distance', '<', 20) // 20 km away distance
-        ->orderBy('distance')
-        ->with('images')
-        ->get();
+    ->where('is_disabled', '0')
+    ->selectRaw(
+        '(6371 * acos(cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude)))) AS distance',
+        [$latitude, $longitude, $latitude]
+    )
+    ->having('distance', '<', 20) // 20 km away distance
+    ->whereNotExists(function ($query) use ($checkIn, $checkOut) {
+        $query->select(DB::raw(1))
+            ->from('reservations')
+            ->whereRaw('estates.id = reservations.estate_id')
+            ->where(function ($q) use ($checkIn, $checkOut) {
+                $q->whereBetween('check_in', [$checkIn, $checkOut])
+                    ->orWhereBetween('check_out', [$checkIn, $checkOut])
+                    ->orWhere(function ($q) use ($checkIn, $checkOut) {
+                        $q->where('check_in', '<', $checkIn)
+                            ->where('check_out', '>', $checkOut);
+                    });
+            });
+    })
+    ->orderBy('distance')
+    ->with('images')
+    ->get();
+
+
 
         return Inertia::render('Results/Results', [
             'estates' => $estates,
