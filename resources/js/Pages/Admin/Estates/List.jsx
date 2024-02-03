@@ -36,10 +36,6 @@ export default function All({ auth, estates, success }) {
     //     }
     // };
 
-    const hanldeExport = async () => {
-        await axios.get(route("estates.export"));
-    };
-
     return (
         <AuthenticatedLayout
             user={auth.user}
