@@ -23,7 +23,7 @@ export default function Home({ auth, categories, latests, mostViewed }) {
                     <LatestEstates estates={mostViewed} title="Most Viewed" />
                     <Awards />
                 </div>
-                <FAQ />
+                {/* <FAQ /> */}
                 <Footer />
             </div>
         </>

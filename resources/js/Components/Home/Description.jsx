@@ -1,7 +1,7 @@
 export default function Description() {
     return (
         <>
-            <div className="p-[2em] flex flex-col lg:flex-row justify-evenly items-center shadow-md">
+            <div className="font-sans md:font-serif p-[2em] flex flex-col lg:flex-row justify-evenly items-center shadow-md">
                 <div className="flex flex-col justify-center items-center">
                     <h1 className="font-bold text-[2em] text-center">WHO ARE WE AND WHAT WE OFFER</h1>
                     <img className="block w-[300px] h-auto" src="https://png.pngtree.com/png-clipart/20211116/original/pngtree-hotel-online-booking-concept-illustration-navigation-travel-png-image_6939844.png" alt="" />
