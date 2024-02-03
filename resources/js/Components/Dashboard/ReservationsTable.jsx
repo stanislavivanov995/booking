@@ -6,7 +6,7 @@ export default function ReservationsTable({ totalReservations }) {
         const date = new Date(dateString);
         const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
         return formattedDate;
-      }
+    }
 
     return (
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
