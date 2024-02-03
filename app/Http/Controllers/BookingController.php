@@ -10,7 +10,7 @@ use Carbon\Carbon;
 
 class BookingController extends Controller
 {
-    public function book(BookingRequest $request)
+    public function book(Request $request)
     {
         // dd($request->all());
         Reservation::create([

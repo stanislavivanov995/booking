@@ -5,8 +5,9 @@ import { router } from "@inertiajs/react";
 
 export default function Table({ items: records, query }) {
     // Pagination
+
     const [currentPage, setCurrentPage] = useState(1);
-    const recordsPerPage = 5;
+    const recordsPerPage = 10;
     const lastIndex = currentPage * recordsPerPage;
     const firstIndex = lastIndex - recordsPerPage;
     const estates = records.slice(firstIndex, lastIndex);
@@ -16,6 +17,7 @@ export default function Table({ items: records, query }) {
     const [allEstates, setAllEstates] = useState(estates);
 
     const prevPage = () => {
+        debugger
         if (currentPage <= 1) {
             return;
         }
@@ -24,10 +26,12 @@ export default function Table({ items: records, query }) {
         }
     };
     const changeCurrentPage = (id) => {
+        debugger
         setCurrentPage(id);
     };
 
     const nextPage = () => {
+        debugger
         if (currentPage !== nPage) {
             setCurrentPage(currentPage + 1);
         }
@@ -206,7 +210,7 @@ export default function Table({ items: records, query }) {
                                                     src={
                                                         record.images.length > 0
                                                             ? record.images[0]
-                                                                  .url
+                                                                .url
                                                             : defaultImage
                                                     }
                                                     alt="iMac Front Image"
@@ -301,38 +305,38 @@ export default function Table({ items: records, query }) {
                                                     {/* Enabled */}
                                                     {record.is_disabled ===
                                                         "0" && (
-                                                        <svg
-                                                            className="w-6 h-6 text-green-700"
-                                                            aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            fill="currentColor"
-                                                            viewBox="0 0 24 24"
-                                                        >
-                                                            <path
-                                                                fillRule="evenodd"
-                                                                d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z"
-                                                                clipRule="evenodd"
-                                                            />
-                                                        </svg>
-                                                    )}
+                                                            <svg
+                                                                className="w-6 h-6 text-green-700"
+                                                                aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                fill="currentColor"
+                                                                viewBox="0 0 24 24"
+                                                            >
+                                                                <path
+                                                                    fill-rule="evenodd"
+                                                                    d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z"
+                                                                    clip-rule="evenodd"
+                                                                />
+                                                            </svg>
+                                                        )}
                                                     {/* Enabled */}
                                                     {/* Disabled */}
                                                     {record.is_disabled ===
                                                         "1" && (
-                                                        <svg
-                                                            className="w-6 h-6 text-red-700"
-                                                            aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            fill="currentColor"
-                                                            viewBox="0 0 24 24"
-                                                        >
-                                                            <path
-                                                                fillRule="evenodd"
-                                                                d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z"
-                                                                clipRule="evenodd"
-                                                            />
-                                                        </svg>
-                                                    )}
+                                                            <svg
+                                                                className="w-6 h-6 text-red-700"
+                                                                aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                fill="currentColor"
+                                                                viewBox="0 0 24 24"
+                                                            >
+                                                                <path
+                                                                    fill-rule="evenodd"
+                                                                    d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z"
+                                                                    clip-rule="evenodd"
+                                                                />
+                                                            </svg>
+                                                        )}
                                                     {/* Disabled */}
                                                 </div>
                                             </td>
@@ -433,62 +437,62 @@ export default function Table({ items: records, query }) {
                                                     {/* Enable */}
                                                     {record.is_disabled ===
                                                         "1" && (
-                                                        <button
-                                                            onClick={() =>
-                                                                confirmEnable(
-                                                                    record.id
-                                                                )
-                                                            }
-                                                            className="tooltip"
-                                                            title="Enable Estate"
-                                                        >
-                                                            <svg
-                                                                className="w-6 h-6 text-gray-800"
-                                                                aria-hidden="true"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                fill="none"
-                                                                viewBox="0 0 24 24"
+                                                            <button
+                                                                onClick={() =>
+                                                                    confirmEnable(
+                                                                        record.id
+                                                                    )
+                                                                }
+                                                                className="tooltip"
+                                                                title="Enable Estate"
                                                             >
-                                                                <path
-                                                                    stroke="currentColor"
-                                                                    strokeLinecap="round"
-                                                                    strokeLinejoin="round"
-                                                                    strokeWidth="2"
-                                                                    d="m5 12 4.7 4.5 9.3-9"
-                                                                />
-                                                            </svg>
-                                                        </button>
-                                                    )}
+                                                                <svg
+                                                                    className="w-6 h-6 text-gray-800"
+                                                                    aria-hidden="true"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    fill="none"
+                                                                    viewBox="0 0 24 24"
+                                                                >
+                                                                    <path
+                                                                        stroke="currentColor"
+                                                                        stroke-linecap="round"
+                                                                        stroke-linejoin="round"
+                                                                        strokeWidth="2"
+                                                                        d="m5 12 4.7 4.5 9.3-9"
+                                                                    />
+                                                                </svg>
+                                                            </button>
+                                                        )}
                                                     {/* Enable */}
                                                     {/* Disable */}
                                                     {record.is_disabled ===
                                                         "0" && (
-                                                        <button
-                                                            onClick={() =>
-                                                                confirmDisable(
-                                                                    record.id
-                                                                )
-                                                            }
-                                                            className="tooltip"
-                                                            title="Disable Estate"
-                                                        >
-                                                            <svg
-                                                                className="w-6 h-6 text-gray-800"
-                                                                aria-hidden="true"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                fill="none"
-                                                                viewBox="0 0 24 24"
+                                                            <button
+                                                                onClick={() =>
+                                                                    confirmDisable(
+                                                                        record.id
+                                                                    )
+                                                                }
+                                                                className="tooltip"
+                                                                title="Disable Estate"
                                                             >
-                                                                <path
-                                                                    stroke="currentColor"
-                                                                    strokeLinecap="round"
-                                                                    strokeLinejoin="round"
-                                                                    strokeWidth="2"
-                                                                    d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                                                                />
-                                                            </svg>
-                                                        </button>
-                                                    )}
+                                                                <svg
+                                                                    className="w-6 h-6 text-gray-800"
+                                                                    aria-hidden="true"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    fill="none"
+                                                                    viewBox="0 0 24 24"
+                                                                >
+                                                                    <path
+                                                                        stroke="currentColor"
+                                                                        stroke-linecap="round"
+                                                                        stroke-linejoin="round"
+                                                                        stroke-width="2"
+                                                                        d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                                                                    />
+                                                                </svg>
+                                                            </button>
+                                                        )}
                                                     {/* Disable */}
                                                 </div>
                                             </td>

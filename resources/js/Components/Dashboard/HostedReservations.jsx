@@ -14,7 +14,7 @@ export default function HostedReservations({ hostedReservations }) {
 
 <div class="relative overflow-x-auto">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     Name
@@ -38,7 +38,7 @@ export default function HostedReservations({ hostedReservations }) {
         </thead>
         <tbody>
         {hostedReservations.map((record, index) => (
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <tr class="bg-white border-b">
                 <td class="px-6 py-4">{record.estate.name}</td>
                 <td class="px-6 py-4">{record.estate.location}</td>
                 <td class="px-6 py-4">{formatDate(record.check_in)}</td>
