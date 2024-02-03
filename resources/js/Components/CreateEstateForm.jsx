@@ -13,12 +13,12 @@ import TimePicker from "react-time-picker";
 import "react-clock/dist/Clock.css";
 import "react-time-picker/dist/TimePicker.css";
 import Checkbox from "./Checkbox";
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 // import AutoComplete from "react-google-autocomplete"
 
 export default function CreateEstateForm(categories) {
-    const { setData, post, errors, processing, recentlySuccessful } = useForm({
+    const { setData, post, errors, processing, data } = useForm({
         name: "",
         description: "",
         images: [],
@@ -52,6 +52,8 @@ export default function CreateEstateForm(categories) {
     const [checkInTime, setCheckInTime] = useState("10:00");
     const [checkOutTime, setCheckOutTime] = useState("12:00");
     const [selectedCurrency, setSelectedCurrency] = useState("BGN");
+
+    const [areErrors, setAreErrors] = useState(false);
 
     useEffect(() => {
         if (selectedCategory) {
@@ -121,14 +123,14 @@ export default function CreateEstateForm(categories) {
 
     const submit = async (e) => {
         e.preventDefault();
-        post(route("estates.store"));
-        if(!errors){
-        Swal.fire('Created!', 'The estate has been created.', 'success');
+        if (data.name && data.price && data.place_id) {
+            post(route("estates.store"));
+            Swal.fire("Created!", "The estate has been created.", "success");
+        } else {
+            post(route("estates.store"));
         }
     };
-    
-    
-    
+
     // const submit = (e) => {
     //     e.preventDefault();
     //     post(route("estates.store"));
@@ -160,7 +162,7 @@ export default function CreateEstateForm(categories) {
 
                     <InputError className="mt-2" message={errors.name} />
                     {/* Name */}
-                    
+
                     {/* Location */}
                     <div className="mt-3">
                         <InputLabel htmlFor="location" value="Location*" />

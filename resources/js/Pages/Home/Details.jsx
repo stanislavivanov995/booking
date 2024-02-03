@@ -12,7 +12,7 @@ import DetailsBookingModal from "./DetailsFeatures/DetailsBookingModal";
 import { Link } from "@inertiajs/inertia-react";
 
 const defaultImage =
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019";
+    "https://cdn.iconscout.com/icon/free/png-256/free-no-image-1771002-1505134.png";
 
 export default function Details({ auth, estate, facilities, images }) {
 
@@ -25,7 +25,6 @@ export default function Details({ auth, estate, facilities, images }) {
     if (images.length > 0 && selectedImage === defaultImage) {
         setSelectedImage(images[0].url);
     }
-
 
 
     // const handleBook = async () => {
@@ -45,7 +44,6 @@ export default function Details({ auth, estate, facilities, images }) {
     //         // Зависи от това как искате да управлявате грешките в приложението си
     //     }
     // };
-
 
     const handleSelectedImage = (event) => {
         setSelectedImage(event.target.src);
@@ -70,13 +68,15 @@ export default function Details({ auth, estate, facilities, images }) {
                             />
                             <div className="flex justify-center gap-4 max-w-[27em] flex-wrap mt-8">
                                 {images.map((img) => (
-                                    <img
-                                        key={img.url}
-                                        className="w-24 h-[6em] max-sm:w-20 cursor-pointer opacity-65 hover:opacity-100"
-                                        src={img.url}
-                                        alt="estate image"
-                                        onClick={handleSelectedImage}
-                                    />
+                                    <div className="w-24 h-[6em] max-sm:w-20 cursor-pointer opacity-65 hover:opacity-100 overflow-hidden">
+                                        <img
+                                            key={img.url}
+                                            className="object-cover"
+                                            src={img.url}
+                                            alt="estate image"
+                                            onClick={handleSelectedImage}
+                                        />
+                                    </div>
                                 ))}
                             </div>
                         </div>
@@ -211,7 +211,7 @@ export default function Details({ auth, estate, facilities, images }) {
                         {/* bottom-section */}
                     </div>
                     {/* Right section */}
-                    <div className="bg-white mx-5 my-5 h-[370px] lg:w-[60%] md:w-[80%] sm:w-[30%] xl:w-[60%] 2xl:w-[35%] w-[80%] rounded-xl">
+                    <div className="bg-white mx-5 my-5 h-[350px] lg:w-[60%] md:w-[80%] sm:w-[30%] xl:w-[60%] 2xl:w-[35%] w-[80%] rounded-xl">
                         <div className="bg-zinc-800 h-[50px] flex gap-2 items-center rounded-t-xl justify-center px-2 text-[18px] text-white">
                             <h2>
                                 {formatPrice(
@@ -232,7 +232,6 @@ export default function Details({ auth, estate, facilities, images }) {
                             </svg>
                         </div>
                         <div className="flex flex-col h-[80%] items-center  text-[20px] justify-evenly gap-2 mt-5">
-                            <DetailsRating />
                             <h2>OWNER</h2>
                             <p className="text-[25px] font-bold">
                                 {estate.user.name}
@@ -266,10 +265,6 @@ export default function Details({ auth, estate, facilities, images }) {
                     {/* Right section */}
                 </div>
                 <ToastContainer className={"mt-[5em]"} />
-            </section>
-
-            <section className="bg-gray-200">
-                <CommentSection />
             </section>
 
             <Footer />

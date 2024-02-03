@@ -24,7 +24,7 @@ class Reservation extends Model
         'phone'
     ];
 
-    public function estates(): BelongsTo
+    public function estate(): BelongsTo
     {
         return $this->belongsTo(Estate::class);
     }

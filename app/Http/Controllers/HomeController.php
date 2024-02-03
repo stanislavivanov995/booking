@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     const GOOGLE_LOCATION_API_KEY = 'AIzaSyDOQd7UoVJHt28wLiHMD0ZY0S_AiONShyo';
-    
+
     public function index()
     {
         return Inertia::render('Home/Home', [
             'categories' => Category::all(),
-            'latests' => Estate::orderBy('created_at', 'desc')->take(6)->get(),
-            'mostViewed' => Estate::orderBy('clicks', 'desc')->take(6)->get()
+            'latests' => Estate::orderBy('created_at', 'desc')->with('images')->take(6)->get(),
+            'mostViewed' => Estate::orderBy('clicks', 'desc')->with('images')->take(6)->get()
         ]);
     }
 
@@ -36,14 +36,14 @@ class HomeController extends Controller
         $estate->load('user');
 
         $facilities = [];
- 
-        if($estate->facilities){
+
+        if ($estate->facilities) {
             $facilitiesArray = $estate->facilities->toArray();
-            
-            $availableFacilities = array_filter($facilitiesArray, function($value) {
+
+            $availableFacilities = array_filter($facilitiesArray, function ($value) {
                 return $value == 1;
             });
-            
+
             $facilities = array_combine(
                 array_map(function ($key) {
                     return str_replace('_', ' ', ucfirst($key));
@@ -57,7 +57,7 @@ class HomeController extends Controller
         return Inertia::render('Home/Details', [
             'estate' => $estate,
             'facilities' => $facilities,
-            'images'=> $images
+            'images' => $images
         ]);
     }
 
@@ -71,7 +71,7 @@ class HomeController extends Controller
         $client = new Client();
         $response = $client->get(
             "https://maps.googleapis.com/maps/api/place/details/json?placeid=$placeId&key="
-            . self::GOOGLE_LOCATION_API_KEY
+                . self::GOOGLE_LOCATION_API_KEY
         );
 
         $locationData = json_decode($response->getBody(), true);
@@ -96,34 +96,34 @@ class HomeController extends Controller
         // ->get();
 
         $estates = Estate::select('*')
-    ->where('is_disabled', '0')
-    ->selectRaw(
-        '(6371 * acos(cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude)))) AS distance',
-        [$latitude, $longitude, $latitude]
-    )
-    ->having('distance', '<', 20) // 20 km away distance
-    ->whereNotExists(function ($query) use ($checkIn, $checkOut) {
-        $query->select(DB::raw(1))
-            ->from('reservations')
-            ->whereRaw('estates.id = reservations.estate_id')
-            ->where(function ($q) use ($checkIn, $checkOut) {
-                $q->whereBetween('check_in', [$checkIn, $checkOut])
-                    ->orWhereBetween('check_out', [$checkIn, $checkOut])
-                    ->orWhere(function ($q) use ($checkIn, $checkOut) {
-                        $q->where('check_in', '<', $checkIn)
-                            ->where('check_out', '>', $checkOut);
+            ->where('is_disabled', '0')
+            ->selectRaw(
+                '(6371 * acos(cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude)))) AS distance',
+                [$latitude, $longitude, $latitude]
+            )
+            ->having('distance', '<', 20) // 20 km away distance
+            ->whereNotExists(function ($query) use ($checkIn, $checkOut) {
+                $query->select(DB::raw(1))
+                    ->from('reservations')
+                    ->whereRaw('estates.id = reservations.estate_id')
+                    ->where(function ($q) use ($checkIn, $checkOut) {
+                        $q->whereBetween('check_in', [$checkIn, $checkOut])
+                            ->orWhereBetween('check_out', [$checkIn, $checkOut])
+                            ->orWhere(function ($q) use ($checkIn, $checkOut) {
+                                $q->where('check_in', '<', $checkIn)
+                                    ->where('check_out', '>', $checkOut);
+                            });
                     });
-            });
-    })
-    ->orderBy('distance')
-    ->with('images')
-    ->get();
+            })
+            ->orderBy('distance')
+            ->with('images')
+            ->get();
 
 
 
         return Inertia::render('Results/Results', [
             'estates' => $estates,
-             'categories' => Category::all()
+            'categories' => Category::all()
         ]);
     }
 }

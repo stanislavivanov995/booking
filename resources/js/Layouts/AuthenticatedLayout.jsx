@@ -16,9 +16,13 @@ export default function Authenticated({ user, header, children }) {
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
-                                </Link>
+                            <Link className="font-normal text-[20px] max-w-[5em]" href="/">
+                                <img
+                                    src="http://localhost:8000/storage/images/logos/logo_admin.png"
+                                    alt="logo"
+                                    style={{ transform: 'rotate(-75deg)', width: '60px', height: '60px' }}
+                                />
+                            </Link>
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

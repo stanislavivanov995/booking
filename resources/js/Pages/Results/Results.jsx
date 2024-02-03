@@ -123,9 +123,9 @@ export default function Results({ auth, estates, categories }) {
 
     const handleClick = async (id) => {
         try {
-            await axios.post(route('estate.click', id));
+            await axios.post(route("estate.click", id));
         } catch (error) {
-            console.error('Error incrementing estate click:', error);
+            console.error("Error incrementing estate click:", error);
         }
     };
 
@@ -180,12 +180,13 @@ export default function Results({ auth, estates, categories }) {
 
                     <SearchBar
                         newSearchValues={newSearchValues}
-                        className={"top-0 h-20 mt-[10em] 2xl:ml-[20em] xl:ml-[15em] ml-[4em]"}
+                        className={
+                            "top-0 h-20 mt-[10em] 2xl:ml-[20em] xl:ml-[15em] ml-[4em]"
+                        }
                     />
 
                     <div className="flex flex-col sm:flex-row justify-between xl:mt-0 mt-[15em]">
                         <div className="flex flex-col sm:w-[25%] w-[50%] sm:ml-0 ml-[5em] gap-3 mt-[5em]">
-
                             <div className="space-y-2">
                                 <h2 className="font-medium text-xl pb-1 sm:w-[150px] w-[150px]">
                                     Sort by Price
@@ -200,7 +201,9 @@ export default function Results({ auth, estates, categories }) {
                                     <option value="">
                                         Choose a way of sorting
                                     </option>
-                                    <option value="ascending">Lower to Higher</option>
+                                    <option value="ascending">
+                                        Lower to Higher
+                                    </option>
                                     <option value="descending">
                                         Higher to Lower
                                     </option>
@@ -220,7 +223,6 @@ export default function Results({ auth, estates, categories }) {
                                     />
                                 ))}
                             </div>
-
                         </div>
                         {estates.length > 0 ? (
                             <div className="flex justify-center mt-[5em] mr-auto">
@@ -230,19 +232,26 @@ export default function Results({ auth, estates, categories }) {
                                             <Link
                                                 onClick={handleClick(estate.id)}
                                                 key={index}
-                                                href={route('estate.details', estate.id)}
+                                                href={route(
+                                                    "estate.details",
+                                                    estate.id
+                                                )}
                                                 className="inline-block"
                                             >
-                                                <div className="flex sm:flex-row flex-col w-[350px] sm:w-full shadow-xl hover:shadow-2xl m-2 rounded-xl">
-                                                    {estate.images.length > 0 ? (
+                                                <div className="flex sm:flex-row flex-col w-[350px] sm:w-full shadow-xl hover:shadow-2xl m-2 rounded-xl overflow-hidden">
+                                                    {estate.images.length >
+                                                    0 ? (
                                                         <img
-                                                            src={estate.images[0].url}
+                                                            src={
+                                                                estate.images[0]
+                                                                    .url
+                                                            }
                                                             alt=""
-                                                            className="sm:w-[250px] sm:h-[250px] h-[230px] sm:rounded-l-xl sm:rounded-tr-none rounded-t-xl"
+                                                            className="sm:w-[350px] sm:h-[250px] h-[230px] sm:rounded-l-xl sm:rounded-tr-none rounded-t-xl object-cover"
                                                         />
                                                     ) : (
                                                         <img
-                                                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019"
+                                                            src="https://cdn.iconscout.com/icon/free/png-256/free-no-image-1771002-1505134.png"
                                                             alt="selected image"
                                                             className="sm:w-[250px] sm:h-[250px] h-[230px] sm:rounded-l-xl sm:rounded-tr-none rounded-t-xl"
                                                         />
@@ -263,7 +272,9 @@ export default function Results({ auth, estates, categories }) {
                                                                         <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
                                                                     </svg>
                                                                     <h3>
-                                                                        {estate.location}
+                                                                        {
+                                                                            estate.location
+                                                                        }
                                                                     </h3>
                                                                 </div>
                                                             </div>
@@ -283,18 +294,22 @@ export default function Results({ auth, estates, categories }) {
                                                                         : "N/A"}
                                                                 </h3>
                                                             </div>
-
                                                         </div>
 
                                                         <p className="text-[20px] mt-5 line-clamp-3 max-w-[50em]">
                                                             {estate.description}
                                                         </p>
                                                         <div className="w-full mt-auto ml-auto flex justify-end">
-                                                            <h2 className="text-[18px] sm:mt-0 mt-4">{formatPrice(
-                                                                estate.price,
-                                                                estate.currency,
-                                                                currency)}{" "}
-                                                                <span className="font-bold">{currency}</span></h2>
+                                                            <h2 className="text-[18px] sm:mt-0 mt-4">
+                                                                {formatPrice(
+                                                                    estate.price,
+                                                                    estate.currency,
+                                                                    currency
+                                                                )}{" "}
+                                                                <span className="font-bold">
+                                                                    {currency}
+                                                                </span>
+                                                            </h2>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -313,7 +328,6 @@ export default function Results({ auth, estates, categories }) {
                             </div>
                         )}
                     </div>
-
 
                     {/* Pagination */}
                     <div
@@ -354,8 +368,11 @@ export default function Results({ auth, estates, categories }) {
                                     <a
                                         href="#"
                                         onClick={() => changeCurrentPage(n)}
-                                        className={`${currentPage === n ? "bg-gray-700" : ""
-                                            } flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+                                        className={`${
+                                            currentPage === n
+                                                ? "bg-gray-700"
+                                                : ""
+                                        } flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
                                     >
                                         {n}
                                     </a>
