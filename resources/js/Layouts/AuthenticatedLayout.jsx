@@ -18,7 +18,7 @@ export default function Authenticated({ user, header, children }) {
                             <div className="shrink-0 flex items-center">
                             <Link className="font-normal text-[20px] max-w-[5em]" href="/">
                                 <img
-                                    src="http://localhost:8000/storage/images/logos/logo_admin.png"
+                                    src="http://localhost:8000/storage/logos/Logo2.png"
                                     alt="logo"
                                     style={{ transform: 'rotate(-75deg)', width: '60px', height: '60px' }}
                                 />
