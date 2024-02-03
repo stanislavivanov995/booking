@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use App\Models\{Estate, Reservation};
+use App\Models\{Estate, Reservation, User};
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEstateRequest;
@@ -15,9 +15,13 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         $totalEstates = Auth::user()->estates()->get();
-        // $totalReservations = Auth::user()->reservations()->get();
         $totalReservations = Auth::user()->reservations()->with('estate')->get();
-        $hostedReservations = auth()->user()->estates()->with('reservations')->get();
+        $hostedReservations = $reservations = Reservation::whereHas('estate.user', function ($query) use ($user) {
+            $query->where('users.id', $user->id);
+        })
+        ->with('estate')
+        ->get();
+
 
         return Inertia::render('Dashboard', [
             'totalEstates' => $totalEstates,

@@ -1,65 +1,56 @@
 import React from "react";
 
 export default function HostedReservations({ hostedReservations }) {
+    
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+        return formattedDate;
+    }
+
     return (
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-            <div className="overflow-hidden">
-                <table className="min-w-full">
-                    <thead className="bg-slate-800/50 text-white">
-                        <tr>
-                            <th
-                                scope="col"
-                                className="text-sm font-medium px-6 py-4 text-left"
-                            >
-                                Place
-                            </th>
-                            <th
-                                scope="col"
-                                className="text-sm font-medium px-6 py-4 text-left"
-                            >
-                                Location
-                            </th>
-                            <th
-                                scope="col"
-                                className="text-sm font-medium px-6 py-4 text-left"
-                            >
-                                Arrive Hour
-                            </th>
-                            <th
-                                scope="col"
-                                className="text-sm font-medium px-6 py-4 text-left"
-                            >
-                                Leave Hour
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {hostedReservations.map((record, index) => (
-                            <tr
-                                key={index}
-                                className={
-                                    hostedReservations.length - 1 === index
-                                        ? ""
-                                        : "border-b border-white"
-                                }
-                            >
-                                <td className="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
-                                    {record.name}
-                                </td>
-                                <td className="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
-                                    {record.location}
-                                </td>
-                                <td className="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
-                                    {record.arrive_hour}
-                                </td>
-                                <td className="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
-                                    {record.leave_hour}
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+            
+
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Location
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Check In
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Check Out
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Arrive Hour
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Leave Hour
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {hostedReservations.map((record, index) => (
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td class="px-6 py-4">{record.estate.name}</td>
+                <td class="px-6 py-4">{record.estate.location}</td>
+                <td class="px-6 py-4">{formatDate(record.check_in)}</td>
+                <td class="px-6 py-4">{formatDate(record.check_out)}</td>
+                <td class="px-6 py-4">{record.estate.arrive_hour}</td>
+                <td class="px-6 py-4">{record.estate.leave_hour}</td>
+            </tr>
+        ))}
+        </tbody>
+    </table>
+</div>
+
         </div>
     );
 }

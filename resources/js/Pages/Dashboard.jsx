@@ -30,28 +30,30 @@ export default function Dashboard({
                             hostedReservations={hostedReservations}
                         />
                     </div>
-                    <div className="w-2/3 p-5 overflow-hidden bg-slate-200 shadow-lg shadow-slate-400 sm:rounded-lg">
-                        <div className="flex flex-col items-center py-5 px-10">
-                            <h1 className="text-xl font-bold">
-                                My Reservatons
-                            </h1>
-                            {totalReservations.length > 0 ? (
-                                <ReservationsTable
-                                    totalReservations={totalReservations}
-                                />
-                            ) : (
-                                <div className="p-4 pt-5 text-center text-gray-500">
-                                    You don't have any records yet.
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                    <div className="w-full bg-indigo-400 overflow-hidden sm:rounded-lg">
+                    <div className="w-full overflow-hidden sm:rounded-lg">
                         <div className="flex justify-between items-end">
                             <div className="w-full pt-7 pl-10">
-                                <h1 className="text-xl font-bold pb-3">
-                                    Hosted Reservatons
-                                </h1>
+                                <div className="p-4 text-center text-gray-500">
+                                        My Reservations
+                                    </div>
+                                    {totalReservations.length > 0 ? (
+                                        <ReservationsTable
+                                            totalReservations={totalReservations}
+                                        />
+                                    ) : (
+                                        <div className="p-4 pt-5 text-center text-gray-500">
+                                            You don't have any records yet.
+                                        </div>
+                                    )}
+                               </div>
+                        </div>
+                    </div>
+                    <div className="w-full overflow-hidden sm:rounded-lg">
+                        <div className="flex justify-between items-end">
+                            <div className="w-full pt-7 pl-10">
+                                <div className="p-4 text-center text-gray-500">
+                                    Hosted Reservations
+                                </div>
                                 {hostedReservations.length > 0 ? (
                                     <HostedReservations
                                         hostedReservations={hostedReservations}
