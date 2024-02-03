@@ -37,7 +37,7 @@ export default function All({ auth, estates, success }) {
     // };
 
     const hanldeExport = async () => {
-        await axios.get(route("estates.eport"));
+        await axios.get(route("estates.export"));
     };
 
     return (
@@ -160,15 +160,16 @@ export default function All({ auth, estates, success }) {
                                     Create Estate
                                 </Link>
 
-                                <button
+                                <a
                                     id="actionsDropdownButton"
                                     data-dropdown-toggle="actionsDropdown"
                                     className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700  dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
                                     type="button"
-                                    onClick={hanldeExport}
+                                    href={route("estates.export")}
+                                    download
                                 >
                                     Export
-                                </button>
+                                </a>
                             </div>
                         </div>
                         <div className="overflow-x-auto">

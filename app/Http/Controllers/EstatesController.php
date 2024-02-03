@@ -271,7 +271,7 @@ class EstatesController extends Controller
 
     public function export(Request $request)
     {
-        $fileFormat = $request->query('format', 'XLSX');
+        // $fileFormat = $request->query('format', 'XLSX');
         return Excel::download(new EstatesExport, 'estates.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }
 }
