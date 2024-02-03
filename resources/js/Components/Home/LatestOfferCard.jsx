@@ -25,7 +25,7 @@ export default function LatestOfferCard({ estate }) {
                             />
                         )}
                     </div>
-                    <div className="bg-white w-[400px] rounded-b-lg p-3 flex flex-col justify-between flex-grow">
+                    <div className="bg-white w-[400px] h-[250px] rounded-b-lg p-3 flex flex-col justify-between flex-grow">
                         <div>
                             <h2 className="font-bold text-[20px] my-2">
                                 {estate.name}
