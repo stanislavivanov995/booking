@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\EstatesExport;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\{Estate, Image, Category, Facility};
 use Inertia\Inertia;
@@ -9,9 +10,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreEstateRequest;
 use App\Http\Requests\UpdateEstateRequest;
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class EstatesController extends Controller
 {
@@ -127,13 +131,13 @@ class EstatesController extends Controller
         // $estate->facilities->swimming_pool = $estate->facilities->swimming_pool === "1";
         // $estate->facilities->spa = $estate->facilities->spa === "1";
 
-        $estate->facilities->wifi === "1" ? $estate->facilities->wifi =true : $estate->facilities->wifi =false;
-        $estate->facilities->parking === "1" ? $estate->facilities->parking =true : $estate->facilities->parking =false;
-        $estate->facilities->breakfast === "1" ? $estate->facilities->breakfast =true : $estate->facilities->breakfast =false;
-        $estate->facilities->lunch === "1" ? $estate->facilities->lunch =true : $estate->facilities->lunch =false;
-        $estate->facilities->dinner === "1" ? $estate->facilities->dinner =true : $estate->facilities->dinner =false;
-        $estate->facilities->swimming_pool === "1" ? $estate->facilities->swimming_pool =true : $estate->facilities->swimming_pool =false;
-        $estate->facilities->spa === "1" ? $estate->facilities->spa =true : $estate->facilities->spa =false;
+        $estate->facilities->wifi === "1" ? $estate->facilities->wifi = true : $estate->facilities->wifi = false;
+        $estate->facilities->parking === "1" ? $estate->facilities->parking = true : $estate->facilities->parking = false;
+        $estate->facilities->breakfast === "1" ? $estate->facilities->breakfast = true : $estate->facilities->breakfast = false;
+        $estate->facilities->lunch === "1" ? $estate->facilities->lunch = true : $estate->facilities->lunch = false;
+        $estate->facilities->dinner === "1" ? $estate->facilities->dinner = true : $estate->facilities->dinner = false;
+        $estate->facilities->swimming_pool === "1" ? $estate->facilities->swimming_pool = true : $estate->facilities->swimming_pool = false;
+        $estate->facilities->spa === "1" ? $estate->facilities->spa = true : $estate->facilities->spa = false;
 
         return Inertia::render('Admin/Estates/Edit', [
             'estate' => $estate,
@@ -174,7 +178,7 @@ class EstatesController extends Controller
             'spa' => $request->spa,
         ];
 
-        
+
         foreach ($estateData as $field => $value) {
             $value && $estate->$field = $value;
         }
@@ -204,7 +208,7 @@ class EstatesController extends Controller
         $estate->load('category');
 
         $facilities = collect($estate->facilities)
-        ->except(['id', 'estate_id']);
+            ->except(['id', 'estate_id']);
 
         $facilitiesArray = $facilities->toArray();
         $availableFacilities = array_filter($facilitiesArray, function ($value) {
@@ -223,7 +227,7 @@ class EstatesController extends Controller
         return Inertia::render('Admin/Estates/Show', [
             'estate' => $estate,
             'facilities' => $facilities,
-            'images'=> $images,
+            'images' => $images,
             'owner' => $estate->user,
             'images' => $images
         ]);
@@ -233,7 +237,7 @@ class EstatesController extends Controller
     {
         $estate->facilities->delete();
         foreach ($estate->images as $image) {
-            Storage::delete($image->path); 
+            Storage::delete($image->path);
             $image->forceDelete();
         }
         $estate->delete();
@@ -263,5 +267,11 @@ class EstatesController extends Controller
         $estate = Estate::find($estateId);
         $estate->clicks = $estate->clicks + 1;
         $estate->save();
+    }
+
+    public function export(Request $request)
+    {
+        $fileFormat = $request->query('format', 'XLSX');
+        return Excel::download(new EstatesExport, 'estates.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }
 }

@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/estates/disable/{estate}', [EstatesController::class, 'disable'])->name('estate.disable');
     Route::post('/estates/enable/{estate}', [EstatesController::class, 'enable'])->name('estate.enable');
     Route::post('/estates/empty-trash', [EstatesController::class, 'emptyTrash'])->name('estate.emptyTrash');
+    Route::get('/estates/export', [EstatesController::class, 'export'])->name('estates.export');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
