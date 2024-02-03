@@ -16,7 +16,6 @@ export default function Results({ auth, estates, categories }) {
     );
     const nPage = Math.ceil(estates.length / recordsPerPage);
     const numbers = [...Array(nPage + 1).keys()].slice(1);
-
     const [categoriesList, setCategoriesList] = useState(
         categories.map((category) => ({ ...category, FacilityCheck: false }))
     );
@@ -279,7 +278,7 @@ export default function Results({ auth, estates, categories }) {
                                                                     <path d="M32 32c17.7 0 32 14.3 32 32V320H288V160c0-17.7 14.3-32 32-32H544c53 0 96 43 96 96V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32zm144 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160z" />
                                                                 </svg>
                                                                 <h3>
-                                                                    {estate.beds
+                                                                    {estate.beds !== null
                                                                         ? estate.beds
                                                                         : "N/A"}
                                                                 </h3>
@@ -292,10 +291,10 @@ export default function Results({ auth, estates, categories }) {
                                                         </p>
                                                         <div className="w-full mt-auto ml-auto flex justify-end">
                                                             <h2 className="text-[18px] sm:mt-0 mt-4">{formatPrice(
-                                                            estate.price,
-                                                            estate.currency,
-                                                            currency)}{" "} 
-                                <span className="font-bold">{currency}</span></h2>
+                                                                estate.price,
+                                                                estate.currency,
+                                                                currency)}{" "}
+                                                                <span className="font-bold">{currency}</span></h2>
                                                         </div>
                                                     </div>
                                                 </div>
