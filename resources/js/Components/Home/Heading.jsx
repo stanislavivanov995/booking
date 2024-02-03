@@ -5,14 +5,14 @@ import CurrencyDropdown from "../CurrencyDropdown";
 export default function Heading({ auth }) {
     return (
         <>
-          <header className="flex justify-between items-center py-2 px-6 shadow-xl sticky top-0 bg-white z-10">
-            <Link className="font-normal text-[20px] max-w-[5em]" href="/">
-                <img
-                    src="http://localhost:8000/storage/images/logos/logo.png"
-                    alt="logo"
-                    style={{ transform: 'rotate(-75deg)', width: '60px', height: '60px' }}
-                />
-            </Link>
+            <header className="flex justify-between items-center py-2 px-6 shadow-xl sticky top-0 bg-white z-10">
+                <Link className="font-normal text-[20px] max-w-[5em]" href="/">
+                    <img
+                        src="http://localhost:8000/storage/logos/Logo1.png"
+                        alt="logo"
+                        style={{ transform: 'rotate(-75deg)', width: '60px', height: '60px' }}
+                    />
+                </Link>
 
                 <div className="flex justify-center items-center gap-4">
                     <a href="#faq">
